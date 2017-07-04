@@ -1,5 +1,4 @@
-# CSCB58-Final-Project-Summer-2017
-<h1>CSCB58 Final Project Summer 2017</h1>
+# CSCB58-Final-Project
 
 <u><b><h2>Project Title</h2></b></u>
 
