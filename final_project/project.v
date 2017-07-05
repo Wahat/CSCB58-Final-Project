@@ -1,7 +1,6 @@
-// Part 2 skeleton
-
+// Top level project module
 module projectVGA
-	( CLOCK_50,						//	On Board 50 MHz
+	(CLOCK_50,						//	On Board 50 MHz
 		// Your inputs and outputs here
     KEY,
     SW,
@@ -23,7 +22,7 @@ module projectVGA
 	// Do not change the following outputs
 	output			VGA_CLK;   				//	VGA Clock
 	output			VGA_HS;					//	VGA H_SYNC
-	output			VGA_VS;					//	VGA V_SYNC DE2 Blackjack 
+	output			VGA_VS;					//	VGA V_SYNC DE2 Blackjack
 	output			VGA_BLANK_N;				//	VGA BLANK
 	output			VGA_SYNC_N;				//	VGA SYNC
 	output	[9:0]	VGA_R;   				//	VGA Red[9:0]
@@ -103,15 +102,19 @@ module datapath (
 	 input clk,
 	 input reset_n,
 	 input [2:0] pos,
+	 // input states
 	 input ld_start,
 	 input ld_block,
-	 input ld_set,	
+	 input ld_set,
 	 input ld_startgame,
 
 	// registers to output to VGA
 	 output reg [7:0] xout,
 	 output reg [6:0] yout,
-	 output reg [2:0] colourout
+	 output reg [2:0] colourout,
+	 // Registers for the end of the game
+	 output reg [3:0] wins,
+	 output reg [3:0] losses
 	 );
 
 	 // input registers
@@ -126,9 +129,11 @@ module datapath (
 					 x_in <= 7'b0;
 					 y_in <= 6'b0;
 					 colour_in <= 3'b0;
+					 wins <= 3'b0;
+					 loses <= 3'b0;
 			 end
 			 else begin
-			 
+
 					// From control FSM, Press Key[0]
 					if(ld_start) begin
 							 // clear module
@@ -137,16 +142,16 @@ module datapath (
 							 // writeText - highlight start
 							 // number of blocks - 4
 					end
-					
+
 					// From control FSM, Press Key[1]
 					if(ld_block) begin
 							//writeText module - highlight block
 							//If SW[0] then make block vertical
 							//elif SW[1] then make block horizontal
 							// display block
-							 
+
 					end
-					
+
 					 // From control FSM, Press Key[2]
 					if(ld_set) begin
 							 //writeText module - highlight set
@@ -156,7 +161,7 @@ module datapath (
 							 // block module, draw vertical or horizontal block depending on what was chosen
 							 // set to register
 					 end
-					 
+
 						// From control FSM, Press Key[3]
 					 if (ld_startgame) begin
 							//writeText module - highlight startgame
@@ -167,13 +172,9 @@ module datapath (
 							//HEX[0] for win
 							//HEX[1] for loss
 					 end
-				
+
 				end
-			 end
-	 end
-
-	
-
+			end
 
 endmodule
 
@@ -186,12 +187,13 @@ module control(
 	input setkey,
 	input startgamekey,
 
+	// output states to datapath
 	output reg ld_startgame,
 	output reg ld_start,
 	output reg ld_block,
 	output reg ld_set
 	);
-	reg [5:0] current_state, next_state; 
+	reg [5:0] current_state, next_state;
 
 	localparam  	S_START      = 3'd0,
 						S_START_WAIT   = 3'd1,
@@ -240,7 +242,7 @@ always @(*) begin
 				S_OUT_STARTGAME: begin
 						ld_startgame = 1'b1;
 						end
-						
+
 
 		// default:    // don't need default since we already made sure all of our outputs were assigned a value at the start of the always block
 		endcase
@@ -253,4 +255,31 @@ always@(posedge clk) begin
 		else
 				current_state <= next_state;
 end // state_FFS
+endmodule
+
+// HEX Decoder output
+module hex_decoder(hex_digit, segments);
+    input [3:0] hex_digit;
+    output reg [6:0] segments;
+
+    always @(*)
+        case (hex_digit)
+            4'h0: segments = 7'b100_0000;
+            4'h1: segments = 7'b111_1001;
+            4'h2: segments = 7'b010_0100;
+            4'h3: segments = 7'b011_0000;
+            4'h4: segments = 7'b001_1001;
+            4'h5: segments = 7'b001_0010;
+            4'h6: segments = 7'b000_0010;
+            4'h7: segments = 7'b111_1000;
+            4'h8: segments = 7'b000_0000;
+            4'h9: segments = 7'b001_1000;
+            4'hA: segments = 7'b000_1000;
+            4'hB: segments = 7'b000_0011;
+            4'hC: segments = 7'b100_0110;
+            4'hD: segments = 7'b010_0001;
+            4'hE: segments = 7'b000_0110;
+            4'hF: segments = 7'b000_1110;
+            default: segments = 7'h7f;
+        endcase
 endmodule
