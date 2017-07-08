@@ -50,7 +50,7 @@ input clock;
 
 
 
-    // use a for loop?
+    // currently only implemented for the first bar, need to use some loop 
     // [0] is 1 means a vertical bar, 0 means horz
     // [1:8] is the y position of the top of the bar
     // [9:15] is the y position of the top of the bar
