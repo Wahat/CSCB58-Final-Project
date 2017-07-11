@@ -2,7 +2,7 @@ CSCB58 Project File: Summer 2017
 
 Team Member A
 -------------
-First Name: 
+First Name:
 Last Name:
 Student Number:
 UofT E-mail Address:
@@ -10,28 +10,28 @@ UofT E-mail Address:
 
 Team Member B
 -------------
-First Name: 
+First Name:
 Last Name:
 Student Number:
 UofT E-mail Address:
 
 Team Member C (Optional)
 -------------
-First Name: 
+First Name:
 Last Name:
 Student Number:
 UofT E-mail Address:
 
 Team Member D (Optional)
 -------------
-First Name: 
+First Name:
 Last Name:
 Student Number:
 UofT E-mail Address:
 
 Project Details
 ---------------
-Project Title: 
+Project Title:
 
 Project Description:
 
@@ -52,7 +52,7 @@ What do you plan to have completed by the end of the third lab session?:
 
 What is your backup plan if things don’t work out as planned?
 
-What hardware will you need beyond the DE2 board 
+What hardware will you need beyond the DE2 board
 (be sure to e-mail Brian if it’s anything beyond the basics to make sure there’s enough to go around)
 
 Motivations
@@ -66,7 +66,7 @@ Why did you personally choose this project?:
 Attributions
 ------------
 Provide a complete list of any external resources your project used (attributions should also be included in your
-code).  
+code).
 
 Updates
 -------
@@ -78,3 +78,9 @@ we've decided to change the project to use a light sensor instead. Had trouble g
 getting stuck in state 101, took longer to debug than expected), so we may not be able to add the
 high score feature, have updated that in the project description as (optional).
 
+Week 1: We finalized on our idea, figured out game logic and prepared for planning modules we might need in the future.
+The control, datapath and top level modules have been built and modified for our project. However, our actual game modules
+will be completed later on. For this week, we will be working on our start game, end game (winning and losing scores),
+and ball collision modules for testing in the next lab in order to see if our idea works before spending time on the other modules.
+One problem we are having is determining how the ball will bounce accordingly each block but hopefully it will be solved by over
+the next week.
