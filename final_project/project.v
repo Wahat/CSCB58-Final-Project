@@ -1,9 +1,9 @@
 // Top level Entity - main project module
 module projectVGA
-	(CLOCK_50,						//	On Board 50 MHz
+	(  CLOCK_50,						//	On Board 50 MHz
 		// Your inputs and outputs here
-    KEY,
-    SW,
+      KEY,
+      SW,
 		HEX0,
 		HEX2,
 		HEX4,
@@ -29,19 +29,19 @@ module projectVGA
 	output  [6:0]   HEX2;
 	output  [6:0]   HEX4;
 	output  [6:0]   HEX5;
-  // output leds
+   // output leds
 	output  [6:0]   LEDG;
 	output  [16:0]  LEDR;
 	// Declare your inputs and outputs here
 	// Do not change the following outputs
 	output			   VGA_CLK;   			//	VGA Clock
-	output			   VGA_HS;					//	VGA H_SYNC
-	output			   VGA_VS;					//	VGA V_SYNC DE2 Blackjack
-	output			   VGA_BLANK_N;	  //	VGA BLANK
+	output			   VGA_HS;				//	VGA H_SYNC
+	output			   VGA_VS;				//	VGA V_SYNC DE2 Blackjack
+	output			   VGA_BLANK_N;	   //	VGA BLANK
 	output			   VGA_SYNC_N;			//	VGA SYNC
-	output	[9:0]	 VGA_R;   				//	VGA Red[9:0]
-	output	[9:0]	 VGA_G;	 				//	VGA Green[9:0]
-	output	[9:0]	 VGA_B;   				//	VGA Blue[9:0]
+	output	[9:0]	   VGA_R;   			//	VGA Red[9:0]
+	output	[9:0]	   VGA_G;	 			//	VGA Green[9:0]
+	output	[9:0]	   VGA_B;   			//	VGA Blue[9:0]
 
 	wire   resetn;
 	assign resetn = KEY[0];
@@ -87,7 +87,7 @@ module projectVGA
   // Instansiate datapath
 	datapath d0(
 		// input switches
-		.clk(CLOCK_50),
+		.clk(CLOCK_50),// writeText - highlight start
 		.reset_n(resetn),
 		.pos(SW[6:0]),
 		// input registers from FSM
@@ -112,6 +112,7 @@ module projectVGA
 	// KEY[2] - Choose Block
 	// KEY[3] - Where to move
 	// KEY[1] - Start Game
+	// KEY[1] - End Game
 	control c0(
 		// input keys
 		.clk(CLOCK_50),
@@ -121,11 +122,13 @@ module projectVGA
 		.startgamekey(KEY[1]),
 		.endgamekey(KEY[1]),
 		.reset_n(resetn),
+		// state registers
 		.ld_begin(controlA),
 		.ld_block(controlB),
 		.ld_set(controlC),
 		.ld_startgame(writeEn),
 		.ld_endgame(controlD),
+		// out to led and hex
 		.stateled(ledout[6:0]),
 		.counterout(numBlocksUsed[3:0])
 		);
@@ -133,27 +136,27 @@ module projectVGA
 	// output wins to HEX0
 	hex_decoder hex0(
 		.hex_digit(winout[3:0]),
-		.segments(HEX0)
+		.segments(HEX0[6:0])
 		);
 
 	// output losses to HEX2
 	hex_decoder hex2(
 		.hex_digit(loseout[3:0]),
-		.segments(HEX1)
+		.segments(HEX2[6:0])
 		);
 
 	// output # of starting blocks counter
 	// using default 4 for now
 	hex_decoder hex4(
 		.hex_digit(numBlocksUsed[3:0]),
-		.segments(HEX4)
+		.segments(HEX4[6:0])
 		);
 
   // output # of starting blocks counter
 	// using default 4 for now
 	hex_decoder hex5(
 		.hex_digit(numBlocks[3:0]),
-		.segments(HEX5)
+		.segments(HEX5[6:0])
 		);
 
 	// make assign leds to the current state
@@ -213,7 +216,6 @@ module datapath (
 				if(ld_begin) begin
 						 // clear module
 						 // draw target and startblock - drawStart module
-						 // init writeText module
 						 // writeText - highlight start
 						 // number of blocks - 4
 						 startingBlocks <= 4'b0100;
@@ -225,15 +227,16 @@ module datapath (
 						//If SW[0] then make block vertical
 						//elif SW[1] then make block horizontal
 						// display block
+						colourout[2:0] = 3'b100;
 
 				end
 
 				 // From control FSM, Press Key[2]
 				if(ld_set) begin
 						 //writeText module - highlight set
-						 // For numbers from input
 						 // Setting Position (red)
 						 // When set make color gray
+						 colourout[2:0] = 3'b101;
 						 // block module, draw vertical or horizontal block depending on what was chosen
 						 // set to register
 				 end
@@ -250,7 +253,7 @@ module datapath (
 					if (ld_endgame) begin
 						//increment win or loss from endgame module
 				 end
-		  end
+		   end
 		end
 
 		// Determines who wins or loses
@@ -288,7 +291,7 @@ module control(
 	reg [6:0] current_state, next_state;
 	reg [3:0] counter;
 
-	localparam  	S_BEGIN              = 4'd0,
+	localparam  	    S_BEGIN              = 4'd0,
 						    S_BEGIN_WAIT         = 4'd1,
 						    S_LOAD_BLOCK         = 4'd2,
 						    S_LOAD_BLOCK_WAIT    = 4'd3,
@@ -296,19 +299,19 @@ module control(
 						    S_LOAD_SET_WAIT      = 4'd5,
 						    S_OUT_STARTGAME      = 4'd6,
 						    S_OUT_STARTGAME_WAIT = 4'd7,
-								S_OUT_ENDGAME        = 4'd8,
-								S_OUT_ENDGAME_WAIT   = 4'd9;
+							 S_OUT_ENDGAME        = 4'd8,
+							 S_OUT_ENDGAME_WAIT   = 4'd9;
 
 
 	// Next state logic aka our state table
 	always@(*)
 	begin: state_table
-	counter <= 4'b0000;
+			counter <= 4'b0000;
 			case (current_state)
 					S_BEGIN: begin
 								next_state = beginkey ? S_BEGIN_WAIT : S_BEGIN;
 
-								end// Loop in current state until value is input
+								end // Loop in current state until value is input
 					S_BEGIN_WAIT: next_state = beginkey ? S_BEGIN_WAIT : S_LOAD_BLOCK; // Loop in current state until go signal goes low
 					S_LOAD_BLOCK: next_state = blockkey ? S_LOAD_BLOCK_WAIT : S_LOAD_BLOCK; // Loop in current state until value is input
 					S_LOAD_BLOCK_WAIT: next_state = blockkey ? S_LOAD_BLOCK_WAIT : S_LOAD_SET; // Loop in current state until go signal goes low
@@ -316,15 +319,14 @@ module control(
 					S_LOAD_SET_WAIT: begin
 														if (counter == 4'b0100) begin
 																next_state = setkey ? S_LOAD_SET_WAIT : S_OUT_STARTGAME;
-																counter <= 4'b0000;
 														end
 														else begin
 																counter <= counter + 4'b0001;
 																next_state = setkey ? S_LOAD_SET_WAIT : S_LOAD_BLOCK;
 														end
-					end // Loop in current state until go signal goes low
+										  end // Loop in current state until go signal goes low
 					S_OUT_STARTGAME: next_state =  startgamekey ? S_OUT_STARTGAME_WAIT : S_OUT_STARTGAME; // Loop in current state until value is input
-					S_OUT_STARTGAME_WAIT: next_state = startgamekey ? S_OUT_STARTGAME_WAIT : S_OUT_ENDGAME;  // we will be done our two operations, start over after
+					S_OUT_STARTGAME_WAIT: next_state = startgamekey ? S_OUT_STARTGAME_WAIT : S_OUT_ENDGAME;// we will be done our two operations, start over after
 					S_OUT_ENDGAME: next_state =  endgamekey ? S_OUT_ENDGAME_WAIT : S_OUT_ENDGAME; // Loop in current state until value is input
 					S_OUT_ENDGAME_WAIT: next_state = endgamekey ? S_OUT_ENDGAME_WAIT : S_BEGIN;  // we will be done our two operations, start over after
 					default: next_state = S_BEGIN;
@@ -367,8 +369,12 @@ module control(
 			else
 					current_state <= next_state;
 	end // state_FFS
+	
+	// output to green leds
 	assign stateled[6:0] = current_state[6:0];
+	// output to hex display
 	assign counterout[3:0] = counter[3:0];
+	
 endmodule
 
 // -------------------------------------------------------------------------
