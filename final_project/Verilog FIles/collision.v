@@ -1,7 +1,7 @@
 module collision(
     clock,
     reset,
-
+	 // inputs
     startvelocityx,
     startvelocityy,
 	 startposx,
@@ -11,24 +11,16 @@ module collision(
     bar2,
     bar3,
     bar4,
-    bar5,
-
+    
+	 // outputs
     draw,
     xpos,
     ypos,
-
     win,
     lose
 );
     input clock;
 	 input reset;
-
-
-    reg [7:0] xpos; // current position of the ball
-    reg [7:0] ypos;
-
-    reg [0:0] velocityx;
-    reg [0:0] velocityy;
 	 
 	 input [15:0] bar1;
     input [15:0] bar2;
@@ -54,7 +46,11 @@ module collision(
     output draw;
     output [7:0] xpos;
     output [7:0] ypos;
+	 reg [7:0] xpos; // current position of the ball
+    reg [7:0] ypos;
 
+    reg [0:0] velocityx;
+    reg [0:0] velocityy;
 
 
     // currently only implemented for the first bar, need to use some loop 
@@ -98,7 +94,7 @@ module collision(
 				if (bar1[0] == 1'b0) begin // check if horz bar
 					  if (((ypos == bar1[9:15]) && (xpos == bar1[1:8] - 1'b1)) || ((ypos == (bar1[9:15])) && (xpos == (bar1[1:8] + 2'b11)))) begin // check if it hit the left or right block
 
-							velocityx <= ~velocityx;
+													//elif SW[1] then make block horizontalvelocityx <= ~velocityx;
 					  end
 
 					  if (((xpos >= bar1[1:8]) && (xpos <= (bar1[1:8] + 2'b10)) && (ypos == (bar1[9:15] - 1'b1))) ||
@@ -119,7 +115,7 @@ module collision(
 			  lose = 1'b1;
 		 end
 		 // move ball at the end
-
+		 // cehck if 0
 		 xpos = xpos + velocityx;
 		 ypos = ypos + velocityx;
 

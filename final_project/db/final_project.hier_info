@@ -203,50 +203,50 @@ mem_address[14] <= Add1.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |projectVGA|vga_adapter:VGA|altsyncram:VideoMemory
-wren_a => altsyncram_60g1:auto_generated.wren_a
+wren_a => altsyncram_9hg1:auto_generated.wren_a
 rden_a => ~NO_FANOUT~
 wren_b => ~NO_FANOUT~
 rden_b => ~NO_FANOUT~
-data_a[0] => altsyncram_60g1:auto_generated.data_a[0]
-data_a[1] => altsyncram_60g1:auto_generated.data_a[1]
-data_a[2] => altsyncram_60g1:auto_generated.data_a[2]
+data_a[0] => altsyncram_9hg1:auto_generated.data_a[0]
+data_a[1] => altsyncram_9hg1:auto_generated.data_a[1]
+data_a[2] => altsyncram_9hg1:auto_generated.data_a[2]
 data_b[0] => ~NO_FANOUT~
 data_b[1] => ~NO_FANOUT~
 data_b[2] => ~NO_FANOUT~
-address_a[0] => altsyncram_60g1:auto_generated.address_a[0]
-address_a[1] => altsyncram_60g1:auto_generated.address_a[1]
-address_a[2] => altsyncram_60g1:auto_generated.address_a[2]
-address_a[3] => altsyncram_60g1:auto_generated.address_a[3]
-address_a[4] => altsyncram_60g1:auto_generated.address_a[4]
-address_a[5] => altsyncram_60g1:auto_generated.address_a[5]
-address_a[6] => altsyncram_60g1:auto_generated.address_a[6]
-address_a[7] => altsyncram_60g1:auto_generated.address_a[7]
-address_a[8] => altsyncram_60g1:auto_generated.address_a[8]
-address_a[9] => altsyncram_60g1:auto_generated.address_a[9]
-address_a[10] => altsyncram_60g1:auto_generated.address_a[10]
-address_a[11] => altsyncram_60g1:auto_generated.address_a[11]
-address_a[12] => altsyncram_60g1:auto_generated.address_a[12]
-address_a[13] => altsyncram_60g1:auto_generated.address_a[13]
-address_a[14] => altsyncram_60g1:auto_generated.address_a[14]
-address_b[0] => altsyncram_60g1:auto_generated.address_b[0]
-address_b[1] => altsyncram_60g1:auto_generated.address_b[1]
-address_b[2] => altsyncram_60g1:auto_generated.address_b[2]
-address_b[3] => altsyncram_60g1:auto_generated.address_b[3]
-address_b[4] => altsyncram_60g1:auto_generated.address_b[4]
-address_b[5] => altsyncram_60g1:auto_generated.address_b[5]
-address_b[6] => altsyncram_60g1:auto_generated.address_b[6]
-address_b[7] => altsyncram_60g1:auto_generated.address_b[7]
-address_b[8] => altsyncram_60g1:auto_generated.address_b[8]
-address_b[9] => altsyncram_60g1:auto_generated.address_b[9]
-address_b[10] => altsyncram_60g1:auto_generated.address_b[10]
-address_b[11] => altsyncram_60g1:auto_generated.address_b[11]
-address_b[12] => altsyncram_60g1:auto_generated.address_b[12]
-address_b[13] => altsyncram_60g1:auto_generated.address_b[13]
-address_b[14] => altsyncram_60g1:auto_generated.address_b[14]
+address_a[0] => altsyncram_9hg1:auto_generated.address_a[0]
+address_a[1] => altsyncram_9hg1:auto_generated.address_a[1]
+address_a[2] => altsyncram_9hg1:auto_generated.address_a[2]
+address_a[3] => altsyncram_9hg1:auto_generated.address_a[3]
+address_a[4] => altsyncram_9hg1:auto_generated.address_a[4]
+address_a[5] => altsyncram_9hg1:auto_generated.address_a[5]
+address_a[6] => altsyncram_9hg1:auto_generated.address_a[6]
+address_a[7] => altsyncram_9hg1:auto_generated.address_a[7]
+address_a[8] => altsyncram_9hg1:auto_generated.address_a[8]
+address_a[9] => altsyncram_9hg1:auto_generated.address_a[9]
+address_a[10] => altsyncram_9hg1:auto_generated.address_a[10]
+address_a[11] => altsyncram_9hg1:auto_generated.address_a[11]
+address_a[12] => altsyncram_9hg1:auto_generated.address_a[12]
+address_a[13] => altsyncram_9hg1:auto_generated.address_a[13]
+address_a[14] => altsyncram_9hg1:auto_generated.address_a[14]
+address_b[0] => altsyncram_9hg1:auto_generated.address_b[0]
+address_b[1] => altsyncram_9hg1:auto_generated.address_b[1]
+address_b[2] => altsyncram_9hg1:auto_generated.address_b[2]
+address_b[3] => altsyncram_9hg1:auto_generated.address_b[3]
+address_b[4] => altsyncram_9hg1:auto_generated.address_b[4]
+address_b[5] => altsyncram_9hg1:auto_generated.address_b[5]
+address_b[6] => altsyncram_9hg1:auto_generated.address_b[6]
+address_b[7] => altsyncram_9hg1:auto_generated.address_b[7]
+address_b[8] => altsyncram_9hg1:auto_generated.address_b[8]
+address_b[9] => altsyncram_9hg1:auto_generated.address_b[9]
+address_b[10] => altsyncram_9hg1:auto_generated.address_b[10]
+address_b[11] => altsyncram_9hg1:auto_generated.address_b[11]
+address_b[12] => altsyncram_9hg1:auto_generated.address_b[12]
+address_b[13] => altsyncram_9hg1:auto_generated.address_b[13]
+address_b[14] => altsyncram_9hg1:auto_generated.address_b[14]
 addressstall_a => ~NO_FANOUT~
 addressstall_b => ~NO_FANOUT~
-clock0 => altsyncram_60g1:auto_generated.clock0
-clock1 => altsyncram_60g1:auto_generated.clock1
+clock0 => altsyncram_9hg1:auto_generated.clock0
+clock1 => altsyncram_9hg1:auto_generated.clock1
 clocken0 => ~NO_FANOUT~
 clocken1 => ~NO_FANOUT~
 clocken2 => ~NO_FANOUT~
@@ -258,15 +258,15 @@ byteena_b[0] => ~NO_FANOUT~
 q_a[0] <= <GND>
 q_a[1] <= <GND>
 q_a[2] <= <GND>
-q_b[0] <= altsyncram_60g1:auto_generated.q_b[0]
-q_b[1] <= altsyncram_60g1:auto_generated.q_b[1]
-q_b[2] <= altsyncram_60g1:auto_generated.q_b[2]
+q_b[0] <= altsyncram_9hg1:auto_generated.q_b[0]
+q_b[1] <= altsyncram_9hg1:auto_generated.q_b[1]
+q_b[2] <= altsyncram_9hg1:auto_generated.q_b[2]
 eccstatus[0] <= <GND>
 eccstatus[1] <= <GND>
 eccstatus[2] <= <GND>
 
 
-|projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_60g1:auto_generated
+|projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated
 address_a[0] => ram_block1a0.PORTAADDR
 address_a[0] => ram_block1a1.PORTAADDR
 address_a[0] => ram_block1a2.PORTAADDR
@@ -541,7 +541,7 @@ wren_a => decode_lsa:decode2.enable
 wren_a => decode_lsa:wren_decode_a.enable
 
 
-|projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_60g1:auto_generated|decode_lsa:decode2
+|projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated|decode_lsa:decode2
 data[0] => w_anode105w[1].IN0
 data[0] => w_anode118w[1].IN1
 data[0] => w_anode126w[1].IN0
@@ -559,7 +559,7 @@ eq[1] <= w_anode118w[2].DB_MAX_OUTPUT_PORT_TYPE
 eq[2] <= w_anode126w[2].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_60g1:auto_generated|decode_e8a:rden_decode_b
+|projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated|decode_e8a:rden_decode_b
 data[0] => w_anode143w[1].IN0
 data[0] => w_anode157w[1].IN1
 data[0] => w_anode166w[1].IN0
@@ -573,7 +573,7 @@ eq[1] <= w_anode157w[2].DB_MAX_OUTPUT_PORT_TYPE
 eq[2] <= w_anode166w[2].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_60g1:auto_generated|decode_lsa:wren_decode_a
+|projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated|decode_lsa:wren_decode_a
 data[0] => w_anode105w[1].IN0
 data[0] => w_anode118w[1].IN1
 data[0] => w_anode126w[1].IN0
@@ -591,7 +591,7 @@ eq[1] <= w_anode118w[2].DB_MAX_OUTPUT_PORT_TYPE
 eq[2] <= w_anode126w[2].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_60g1:auto_generated|mux_0nb:mux3
+|projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated|mux_0nb:mux3
 data[0] => data0_wire[0].IN0
 data[1] => data0_wire[1].IN0
 data[2] => data0_wire[2].IN0
@@ -978,10 +978,10 @@ stateled[3] <= current_state[3].DB_MAX_OUTPUT_PORT_TYPE
 stateled[4] <= current_state[4].DB_MAX_OUTPUT_PORT_TYPE
 stateled[5] <= current_state[5].DB_MAX_OUTPUT_PORT_TYPE
 stateled[6] <= current_state[6].DB_MAX_OUTPUT_PORT_TYPE
-counterout[0] <= counter.DB_MAX_OUTPUT_PORT_TYPE
-counterout[1] <= counter.DB_MAX_OUTPUT_PORT_TYPE
-counterout[2] <= counterout[2].DB_MAX_OUTPUT_PORT_TYPE
-counterout[3] <= counter.DB_MAX_OUTPUT_PORT_TYPE
+counterout[0] <= counter[0].DB_MAX_OUTPUT_PORT_TYPE
+counterout[1] <= counter[1].DB_MAX_OUTPUT_PORT_TYPE
+counterout[2] <= counter[2].DB_MAX_OUTPUT_PORT_TYPE
+counterout[3] <= counter[3].DB_MAX_OUTPUT_PORT_TYPE
 
 
 |projectVGA|hex_decoder:hex0

@@ -48,7 +48,7 @@ module projectVGA
 
 	// Create the colour, x, y and writeEn wires that are inputs to the controller.
 	wire [2:0] colour;
-	wire [7:0] x;
+	wire [6:0] x;
 	wire [6:0] y;
 	wire writeEn;
 	wire controlA, controlB, controlC, controlD;
@@ -82,7 +82,7 @@ module projectVGA
 		defparam VGA.RESOLUTION = "160x120";
 		defparam VGA.MONOCHROME = "FALSE";
 		defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
-		defparam VGA.BACKGROUND_IMAGE = "black.mif";
+		defparam VGA.BACKGROUND_IMAGE = "background.mif";
 
   // Instansiate datapath
 	datapath d0(
@@ -179,7 +179,7 @@ module datapath (
 	input ld_endgame,
 
 	// registers to output to VGA
-	output reg [7:0] xout,
+	output reg [6:0] xout,
 	output reg [6:0] yout,
 	output reg [2:0] colourout,
 	// Registers for the end of the game
@@ -187,7 +187,7 @@ module datapath (
 	output reg [3:0] losses,
 	// number of blocks at start
 	output reg [3:0] startingBlocks,
-	// test for states
+	// collisiontest for states
 	output [6:0] stateleds
 	);
 
@@ -195,6 +195,11 @@ module datapath (
 	reg [7:0] x_in;
 	reg [6:0] y_in;
 	reg [3:0] counter;
+	// block regs
+	reg [15:0] block1;
+	reg [15:0] block2;
+	reg [15:0] block3;
+	reg [15:0] block4;
 	// rgb(0,0,0)
 
 	wire [3:0] selected;
@@ -203,7 +208,7 @@ module datapath (
 	// Registers start, block, set,startgame with respective input logic
 	always@(posedge clk) begin
 		 if(!reset_n) begin
-				 x_in <= 7'b0;
+				 x_in <= 6'b0;
 				 y_in <= 6'b0;
 				 wins <= 3'b0;
 				 losses <= 3'b0;
@@ -228,6 +233,7 @@ module datapath (
 						//elif SW[1] then make block horizontal
 						// display block
 						colourout[2:0] = 3'b100;
+						
 
 				end
 
@@ -244,6 +250,7 @@ module datapath (
 					// From control FSM, Press Key[1]
 				 if (ld_startgame) begin
 						//writeText module - highlight startgame
+						
 						//if up (SW[0]) then move startblock up
 						//elif (SW[1]) then move startblock down
 						// run game -> gameresult (0 or 1)
@@ -263,6 +270,7 @@ module datapath (
 			//.select(gameresult),
 			//.out(selected)
 			//);
+	collision(CLOCK_50, reset_n, 
 
 endmodule
 
@@ -290,11 +298,13 @@ module control(
 	);
 	reg [6:0] current_state, next_state;
 	reg [3:0] counter;
-
+if (choose[0]) // if we want a vertical block
+	
 	localparam  	    S_BEGIN              = 4'd0,
 						    S_BEGIN_WAIT         = 4'd1,
 						    S_LOAD_BLOCK         = 4'd2,
-						    S_LOAD_BLOCK_WAIT    = 4'd3,
+						  if (choose[0]) // if we want a vertical block
+	  S_LOAD_BLOCK_WAIT    = 4'd3,
 						    S_LOAD_SET           = 4'd4,
 						    S_LOAD_SET_WAIT      = 4'd5,
 						    S_OUT_STARTGAME      = 4'd6,
@@ -306,11 +316,10 @@ module control(
 	// Next state logic aka our state table
 	always@(*)
 	begin: state_table
-			counter <= 4'b0000;
 			case (current_state)
 					S_BEGIN: begin
 								next_state = beginkey ? S_BEGIN_WAIT : S_BEGIN;
-
+								counter <= 4'b0000;
 								end // Loop in current state until value is input
 					S_BEGIN_WAIT: next_state = beginkey ? S_BEGIN_WAIT : S_LOAD_BLOCK; // Loop in current state until go signal goes low
 					S_LOAD_BLOCK: next_state = blockkey ? S_LOAD_BLOCK_WAIT : S_LOAD_BLOCK; // Loop in current state until value is input
