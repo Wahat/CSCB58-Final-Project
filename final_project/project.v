@@ -1,9 +1,9 @@
 // Top level Entity - main project module
 module projectVGA
-	(  CLOCK_50,						//	On Board 50 MHz
+	( CLOCK_50,						//	On Board 50 MHz
 		// Your inputs and outputs here
-      KEY,
-      SW,
+    KEY,
+    SW,
 		HEX0,
 		HEX2,
 		HEX4,
@@ -34,24 +34,24 @@ module projectVGA
 	output  [16:0]  LEDR;
 	// Declare your inputs and outputs here
 	// Do not change the following outputs
-	output			   VGA_CLK;   			//	VGA Clock
-	output			   VGA_HS;				//	VGA H_SYNC
-	output			   VGA_VS;				//	VGA V_SYNC DE2 Blackjack
-	output			   VGA_BLANK_N;	   //	VGA BLANK
-	output			   VGA_SYNC_N;			//	VGA SYNC
-	output	[9:0]	   VGA_R;   			//	VGA Red[9:0]
-	output	[9:0]	   VGA_G;	 			//	VGA Green[9:0]
-	output	[9:0]	   VGA_B;   			//	VGA Blue[9:0]
+	output			    VGA_CLK;   			//	VGA Clock
+	output			    VGA_HS;				//	VGA H_SYNC
+	output			    VGA_VS;				//	VGA V_SYNC DE2 Blackjack
+	output			    VGA_BLANK_N;	   //	VGA BLANK
+	output			    VGA_SYNC_N;			//	VGA SYNC
+	output	[9:0]	  VGA_R;   			//	VGA Red[9:0]
+	output	[9:0]	  VGA_G;	 			//	VGA Green[9:0]
+	output	[9:0]	  VGA_B;   			//	VGA Blue[9:0]
 
 	wire   resetn;
 	assign resetn = KEY[0];
 
 	// Create the colour, x, y and writeEn wires that are inputs to the controller.
+	wire writeEn;
+	wire controlA, controlB, controlC, controlD;
 	wire [2:0] colour;
 	wire [6:0] x;
 	wire [6:0] y;
-	wire writeEn;
-	wire controlA, controlB, controlC, controlD;
 	wire [3:0] winout;
 	wire [3:0] loseout;
 	wire [3:0] numBlocks;
@@ -233,7 +233,7 @@ module datapath (
 						//elif SW[1] then make block horizontal
 						// display block
 						colourout[2:0] = 3'b100;
-						
+
 
 				end
 
@@ -250,12 +250,12 @@ module datapath (
 					// From control FSM, Press Key[1]
 				 if (ld_startgame) begin
 						//writeText module - highlight startgame
-						
+
 						//if up (SW[0]) then move startblock up
 						//elif (SW[1]) then move startblock down
 						// run game -> gameresult (0 or 1)
 
-						//selected <= selected + 3'b1;
+						selected <= selected + 4'b1;
 					end
 					if (ld_endgame) begin
 						//increment win or loss from endgame module
@@ -270,7 +270,6 @@ module datapath (
 			//.select(gameresult),
 			//.out(selected)
 			//);
-	collision(CLOCK_50, reset_n, 
 
 endmodule
 
@@ -298,17 +297,15 @@ module control(
 	);
 	reg [6:0] current_state, next_state;
 	reg [3:0] counter;
-if (choose[0]) // if we want a vertical block
-	
-	localparam  	    S_BEGIN              = 4'd0,
-						    S_BEGIN_WAIT         = 4'd1,
-						    S_LOAD_BLOCK         = 4'd2,
-						  if (choose[0]) // if we want a vertical block
-	  S_LOAD_BLOCK_WAIT    = 4'd3,
-						    S_LOAD_SET           = 4'd4,
-						    S_LOAD_SET_WAIT      = 4'd5,
-						    S_OUT_STARTGAME      = 4'd6,
-						    S_OUT_STARTGAME_WAIT = 4'd7,
+
+	localparam   S_BEGIN              = 4'd0,
+						   S_BEGIN_WAIT         = 4'd1,
+						   S_LOAD_BLOCK         = 4'd2,
+	  					 S_LOAD_BLOCK_WAIT    = 4'd3,
+						   S_LOAD_SET           = 4'd4,
+						   S_LOAD_SET_WAIT      = 4'd5,
+						   S_OUT_STARTGAME      = 4'd6,
+						   S_OUT_STARTGAME_WAIT = 4'd7,
 							 S_OUT_ENDGAME        = 4'd8,
 							 S_OUT_ENDGAME_WAIT   = 4'd9;
 
@@ -378,12 +375,12 @@ if (choose[0]) // if we want a vertical block
 			else
 					current_state <= next_state;
 	end // state_FFS
-	
+
 	// output to green leds
 	assign stateled[6:0] = current_state[6:0];
 	// output to hex display
 	assign counterout[3:0] = counter[3:0];
-	
+
 endmodule
 
 // -------------------------------------------------------------------------
@@ -431,3 +428,54 @@ module state_counter (clk, numblocks, out);
 			out <= out + 1'b1;
 	end
 endmodule
+
+module counter(enable, reset_n, clock, q);
+  input enable;
+  input reset_n;
+  input clk;
+  output [3:0] q;
+	reg [3:0] q;
+
+  always @ (posedge clk)
+  begin
+    if(reset_n == 1'b0)
+      q <= 4'b0000;
+    else if(enable == 1'b1)
+      q <= q + 1'b1;
+  end
+
+endmodule
+
+module rate_divider(enable, countdownvalue, clk, reset_n, q);
+  input enable;
+  input reset_n;
+  input clk;
+  input [27:0] countdownvalue;
+  output [27:0] q;
+	reg [27:0] q;
+
+  always @ (posedge clk)
+  begin
+    if(reset_n == 1'b0)
+      q <= countdownvalue; // Set back to initial count down value
+    else if(enable == 1'b1) begin
+				 if (q == 1'b0)
+				 // if q returns to 0 (overflow from 4'b1111 + 4'b0001 = 4'b0000)
+				 // then set reset the q value
+				 		q <= countdownvalue;
+				 else
+				 // else decrement value from count down
+				 		q <= q - 1'b1;
+		end
+  end
+
+endmodule
+
+// example of a 1hz clock
+/* rate_divider clock-1hz(
+    // .enable(SW[1]),
+    // .countdownvalue(28'b10111110101111000001111111), // 49999999 in binary
+    // .clk(CLOCK_50),
+    // .reset_n(KEY[1]),
+    // .q(wireout)
+   ); */
