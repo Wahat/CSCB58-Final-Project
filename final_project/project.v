@@ -292,11 +292,16 @@ module control(
 	output reg ld_set,
 	output reg ld_startgame,
 	output reg ld_endgame,
+
+	// output led of the current state and counter to hez
 	output [6:0] stateled,
 	output [3:0] counterout
 	);
 	reg [6:0] current_state, next_state;
 	reg [3:0] counter;
+	wire counterEnable; // used to enable signals into the state counter
+	wire rateEnable;
+	wire [27:0] rateout;
 
 	localparam   S_BEGIN              = 4'd0,
 						   S_BEGIN_WAIT         = 4'd1,
@@ -429,47 +434,7 @@ module state_counter (clk, numblocks, out);
 	end
 endmodule
 
-module counter(enable, reset_n, clock, q);
-  input enable;
-  input reset_n;
-  input clk;
-  output [3:0] q;
-	reg [3:0] q;
 
-  always @ (posedge clk)
-  begin
-    if(reset_n == 1'b0)
-      q <= 4'b0000;
-    else if(enable == 1'b1)
-      q <= q + 1'b1;
-  end
-
-endmodule
-
-module rate_divider(enable, countdownvalue, clk, reset_n, q);
-  input enable;
-  input reset_n;
-  input clk;
-  input [27:0] countdownvalue;
-  output [27:0] q;
-	reg [27:0] q;
-
-  always @ (posedge clk)
-  begin
-    if(reset_n == 1'b0)
-      q <= countdownvalue; // Set back to initial count down value
-    else if(enable == 1'b1) begin
-				 if (q == 1'b0)
-				 // if q returns to 0 (overflow from 4'b1111 + 4'b0001 = 4'b0000)
-				 // then set reset the q value
-				 		q <= countdownvalue;
-				 else
-				 // else decrement value from count down
-				 		q <= q - 1'b1;
-		end
-  end
-
-endmodule
 
 // example of a 1hz clock
 /* rate_divider clock-1hz(
