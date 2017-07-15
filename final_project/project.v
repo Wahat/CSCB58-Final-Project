@@ -186,7 +186,7 @@ module datapath (
 	output reg [3:0] wins,
 	output reg [3:0] losses,
 	// number of blocks at start
-	output reg [3:0] startingBlocks,
+	output [3:0] startingBlocks,
 	// collisiontest for states
 	output [6:0] stateleds
 	);
@@ -202,8 +202,9 @@ module datapath (
 	reg [15:0] block4;
 	// rgb(0,0,0)
 
-	wire [3:0] selected;
+	reg [3:0] selected;
 	wire result;
+	reg blockenable;
 
 	// Registers start, block, set,startgame with respective input logic
 	always@(posedge clk) begin
@@ -212,8 +213,8 @@ module datapath (
 				 y_in <= 6'b0;
 				 wins <= 3'b0;
 				 losses <= 3'b0;
-				 // begin with default 4 blocks
-				 startingBlocks <= 4'b0100;
+				 blockenable <= 1'b0;
+				 startingBlocks <= 4'b0000;
 		 end
 		 else begin
 
@@ -222,8 +223,8 @@ module datapath (
 						 // clear module
 						 // draw target and startblock - drawStart module
 						 // writeText - highlight start
-						 // number of blocks - 4
-						 startingBlocks <= 4'b0100;
+						 blockenable = 1'b1; // begin looping through number of blocks
+
 				end
 
 				// From control FSM, Press Key[1]
@@ -231,7 +232,9 @@ module datapath (
 						//writeText module - highlight block
 						//If SW[0] then make block vertical
 						//elif SW[1] then make block horizontal
-						// display block
+						// stop looping through number of blocks
+						// once the counter stops, it'll set the startingBlocks
+						blockenable = 1'b0;
 						colourout[2:0] = 3'b100;
 
 
@@ -255,21 +258,32 @@ module datapath (
 						//elif (SW[1]) then move startblock down
 						// run game -> gameresult (0 or 1)
 
-						selected <= selected + 4'b1;
 					end
 					if (ld_endgame) begin
 						//increment win or loss from endgame module
+						//selected <= selected + 4'b1;
 				 end
 		   end
 		end
 
 		// Determines who wins or loses
-		//endgamemux endofgame(
-			//.reg_win(wins),
-			//.reg_lose(losses),
-			//.select(gameresult),
-			//.out(selected)
-			//);
+		/*
+		endgamemux endofgame(
+			.reg_win(wins),
+			.reg_lose(losses),
+		  .select(gameresult),
+			.out(selected)
+			);
+		*/
+
+	counterhz numblockscounter(
+		.enable(blockenable),
+		.clk(clk),
+		.reset_n(1'b0),
+		.speed(2'b01),
+		.counterlimit(4'b0100), // only count up to 4
+		.counterOut(startingBlocks[3:0]) // set the number of blocks
+		);
 
 endmodule
 
@@ -298,10 +312,8 @@ module control(
 	output [3:0] counterout
 	);
 	reg [6:0] current_state, next_state;
-	reg [3:0] counter;
-	wire counterEnable; // used to enable signals into the state counter
-	wire rateEnable;
 	wire [27:0] rateout;
+	reg counterEnable;
 
 	localparam   S_BEGIN              = 4'd0,
 						   S_BEGIN_WAIT         = 4'd1,
@@ -318,21 +330,21 @@ module control(
 	// Next state logic aka our state table
 	always@(*)
 	begin: state_table
+			counterEnable <= 1'b0;
 			case (current_state)
 					S_BEGIN: begin
 								next_state = beginkey ? S_BEGIN_WAIT : S_BEGIN;
-								counter <= 4'b0000;
 								end // Loop in current state until value is input
 					S_BEGIN_WAIT: next_state = beginkey ? S_BEGIN_WAIT : S_LOAD_BLOCK; // Loop in current state until go signal goes low
 					S_LOAD_BLOCK: next_state = blockkey ? S_LOAD_BLOCK_WAIT : S_LOAD_BLOCK; // Loop in current state until value is input
 					S_LOAD_BLOCK_WAIT: next_state = blockkey ? S_LOAD_BLOCK_WAIT : S_LOAD_SET; // Loop in current state until go signal goes low
 					S_LOAD_SET: next_state = setkey ? S_LOAD_SET_WAIT : S_LOAD_SET; // Loop in current state until value is input
 					S_LOAD_SET_WAIT: begin
-														if (counter == 4'b0100) begin
+														if (counterout == 4'b0100) begin
 																next_state = setkey ? S_LOAD_SET_WAIT : S_OUT_STARTGAME;
 														end
 														else begin
-																counter <= counter + 4'b0001;
+																counterEnable <= 1'b1;
 																next_state = setkey ? S_LOAD_SET_WAIT : S_LOAD_BLOCK;
 														end
 										  end // Loop in current state until go signal goes low
@@ -386,6 +398,14 @@ module control(
 	// output to hex display
 	assign counterout[3:0] = counter[3:0];
 
+	counterhz counter1hz(
+		.enable(counterEnable),
+		.clk(clk),
+		.reset_n(reset_n),
+		.speed(2'b01),
+		.counterOut(counterout)
+		);
+
 endmodule
 
 // -------------------------------------------------------------------------
@@ -418,29 +438,3 @@ module hex_decoder(hex_digit, segments);
       endcase
 
 endmodule
-
-//
-module state_counter (clk, numblocks, out);
-	input clk;
-	input [3:0] numblocks;
-	output reg [3:0] out;
-
-	always @ (posedge clk)
-	begin
-		if (out == numblocks)
-			out <= 0;
-		else
-			out <= out + 1'b1;
-	end
-endmodule
-
-
-
-// example of a 1hz clock
-/* rate_divider clock-1hz(
-    // .enable(SW[1]),
-    // .countdownvalue(28'b10111110101111000001111111), // 49999999 in binary
-    // .clk(CLOCK_50),
-    // .reset_n(KEY[1]),
-    // .q(wireout)
-   ); */
