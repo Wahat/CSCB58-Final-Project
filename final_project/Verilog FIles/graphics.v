@@ -164,7 +164,7 @@ module ballpos(
 	end
 
 	always @ (posedge clk or posedge reset) begin
-		if (reset) begin
+		if (!reset) begin
 			value_x <= 11'b1010;
 		   value_y <= 11'b1010000;
 		end
@@ -199,7 +199,7 @@ module drawsquare (
 	 input [10:0] xpos,
 	 input [10:0] ypos,
 	 input [2:0] colourin,
-    input ld_enable,
+  input ld_enable,
 
 	 output [11:0] xout,
 	 output [10:0] yout,
@@ -211,7 +211,7 @@ module drawsquare (
 	 reg [11:0] x_in;
 	 reg [10:0] y_in;
 	 reg [2:0] colour_in;
-	 reg [3:0] counter = 3'b000;
+	 reg [3:0] counter = 4'b000;
 	 reg vga_out = 1'b0;
 
 	 always@(posedge clk) begin
@@ -227,7 +227,7 @@ module drawsquare (
 						 y_in[10:0] <= ypos[10:0]; // load alu_out if load_alu_out signal is high, otherwise load from data_in
 					 if(vga_out) begin
 							 counter <= counter + 1'b1;
-							 if (counter == 3'b000) begin
+							 if (counter == 4'b000) begin
 							 		vga_out <= 1'b0;
 								end
 					  end
@@ -253,11 +253,11 @@ module ballcollisions(
 	hit,
 	mode
 	);
-	
+
 	input clk, reset, mode;
 	input [10:0] ball_x, ball_y;
 	output dir_x, dir_y, hit, oob;
-		
+
 	reg dir_x, dir_y, hit, oob;
 	initial begin
 		dir_x <= 0;
@@ -265,9 +265,9 @@ module ballcollisions(
 		oob <= 0;
 		hit <= 0;
 	end
-		
+
 	always @ (posedge clk) begin
-		if (reset) begin
+		if (!reset) begin
 			dir_x <= 0;
 			dir_y <= 1;
 			oob <= 0;
@@ -276,29 +276,29 @@ module ballcollisions(
 		else begin
 			// out of bounds (i.e. one of the players missed the ball)
 			if (ball_x <= 0) begin
-				oob = 1;
+				oob <= 1;
 			end
 			else begin
-				oob = 0;
+				oob <= 0;
 				hit <= 0;
 			end
-			
+
 			// collision with top & bottom walls
-			if (ball_y <= 4) begin
-				dir_y = 1;
+			if (ball_y <= 16) begin
+				dir_y <= 1;
 			end
-			if (ball_y >= 120- 4) begin
-				dir_y = 0;
+			if (ball_y >= 104) begin
+				dir_y <= 0;
 			end
-			
+
 			// collision with wall
 			if (ball_x >= 120) begin
-			
-				dir_x = 1;	// reverse direction
+
+				dir_x <= 1;	// reverse direction
 				hit <= 1;
-				
+
 			end
 		end
 	end
-	
+
 endmodule
