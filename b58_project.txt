@@ -2,38 +2,26 @@ CSCB58 Project File: Summer 2017
 
 Team Member A
 -------------
-First Name:
-Last Name:
-Student Number:
-UofT E-mail Address:
+First Name: Kevin
+Last Name: Shen
+Student Number: 1003475349
+UofT E-mail Address: kevs.shen@mail.utoronto.ca
 
 
 Team Member B
 -------------
-First Name:
-Last Name:
-Student Number:
-UofT E-mail Address:
-
-Team Member C (Optional)
--------------
-First Name:
-Last Name:
-Student Number:
-UofT E-mail Address:
-
-Team Member D (Optional)
--------------
-First Name:
-Last Name:
+First Name: Joon
+Last Name: Hong
 Student Number:
 UofT E-mail Address:
 
 Project Details
 ---------------
-Project Title:
+Project Title: Blocker
 
 Project Description:
+Set the walls for a ball to bounce off and fire the ball
+If you hit the goal, you win
 
 Video URL:
 
@@ -45,15 +33,20 @@ Proposal
 --------
 
 What do you plan to have completed by the end of the first lab session?:
+What we plan to finish is the top level entity and begin work on our supporting game modules
 
 What do you plan to have completed by the end of the second lab session?:
+What we plan to finish is game logic and the overall look of the game
 
 What do you plan to have completed by the end of the third lab session?:
+What we plan to
 
 What is your backup plan if things don’t work out as planned?
+Our backup plan is to implement on the dot runner game and add more obstacles
 
-What hardware will you need beyond the DE2 board
+What hardware will you need beyond the DE2 board?
 (be sure to e-mail Brian if it’s anything beyond the basics to make sure there’s enough to go around)
+We might need to use a keyboard later on as we could run out of inputs
 
 Motivations
 -----------
@@ -70,17 +63,16 @@ code).
 
 Updates
 -------
-
-<Example update. Delte this and add your own updates after each lab session>
-Week 1: We built the hardware and tested the sensors. The distance sensor we had intended to use didn't work as
-expected (wasn't precise enough at further distances, only seems to work accurately within 5-10cm), so instead
-we've decided to change the project to use a light sensor instead. Had trouble getting the FSM to work (kept
-getting stuck in state 101, took longer to debug than expected), so we may not be able to add the
-high score feature, have updated that in the project description as (optional).
-
 Week 1: We finalized on our idea, figured out game logic and prepared for planning modules we might need in the future.
 The control, datapath and top level modules have been built and modified for our project. However, our actual game modules
 will be completed later on. For this week, we will be working on our start game, end game (winning and losing scores),
 and ball collision modules for testing in the next lab in order to see if our idea works before spending time on the other modules.
 One problem we are having is determining how the ball will bounce accordingly each block but hopefully it will be solved by over
 the next week.
+
+Week 2:
+We begun working deciding on the overall visuals of the project. Most of the backend game logic has been finished but we ran into
+a couple of problems such as how to display certain elements and how to control user input. We realized we ran out of keys for user
+input and we might have to use a keyboard for additional keys for controlling the block placer. This week we will finish the placing
+block modules and put the visuals into place. Some problems I see may occur in the future will be how we allow the user to place the blocks.
+The blocks may over lap and glitch the game or the ball might go through the block but I hope to fix this problem during week 3.
