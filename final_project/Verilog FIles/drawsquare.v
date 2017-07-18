@@ -41,6 +41,7 @@ module drawsquare (
 						end
 			 end
 	 end
+	 
 	 assign plot = vga_out;
 	 assign xout[11:0] = x_in[11:0] + counter[1:0];
 	 assign yout[10:0] = y_in[10:0] + counter[3:2];
