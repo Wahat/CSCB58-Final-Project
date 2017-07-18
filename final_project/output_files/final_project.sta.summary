@@ -2,104 +2,104 @@
 TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow 1200mV 85C Model Setup 'CLOCK_50'
-Slack : -6.354
-TNS   : -12.688
+Type  : Slow 1200mV 85C Model Setup 'control:c0|current_state[0]~_Duplicate_1'
+Slack : -6.630
+TNS   : -26.438
 
-Type  : Slow 1200mV 85C Model Setup 'control:c0|counter[0]'
-Slack : -3.024
-TNS   : -8.560
+Type  : Slow 1200mV 85C Model Setup 'CLOCK_50'
+Slack : -3.007
+TNS   : -11.458
 
 Type  : Slow 1200mV 85C Model Setup 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 33.398
+Slack : 33.349
 TNS   : 0.000
 
-Type  : Slow 1200mV 85C Model Hold 'control:c0|counter[0]'
-Slack : -0.162
-TNS   : -0.439
-
 Type  : Slow 1200mV 85C Model Hold 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 0.403
+Slack : 0.378
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'CLOCK_50'
-Slack : 0.619
+Slack : 0.402
 TNS   : 0.000
 
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'control:c0|counter[0]'
-Slack : 0.459
+Type  : Slow 1200mV 85C Model Hold 'control:c0|current_state[0]~_Duplicate_1'
+Slack : 0.678
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'control:c0|current_state[0]~_Duplicate_1'
+Slack : 0.376
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK_50'
-Slack : 9.555
+Slack : 9.554
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 19.709
+Slack : 19.707
 TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'control:c0|current_state[0]~_Duplicate_1'
+Slack : -6.200
+TNS   : -24.702
 
 Type  : Slow 1200mV 0C Model Setup 'CLOCK_50'
-Slack : -5.726
-TNS   : -11.443
-
-Type  : Slow 1200mV 0C Model Setup 'control:c0|counter[0]'
-Slack : -2.823
-TNS   : -8.027
+Slack : -2.610
+TNS   : -9.974
 
 Type  : Slow 1200mV 0C Model Setup 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 33.980
-TNS   : 0.000
-
-Type  : Slow 1200mV 0C Model Hold 'control:c0|counter[0]'
-Slack : -0.107
-TNS   : -0.283
-
-Type  : Slow 1200mV 0C Model Hold 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 0.355
+Slack : 33.992
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'CLOCK_50'
-Slack : 0.488
+Slack : 0.354
 TNS   : 0.000
 
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'control:c0|counter[0]'
-Slack : 0.386
+Type  : Slow 1200mV 0C Model Hold 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 0.354
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'control:c0|current_state[0]~_Duplicate_1'
+Slack : 0.666
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'control:c0|current_state[0]~_Duplicate_1'
+Slack : 0.381
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
-Slack : 9.559
+Slack : 9.560
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 19.711
+Slack : 19.712
 TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'control:c0|current_state[0]~_Duplicate_1'
+Slack : -3.277
+TNS   : -13.075
 
 Type  : Fast 1200mV 0C Model Setup 'CLOCK_50'
-Slack : -2.935
-TNS   : -5.866
-
-Type  : Fast 1200mV 0C Model Setup 'control:c0|counter[0]'
-Slack : -1.282
-TNS   : -3.509
+Slack : -1.271
+TNS   : -4.700
 
 Type  : Fast 1200mV 0C Model Setup 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 36.762
+Slack : 36.801
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Hold 'control:c0|counter[0]'
-Slack : -0.022
-TNS   : -0.027
-
 Type  : Fast 1200mV 0C Model Hold 'CLOCK_50'
-Slack : 0.111
+Slack : 0.003
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 0.182
+Slack : 0.161
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'control:c0|counter[0]'
-Slack : 0.365
+Type  : Fast 1200mV 0C Model Hold 'control:c0|current_state[0]~_Duplicate_1'
+Slack : 0.206
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'control:c0|current_state[0]~_Duplicate_1'
+Slack : 0.257
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
@@ -107,7 +107,7 @@ Slack : 9.201
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 19.754
+Slack : 19.755
 TNS   : 0.000
 
 ------------------------------------------------------------

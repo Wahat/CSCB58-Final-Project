@@ -1,14 +1,14 @@
-Analysis & Synthesis Status : Failed - Tue Jul 11 17:54:08 2017
+Analysis & Synthesis Status : Successful - Tue Jul 18 18:57:32 2017
 Quartus Prime Version : 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 Revision Name : final_project
 Top-level Entity Name : projectVGA
 Family : Cyclone IV E
-Total logic elements : N/A until Partition Merge
-    Total combinational functions : N/A until Partition Merge
-    Dedicated logic registers : N/A until Partition Merge
-Total registers : N/A until Partition Merge
-Total pins : N/A until Partition Merge
-Total virtual pins : N/A until Partition Merge
-Total memory bits : N/A until Partition Merge
-Embedded Multiplier 9-bit elements : N/A until Partition Merge
-Total PLLs : N/A until Partition Merge
+Total logic elements : 253
+    Total combinational functions : 247
+    Dedicated logic registers : 105
+Total registers : 105
+Total pins : 102
+Total virtual pins : 0
+Total memory bits : 57,600
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 1

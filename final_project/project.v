@@ -104,7 +104,7 @@ module projectVGA
 		// output to HEX displays
 		.wins(winout),
 		.losses(loseout),
-		.startingBlocks(numBlocks)
+		.blocksout(numBlocks)
 		);
 
   // Instansiate FSM control
@@ -188,7 +188,7 @@ module datapath (
 	output reg [3:0] wins,
 	output reg [3:0] losses,
 	// number of blocks at start
-	output reg [3:0] startingBlocks,
+	output [3:0] blocksout,
 	// collisiontest for states
 	output [6:0] stateleds
 	);
@@ -209,6 +209,7 @@ module datapath (
 	reg blockenable;
 	wire [3:0] numBlocks;
 	reg [2:0] statereg;
+	reg [3:0] startingBlocks;
 
 	// Registers start, block, set,startgame with respective input logic
 	always@(posedge clk) begin
@@ -217,7 +218,7 @@ module datapath (
 				 y_in <= 6'b0;
 				 wins <= 3'b0;
 				 losses <= 3'b0;
-				 blockenable <= 1'b0;
+				 blockenable = 1'b0;
 		 end
 		 else begin
 
@@ -226,8 +227,8 @@ module datapath (
 						 // clear module
 						 // draw target and startblock - drawStart module
 						 // writeText - highlight start
-						 blockenable <= 1'b1; // begin looping through number of blocks
-						 statereg <= 3'b000;
+						 blockenable = 1'b1; // begin looping through number of blocks
+						 statereg = 3'b000;
 
 				end
 
@@ -238,10 +239,10 @@ module datapath (
 						//elif SW[1] then make block horizontal
 						// stop looping through number of blocks
 						// once the counter stops, it'll set the startingBlocks
-						blockenable <= 1'b0;
+						blockenable = 1'b0;
 						startingBlocks[3:0] <= numBlocks[3:0];
-						colourout[2:0] = 3'b100;
-						statereg <= 3'b001;
+						//colourout[2:0] <= 3'b100;
+						statereg = 3'b001;
 
 
 				end
@@ -249,10 +250,10 @@ module datapath (
 				 // From control FSM, Press Key[2]
 				if(ld_set) begin
 						 //writeText module - highlight set
-						 statereg <= 3'b010;
+						 statereg = 3'b010;
 						 // Setting Position (red)
 						 // When set make color gray
-						 colourout[2:0] = 3'b101;
+						 //colourout[2:0] <= 3'b101;
 						 // block module, draw vertical or horizontal block depending on what was chosen
 						 // set to register
 				 end
@@ -260,14 +261,14 @@ module datapath (
 					// From control FSM, Press Key[1]
 				 if (ld_startgame) begin
 						//writeText module - highlight startgame
-						statereg <= 3'b011;
+						statereg = 3'b011;
 						//if up (SW[0]) then move startblock up
 						//elif (SW[1]) then move startblock down
 						// run game -> gameresult (0 or 1)
 
 					end
 					if (ld_endgame) begin
-						statereg <= 3'b100;
+						statereg = 3'b100;
 						//increment win or loss from endgame module
 						//selected <= selected + 4'b1;
 				 end
@@ -283,7 +284,7 @@ module datapath (
 			.out(selected)
 			);
 		*/
-
+	assign blocksout[3:0] = numBlocks[3:0];
 
 	counterhz numblockscounter(
 		.enable(blockenable),
@@ -294,16 +295,75 @@ module datapath (
 		.counterOut(numBlocks[3:0]) // set the number of blocks
 		);
 
-		highlightstate VGAstate(
-	 		.clk(clk),
-	 		.reset_n(reset_n),
-	 		.colourin(3'b100),
-	 		.state(statereg),
-	 		.xout(xout),
-	 		.yout(yout),
-	 		.colourout(colourout),
-	 		.plot(plot)
-	 		);
+	drawsquare white(
+		.clk(clk),
+		.reset_n(reset_n),
+		.xpos(cxpos),
+		.ypos(cypos),
+		.colourin(3'b111),
+		.ld_enable(1'b1),
+		.xout(xout),
+		.yout(yout),
+		.colourout(colourout),
+		.plot(plot)
+		);
+
+/*
+	collision collide(
+   .clock(newclock),
+   .reset(reset_n),
+	 // inputs
+   .startvelocityx(1'b1),
+   .startvelocityy(1'b1),
+	 .startposx(9'b1010),
+	 .startposy(9'b1010000),
+
+   .bar1(block1),
+   .bar2(block2),
+   .bar3(block3),
+   .bar4(block4),
+
+	 // outputs
+    .draw(collidevga),
+    .xpos(cxpos),
+    .ypos(cypos),
+    .win(lmao1),
+    .lose(lmao2)
+);
+*/
+
+ballpos ballpos(
+	.clk(clk),
+	.reset(reset_n),
+	.speed(1'b1),
+	.dir_x(dirx),		// 0 = LEFT, 1 = RIGHT
+	.dir_y(diry),		// 0 = UP, 1 = DOWN
+	.value_x(cxpos),
+	.value_y(cypos),
+	);
+		
+ballcollisions bc(
+	.clk(clk),
+	.reset(reset_n),
+	.ball_x(cxpos),
+	.ball_y(cypos),
+	.dir_x(dirx),
+	.dir_y(diry),
+	.oob(lmao3),	// whether ball is out of bounds
+	.hit(lmao1),
+	.mode(lmao2)
+	);
+
+	wire collidevga;
+	wire [8:0] cxpos;
+	wire [8:0] cypos;
+	wire dirx;
+	wire diry;
+	wire lmao1;
+	wire lmao2;
+	wire lmao3;
+	wire newclock;
+	
 
 endmodule
 
@@ -319,6 +379,7 @@ module control(
 	input setkey,
 	input startgamekey,
 	input endgamekey,
+	input [3:0] startingBlocks,
 
 	// output states to datapath
 	output reg ld_begin,
@@ -329,7 +390,7 @@ module control(
 
 	// output led of the current state and counter to hez
 	output [6:0] stateled,
-	output [3:0] numBlocksUsed
+	output reg [3:0] numBlocksUsed
 	);
 	reg [6:0] current_state, next_state;
 	reg counterEnable;
@@ -351,23 +412,21 @@ module control(
 	// Next state logic aka our state table
 	always@(*)
 	begin: state_table
-			counterEnable <= 1'b0;
 			case (current_state)
 					S_BEGIN: begin
 								next_state = beginkey ? S_BEGIN_WAIT : S_BEGIN;
-								counter <= 3'b000;
+								numBlocksUsed[3:0] = startingBlocks[3:0];
 								end // Loop in current state until value is input
 					S_BEGIN_WAIT: next_state = beginkey ? S_BEGIN_WAIT : S_LOAD_BLOCK; // Loop in current state until go signal goes low
 					S_LOAD_BLOCK: next_state = blockkey ? S_LOAD_BLOCK_WAIT : S_LOAD_BLOCK; // Loop in current state until value is input
 					S_LOAD_BLOCK_WAIT: next_state = blockkey ? S_LOAD_BLOCK_WAIT : S_LOAD_SET; // Loop in current state until go signal goes low
 					S_LOAD_SET: next_state = setkey ? S_LOAD_SET_WAIT : S_LOAD_SET; // Loop in current state until value is input
 					S_LOAD_SET_WAIT: begin
-														if (counter == 4'b0100) begin
+														if (numBlocksUsed == 4'b0000) begin
 																next_state = setkey ? S_LOAD_SET_WAIT : S_OUT_STARTGAME;
 														end
 														else begin
-																counterEnable <= 1'b1;
-																counter <= counterout;
+																numBlocksUsed = numBlocksUsed - 1'b1;
 																next_state = setkey ? S_LOAD_SET_WAIT : S_LOAD_BLOCK;
 														end
 										  end // Loop in current state until go signal goes low
@@ -419,15 +478,6 @@ module control(
 	// output to green leds
 	assign stateled[6:0] = current_state[6:0];
 	// output to hex display
-	assign numBlocksUsed[3:0] = counterout[3:0];
-
-	counterhz counter1hz(
-		.enable(counterEnable),
-		.clk(clk),
-		.reset_n(reset_n),
-		.speed(2'b01),
-		.counterOut(counterout)
-		);
 
 endmodule
 

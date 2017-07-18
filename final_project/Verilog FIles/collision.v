@@ -26,7 +26,6 @@ module collision(
     input [15:0] bar2;
     input [15:0] bar3;
     input [15:0] bar4;
-    input [15:0] bar5;
 
 	  input startvelocityx;
     input startvelocityy;
@@ -55,16 +54,16 @@ module collision(
 
     // currently only implemented for the first bar, need to use some loop
     // [0] is 1 means a vertical bar, 0 means horz
-    // [1:8] is the x position of the top of the bar
-    // [9:15] is the y position of the top of the bar
+    // [8:1] is the x position of the top of the bar
+    // [15:9] is the y position of the top of the bar
 
     always@(clock) begin
 		 if (reset) begin // if game is reset reset the ball
 			 xpos[7:0] <= startposx[7:0]; // calculate these values later
 			 ypos <= startposy;
 
-			 velocityx = startvelocityx;
-			 velocityy = startvelocityy;
+			 velocityx <= startvelocityx;
+			 velocityy <= startvelocityy;
 			 win <= 1'b0;
 			 lose <= 1'b0;
 		 end
@@ -73,16 +72,17 @@ module collision(
 		 if ((ypos == 1'b1) || (ypos == 1110111)) begin
 			  velocityy <= ~velocityy;
 			  end
+			 // TDODO ADD right wall
 
 		 // check each bar
 		 if (bar1[0] == 1'b1) begin // check if vertical bar
-			  if (((ypos == (bar1[9:15] + 1'b1)) && (xpos == bar1[1:8])) || ((ypos == (bar1[9:15] + 4'b1010)) && (xpos == bar1[1:8]))) begin // check if it hit the top or bottom block
+			  if (((ypos == (bar1[15:9] + 1'b1)) && (xpos == bar1[8:1])) || ((ypos == (bar1[15:9] + 4'b1010)) && (xpos == bar1[8:1]))) begin // check if it hit the top or bottom block
 
 					velocityy <= ~velocityy;
 			  end
 
-			  if (((ypos >= bar1[9:15]) && (ypos <= (bar1[9:15] + 4'b1010)) && (xpos == (bar1[1:8] - 1'b1))) ||
-				  ((ypos >= bar1[9:15]) && (ypos <= (bar1[9:15] + 4'b1010)) && (xpos == (bar1[1:8] + 1'b1)))) begin // check if hit left or right side
+			  if (((ypos >= bar1[15:9]) && (ypos <= (bar1[15:9] + 4'b1010)) && (xpos == (bar1[8:1] - 1'b1))) ||
+				  ((ypos >= bar1[15:9]) && (ypos <= (bar1[15:9] + 4'b1010)) && (xpos == (bar1[8:1] + 1'b1)))) begin // check if hit left or right side
 
 					velocityx <= ~velocityx;
 			  end
@@ -91,13 +91,13 @@ module collision(
 		 // check if horz bar
 		 else begin
 				if (bar1[0] == 1'b0) begin // check if horz bar
-					  if (((ypos == bar1[9:15]) && (xpos == bar1[1:8] - 1'b1)) || ((ypos == (bar1[9:15])) && (xpos == (bar1[1:8] + 2'b11)))) begin // check if it hit the left or right block
+					  if (((ypos == bar1[15:9]) && (xpos == bar1[8:1] - 1'b1)) || ((ypos == (bar1[15:9])) && (xpos == (bar1[8:1] + 2'b11)))) begin // check if it hit the left or right block
 
 													//elif SW[1] then make block horizontalvelocityx <= ~velocityx;
 					  end
 
-					  if (((xpos >= bar1[1:8]) && (xpos <= (bar1[1:8] + 4'b1010)) && (ypos == (bar1[9:15] - 1'b1))) ||
-							((xpos >= bar1[1:8]) && (xpos <= (bar1[9:15] + 4'b1010)) && (ypos == (bar1[9:15] + 1'b1)))) begin // check if hit top or bottom side
+					  if (((xpos >= bar1[8:1]) && (xpos <= (bar1[8:1] + 4'b1010)) && (ypos == (bar1[15:9] - 1'b1))) ||
+							((xpos >= bar1[8:1]) && (xpos <= (bar1[15:9] + 4'b1010)) && (ypos == (bar1[15:9] + 1'b1)))) begin // check if hit top or bottom side
 
 						  velocityy <= ~velocityy;
 					  end
@@ -106,13 +106,13 @@ module collision(
 
 
       if (bar2[0] == 1'b1) begin // check bar2
-         if (((ypos == (bar2[9:15] + 1'b1)) && (xpos == bar2[1:8])) || ((ypos == (bar2[9:15] + 4'b1010)) && (xpos == bar2[1:8]))) begin // check if it hit the top or bottom block
+         if (((ypos == (bar2[15:9] + 1'b1)) && (xpos == bar2[15:9])) || ((ypos == (bar2[15:9] + 4'b1010)) && (xpos == bar2[8:1]))) begin // check if it hit the top or bottom block
 
            velocityy <= ~velocityy;
          end
 
-         if (((ypos >= bar2[9:15]) && (ypos <= (bar2[9:15] + 4'b1010)) && (xpos == (bar2[1:8] - 1'b1))) ||
-           ((ypos >= bar2[9:15]) && (ypos <= (bar2[9:15] + 4'b1010)) && (xpos == (bar2[1:8] + 1'b1)))) begin // check if hit left or right side
+         if (((ypos >= bar2[15:9]) && (ypos <= (bar2[15:9] + 4'b1010)) && (xpos == (bar2[8:1] - 1'b1))) ||
+           ((ypos >= bar2[15:9]) && (ypos <= (bar2[15:9] + 4'b1010)) && (xpos == (bar2[8:1] + 1'b1)))) begin // check if hit left or right side
 
            velocityx <= ~velocityx;
          end
@@ -120,13 +120,13 @@ module collision(
 
       else begin
          if (bar2[0] == 1'b0) begin // check if horz bar
-             if (((ypos == bar2[9:15]) && (xpos == bar2[1:8] - 1'b1)) || ((ypos == (bar2[9:15])) && (xpos == (bar2[1:8] + 2'b11)))) begin // check if it hit the left or right block
+             if (((ypos == bar2[15:9]) && (xpos == bar2[8:1] - 1'b1)) || ((ypos == (bar2[15:9])) && (xpos == (bar2[8:1] + 2'b11)))) begin // check if it hit the left or right block
 
                            //elif SW[1] then make block horizontalvelocityx <= ~velocityx;
              end
 
-             if (((xpos >= bar2[1:8]) && (xpos <= (bar2[1:8] + 4'b1010)) && (ypos == (bar2[9:15] - 1'b1))) ||
-               ((xpos >= bar2[1:8]) && (xpos <= (bar2[9:15] + 4'b1010)) && (ypos == (bar2[9:15] + 1'b1)))) begin // check if hit top or bottom side
+             if (((xpos >= bar2[8:1]) && (xpos <= (bar2[8:1] + 4'b1010)) && (ypos == (bar2[15:9] - 1'b1))) ||
+               ((xpos >= bar2[8:1]) && (xpos <= (bar2[15:9] + 4'b1010)) && (ypos == (bar2[15:9] + 1'b1)))) begin // check if hit top or bottom side
 
                velocityy <= ~velocityy;
              end
@@ -135,13 +135,13 @@ module collision(
 
 
        if (bar3[0] == 1'b1) begin // check bar3
-          if (((ypos == (bar3[9:15] + 1'b1)) && (xpos == bar3[1:8])) || ((ypos == (bar3[9:15] + 4'b1010)) && (xpos == bar3[1:8]))) begin // check if it hit the top or bottom block
+          if (((ypos == (bar3[15:9] + 1'b1)) && (xpos == bar3[8:1])) || ((ypos == (bar3[15:9] + 4'b1010)) && (xpos == bar3[8:1]))) begin // check if it hit the top or bottom block
 
             velocityy <= ~velocityy;
           end
 
-          if (((ypos >= bar3[9:15]) && (ypos <= (bar3[9:15] + 4'b1010)) && (xpos == (bar3[1:8] - 1'b1))) ||
-            ((ypos >= bar3[9:15]) && (ypos <= (bar3[9:15] + 4'b1010)) && (xpos == (bar3[1:8] + 1'b1)))) begin // check if hit left or right side
+          if (((ypos >= bar3[15:9]) && (ypos <= (bar3[15:9] + 4'b1010)) && (xpos == (bar3[8:1] - 1'b1))) ||
+            ((ypos >= bar3[15:9]) && (ypos <= (bar3[15:9] + 4'b1010)) && (xpos == (bar3[8:1] + 1'b1)))) begin // check if hit left or right side
 
             velocityx <= ~velocityx;
           end
@@ -151,13 +151,13 @@ module collision(
        // check if horz bar
        else begin
           if (bar3[0] == 1'b0) begin // check if horz bar
-              if (((ypos == bar3[9:15]) && (xpos == bar3[1:8] - 1'b1)) || ((ypos == (bar3[9:15])) && (xpos == (bar3[1:8] + 2'b11)))) begin // check if it hit the left or right block
+              if (((ypos == bar3[15:9]) && (xpos == bar3[8:1] - 1'b1)) || ((ypos == (bar3[15:9])) && (xpos == (bar3[8:1] + 2'b11)))) begin // check if it hit the left or right block
 
                             //elif SW[1] then make block horizontalvelocityx <= ~velocityx;
               end
 
-              if (((xpos >= bar3[1:8]) && (xpos <= (bar3[1:8] + 4'b1010)) && (ypos == (bar3[9:15] - 1'b1))) ||
-                ((xpos >= bar3[1:8]) && (xpos <= (bar3[9:15] + 4'b1010)) && (ypos == (bar3[9:15] + 1'b1)))) begin // check if hit top or bottom side
+              if (((xpos >= bar3[8:1]) && (xpos <= (bar3[8:1] + 4'b1010)) && (ypos == (bar3[15:9] - 1'b1))) ||
+                ((xpos >= bar3[8:1]) && (xpos <= (bar3[15:9] + 4'b1010)) && (ypos == (bar3[15:9] + 1'b1)))) begin // check if hit top or bottom side
 
                 velocityy <= ~velocityy;
               end
@@ -166,13 +166,13 @@ module collision(
 
 
         if (bar4[0] == 1'b1) begin // check bar4
-           if (((ypos == (bar4[9:15] + 1'b1)) && (xpos == bar4[1:8])) || ((ypos == (bar4[9:15] + 4'b1010)) && (xpos == bar4[1:8]))) begin // check if it hit the top or bottom block
+           if (((ypos == (bar4[15:9] + 1'b1)) && (xpos == bar4[8:1])) || ((ypos == (bar4[15:9] + 4'b1010)) && (xpos == bar4[8:1]))) begin // check if it hit the top or bottom block
 
              velocityy <= ~velocityy;
            end
 
-           if (((ypos >= bar4[9:15]) && (ypos <= (bar4[9:15] + 4'b1010)) && (xpos == (bar4[1:8] - 1'b1))) ||
-             ((ypos >= bar4[9:15]) && (ypos <= (bar4[9:15] + 4'b1010)) && (xpos == (bar4[1:8] + 1'b1)))) begin // check if hit left or right side
+           if (((ypos >= bar4[15:9]) && (ypos <= (bar4[15:9] + 4'b1010)) && (xpos == (bar4[8:1] - 1'b1))) ||
+             ((ypos >= bar4[15:9]) && (ypos <= (bar4[15:9] + 4'b1010)) && (xpos == (bar4[8:1] + 1'b1)))) begin // check if hit left or right side
 
              velocityx <= ~velocityx;
            end
@@ -181,13 +181,13 @@ module collision(
         // check if horz bar
         else begin
            if (bar4[0] == 1'b0) begin // check if horz bar
-               if (((ypos == bar4[9:15]) && (xpos == bar4[1:8] - 1'b1)) || ((ypos == (bar4[9:15])) && (xpos == (bar4[1:8] + 2'b11)))) begin // check if it hit the left or right block
+               if (((ypos == bar4[15:9]) && (xpos == bar4[8:1] - 1'b1)) || ((ypos == (bar4[15:9])) && (xpos == (bar4[8:1] + 2'b11)))) begin // check if it hit the left or right block
 
                              //elif SW[1] then make block horizontalvelocityx <= ~velocityx;
                end
 
-               if (((xpos >= bar4[1:8]) && (xpos <= (bar4[1:8] + 4'b1010)) && (ypos == (bar4[9:15] - 1'b1))) ||
-                 ((xpos >= bar4[1:8]) && (xpos <= (bar4[9:15] + 4'b1010)) && (ypos == (bar4[9:15] + 1'b1)))) begin // check if hit top or bottom side
+               if (((xpos >= bar4[8:1]) && (xpos <= (bar4[8:1] + 4'b1010)) && (ypos == (bar4[15:9] - 1'b1))) ||
+                 ((xpos >= bar4[8:1]) && (xpos <= (bar4[15:9] + 4'b1010)) && (ypos == (bar4[15:9] + 1'b1)))) begin // check if hit top or bottom side
 
                  velocityy <= ~velocityy;
                end
@@ -195,7 +195,7 @@ module collision(
          end
 		 // check if ball hits the target
 		 if (((xpos >= 6'b111100) && (ypos >= 6'b111010)) && (ypos <= 6'b111110)) begin // check if ball has hit target
-			  win = 1'b1;
+			  win <= 1'b1;
 
 		 end
 
@@ -203,19 +203,19 @@ module collision(
 
 		 // check if the ball goes out of bounds or will go out of bounds because there isn't enough space on the screen
 		 if ((xpos == 1'b0) && (velocityx == 1'b0)) begin // check if at the left side and moving left
-			  lose = 1'b1;
+			  lose <= 1'b1;
 		 end
 		 // move ball at the end
 		 // check if 0
      if (velocityx == 1'b0)
-            xpos -= 1'b1;
+            xpos <= xpos - 1'b1;
      else
-		   xpos = xpos + velocityx;
+		   xpos <= xpos + velocityx;
 
      if (velocityx == 1'b0)
-        ypos -= 1'b1;
+        ypos <= ypos - 1'b1;
       else
-       	ypos = ypos + velocityy;
+       	ypos <= ypos + velocityy;
 
 		 // draw to VGA if game is still going
 		 if (win == lose) begin
