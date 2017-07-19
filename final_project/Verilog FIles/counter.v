@@ -9,7 +9,7 @@ module counterhz(enable, clk, reset_n, speed, counterlimit, counterOut);
   input enable;
   input reset_n;
   input clk; // CLOCK_50
-  input [1:0] speed; // input speed
+  input [2:0] speed; // input speed
   // sets the limit of the counter
   // e.g 4'b0100 for counting up to 4
   input [3:0] counterlimit;
@@ -20,6 +20,7 @@ module counterhz(enable, clk, reset_n, speed, counterlimit, counterOut);
   wire [27:0] c1hzOut;
   wire [27:0] c0_5hzOut;
   wire [27:0] c0_25hzOut;
+  wire [27:0] c0_60hzOut;
 
   // register to hold the value of the enable
   reg outEnable;
@@ -33,40 +34,46 @@ module counterhz(enable, clk, reset_n, speed, counterlimit, counterOut);
   always @ (posedge clk)
   begin
     case (speed)
-      2'b00: begin // 50hz out
+      3'b000: begin // 50hz out
         if (c50hzOut == 28'b0)
           outEnable <= 1'b1;
         else
           outEnable <= 1'b0;
         end
 
-      2'b01: begin // 1hz out
+      3'b001: begin // 1hz out
         if (c1hzOut == 28'b0)
           outEnable <= 1'b1;
         else
           outEnable <= 1'b0;
         end
 
-      2'b10: begin // 0.5hz out
+      3'b010: begin // 0.5hz out
         if (c0_5hzOut == 28'b0)
           outEnable <= 1'b1;
         else
           outEnable <= 1'b0;
         end
 
-      2'b11: begin // 0.25 hz
+      3'b011: begin // 0.25 hz
         if (c0_25hzOut == 28'b0)
           outEnable <= 1'b1;
         else
           outEnable <= 1'b0;
         end
-      default: outEnable = 1'b0;
 
+		3'b100: begin // 60 hz
+        if (c0_60hzOut == 28'b0)
+          outEnable <= 1'b1;
+        else
+          outEnable <= 1'b0;
+        end
+      default: outEnable = 1'b0;
     endcase
   end
 
 // modules
-  // rate divider for 50hz
+  // rate divider for 50mhz
   // countdown from 1
   ratedivider clock50hz(
     .enable(enable),
@@ -74,6 +81,16 @@ module counterhz(enable, clk, reset_n, speed, counterlimit, counterOut);
     .clk(clk),
     .countdownvalue(28'b0000000000000000000000000001),
     .q(c50hzOut)
+    );
+	
+  // rate divider for 60hz
+  // countdown from 833332
+  ratedivider clock60hz(
+    .enable(enable),
+    .reset_n(~reset_n),
+    .clk(clk),
+    .countdownvalue(28'b11001011011100110100),
+    .q(c0_60hzOut)
     );
 
   // rate divider for 1hz

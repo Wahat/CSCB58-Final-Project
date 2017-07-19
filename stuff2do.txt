@@ -1,0 +1,26 @@
+- Draw rectangle
+	- Clear 120 x 120
+	- Rectangle Vertical
+	- Rectangle Horizontal
+	- draw blocks while setting (red)
+	- draw diff color block on top
+- Fix Counter, States, VGAOUT mux, Score Counter
+
+
+
+- Collision
+	- Add Blocks
+		- Horizontal
+		- Vertical
+	- Output if hit target
+	- Comments
+	- Checks bounds
+	- Add input to direction x & y
+
+- Blocks
+	- 10x2 Horizontal, Vertical
+	- Fix [9:15] stuff
+	
+
+
+	

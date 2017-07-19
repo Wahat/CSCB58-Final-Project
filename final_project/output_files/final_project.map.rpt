@@ -1,5 +1,5 @@
 Analysis & Synthesis report for final_project
-Tue Jul 18 18:57:32 2017
+Tue Jul 18 21:39:03 2017
 Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
@@ -30,20 +30,22 @@ Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
  22. altsyncram Parameter Settings by Entity Instance
  23. altpll Parameter Settings by Entity Instance
  24. Port Connectivity Checks: "control:c0"
- 25. Port Connectivity Checks: "datapath:d0|ballcollisions:bc"
- 26. Port Connectivity Checks: "datapath:d0|ballpos:ballpos"
- 27. Port Connectivity Checks: "datapath:d0|drawsquare:white"
- 28. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz"
- 29. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz"
- 30. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock1hz"
- 31. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz"
- 32. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter"
- 33. Port Connectivity Checks: "datapath:d0"
- 34. Port Connectivity Checks: "vga_adapter:VGA"
- 35. Post-Synthesis Netlist Statistics for Top Partition
- 36. Elapsed Time Per Partition
- 37. Analysis & Synthesis Messages
- 38. Analysis & Synthesis Suppressed Messages
+ 25. Port Connectivity Checks: "datapath:d0|counterhz:ncounter"
+ 26. Port Connectivity Checks: "datapath:d0|ballcollisions:bc"
+ 27. Port Connectivity Checks: "datapath:d0|ballpos:ballpos"
+ 28. Port Connectivity Checks: "datapath:d0|drawsquare:white"
+ 29. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz"
+ 30. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz"
+ 31. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock1hz"
+ 32. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz"
+ 33. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz"
+ 34. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter"
+ 35. Port Connectivity Checks: "datapath:d0"
+ 36. Port Connectivity Checks: "vga_adapter:VGA"
+ 37. Post-Synthesis Netlist Statistics for Top Partition
+ 38. Elapsed Time Per Partition
+ 39. Analysis & Synthesis Messages
+ 40. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -70,15 +72,15 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Jul 18 18:57:32 2017       ;
+; Analysis & Synthesis Status        ; Successful - Tue Jul 18 21:39:03 2017       ;
 ; Quartus Prime Version              ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition ;
 ; Revision Name                      ; final_project                               ;
 ; Top-level Entity Name              ; projectVGA                                  ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 253                                         ;
-;     Total combinational functions  ; 247                                         ;
-;     Dedicated logic registers      ; 105                                         ;
-; Total registers                    ; 105                                         ;
+; Total logic elements               ; 331                                         ;
+;     Total combinational functions  ; 326                                         ;
+;     Dedicated logic registers      ; 138                                         ;
+; Total registers                    ; 138                                         ;
 ; Total pins                         ; 102                                         ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 57,600                                      ;
@@ -192,6 +194,7 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------+-----------------+----------------------------------+-----------------------------------------------------------------------------------------------+---------+
 ; Verilog FIles/graphics.v                    ; yes             ; User Verilog HDL File            ; /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/graphics.v   ;         ;
 ; Verilog FIles/counter.v                     ; yes             ; User Verilog HDL File            ; /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/counter.v    ;         ;
+; Verilog FIles/collision2.v                  ; yes             ; User Verilog HDL File            ; /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/collision2.v ;         ;
 ; background.mif                              ; yes             ; User Memory Initialization File  ; /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/background.mif             ;         ;
 ; project.v                                   ; yes             ; User Verilog HDL File            ; /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v                  ;         ;
 ; ../VGA/vga_adapter/vga_pll.v                ; yes             ; User Wizard-Generated File       ; /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/VGA/vga_adapter/vga_pll.v                ;         ;
@@ -223,20 +226,20 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 253            ;
+; Estimated Total logic elements              ; 331            ;
 ;                                             ;                ;
-; Total combinational functions               ; 247            ;
+; Total combinational functions               ; 326            ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 78             ;
-;     -- 3 input functions                    ; 48             ;
-;     -- <=2 input functions                  ; 121            ;
+;     -- 4 input functions                    ; 89             ;
+;     -- 3 input functions                    ; 51             ;
+;     -- <=2 input functions                  ; 186            ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 139            ;
-;     -- arithmetic mode                      ; 108            ;
+;     -- normal mode                          ; 191            ;
+;     -- arithmetic mode                      ; 135            ;
 ;                                             ;                ;
-; Total registers                             ; 105            ;
-;     -- Dedicated logic registers            ; 105            ;
+; Total registers                             ; 138            ;
+;     -- Dedicated logic registers            ; 138            ;
 ;     -- I/O registers                        ; 0              ;
 ;                                             ;                ;
 ; I/O pins                                    ; 102            ;
@@ -248,9 +251,9 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ;     -- PLLs                                 ; 1              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 85             ;
-; Total fan-out                               ; 1393           ;
-; Average fan-out                             ; 2.46           ;
+; Maximum fan-out                             ; 97             ;
+; Total fan-out                               ; 1626           ;
+; Average fan-out                             ; 2.40           ;
 +---------------------------------------------+----------------+
 
 
@@ -259,15 +262,18 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------+------------------------+--------------+
 ; Compilation Hierarchy Node                              ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                        ; Entity Name            ; Library Name ;
 +---------------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------+------------------------+--------------+
-; |projectVGA                                             ; 247 (0)           ; 105 (0)      ; 57600       ; 0            ; 0       ; 0         ; 102  ; 0            ; |projectVGA                                                                                                ; projectVGA             ; work         ;
+; |projectVGA                                             ; 326 (1)           ; 138 (0)      ; 57600       ; 0            ; 0       ; 0         ; 102  ; 0            ; |projectVGA                                                                                                ; projectVGA             ; work         ;
 ;    |control:c0|                                         ; 25 (25)           ; 4 (4)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|control:c0                                                                                     ; control                ; work         ;
-;    |datapath:d0|                                        ; 111 (1)           ; 71 (1)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0                                                                                    ; datapath               ; work         ;
-;       |ballcollisions:bc|                               ; 7 (7)             ; 2 (2)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ballcollisions:bc                                                                  ; ballcollisions         ; work         ;
-;       |ballpos:ballpos|                                 ; 20 (20)           ; 17 (17)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ballpos:ballpos                                                                    ; ballpos                ; work         ;
+;    |datapath:d0|                                        ; 189 (1)           ; 104 (1)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0                                                                                    ; datapath               ; work         ;
+;       |ballcollisions:bc|                               ; 11 (11)           ; 3 (3)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ballcollisions:bc                                                                  ; ballcollisions         ; work         ;
+;       |ballpos:ballpos|                                 ; 36 (36)           ; 18 (18)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ballpos:ballpos                                                                    ; ballpos                ; work         ;
+;       |counterhz:ncounter|                              ; 55 (9)            ; 30 (1)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|counterhz:ncounter                                                                 ; counterhz              ; work         ;
+;          |counter:modifiedcounter|                      ; 1 (1)             ; 1 (1)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|counterhz:ncounter|counter:modifiedcounter                                         ; counter                ; work         ;
+;          |ratedivider:clock60hz|                        ; 45 (45)           ; 28 (28)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|counterhz:ncounter|ratedivider:clock60hz                                           ; ratedivider            ; work         ;
 ;       |counterhz:numblockscounter|                      ; 52 (9)            ; 33 (1)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|counterhz:numblockscounter                                                         ; counterhz              ; work         ;
 ;          |counter:modifiedcounter|                      ; 5 (5)             ; 4 (4)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|counterhz:numblockscounter|counter:modifiedcounter                                 ; counter                ; work         ;
 ;          |ratedivider:clock1hz|                         ; 38 (38)           ; 28 (28)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|counterhz:numblockscounter|ratedivider:clock1hz                                    ; ratedivider            ; work         ;
-;       |drawsquare:white|                                ; 31 (31)           ; 18 (18)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|drawsquare:white                                                                   ; drawsquare             ; work         ;
+;       |drawsquare:white|                                ; 34 (34)           ; 19 (19)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|drawsquare:white                                                                   ; drawsquare             ; work         ;
 ;    |hex_decoder:hex4|                                   ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|hex_decoder:hex4                                                                               ; hex_decoder            ; work         ;
 ;    |hex_decoder:hex5|                                   ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|hex_decoder:hex5                                                                               ; hex_decoder            ; work         ;
 ;    |vga_adapter:VGA|                                    ; 97 (1)            ; 30 (0)       ; 57600       ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA                                                                                ; vga_adapter            ; work         ;
@@ -308,27 +314,31 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
 
 
-+------------------------------------------------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                                                           ;
-+-------------------------------------------------------------------------+----------------------------------------------------+
-; Register name                                                           ; Reason for Removal                                 ;
-+-------------------------------------------------------------------------+----------------------------------------------------+
-; control:c0|current_state[4..6]                                          ; Stuck at GND due to stuck port data_in             ;
-; datapath:d0|wins[0..3]                                                  ; Stuck at GND due to stuck port data_in             ;
-; datapath:d0|losses[0..3]                                                ; Stuck at GND due to stuck port data_in             ;
-; datapath:d0|drawsquare:white|y_in[9,10]                                 ; Stuck at GND due to stuck port data_in             ;
-; datapath:d0|drawsquare:white|x_in[9..11]                                ; Stuck at GND due to stuck port data_in             ;
-; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[0..27] ; Lost fanout                                        ;
-; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[0..27]  ; Lost fanout                                        ;
-; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[0..27]   ; Lost fanout                                        ;
-; datapath:d0|drawsquare:white|y_in[7,8]                                  ; Lost fanout                                        ;
-; datapath:d0|drawsquare:white|x_in[7,8]                                  ; Lost fanout                                        ;
-; datapath:d0|ballpos:ballpos|value_y[0]                                  ; Merged with datapath:d0|ballpos:ballpos|value_x[0] ;
-; datapath:d0|drawsquare:white|y_in[0]                                    ; Merged with datapath:d0|drawsquare:white|x_in[0]   ;
-; datapath:d0|ballpos:ballpos|value_x[9,10]                               ; Lost fanout                                        ;
-; datapath:d0|ballpos:ballpos|value_y[9,10]                               ; Lost fanout                                        ;
-; Total Number of Removed Registers = 110                                 ;                                                    ;
-+-------------------------------------------------------------------------+----------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                               ;
++-------------------------------------------------------------------------+----------------------------------------+
+; Register name                                                           ; Reason for Removal                     ;
++-------------------------------------------------------------------------+----------------------------------------+
+; control:c0|current_state[4..6]                                          ; Stuck at GND due to stuck port data_in ;
+; datapath:d0|wins[0..3]                                                  ; Stuck at GND due to stuck port data_in ;
+; datapath:d0|losses[0..3]                                                ; Stuck at GND due to stuck port data_in ;
+; datapath:d0|drawsquare:white|y_in[9,10]                                 ; Stuck at GND due to stuck port data_in ;
+; datapath:d0|drawsquare:white|x_in[9..11]                                ; Stuck at GND due to stuck port data_in ;
+; datapath:d0|counterhz:ncounter|ratedivider:clock0_25hz|q[0..27]         ; Lost fanout                            ;
+; datapath:d0|counterhz:ncounter|ratedivider:clock0_5hz|q[0..27]          ; Lost fanout                            ;
+; datapath:d0|counterhz:ncounter|ratedivider:clock1hz|q[0..27]            ; Lost fanout                            ;
+; datapath:d0|counterhz:ncounter|ratedivider:clock50hz|q[0..27]           ; Lost fanout                            ;
+; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[0..27] ; Lost fanout                            ;
+; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[0..27]  ; Lost fanout                            ;
+; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[0..27]   ; Lost fanout                            ;
+; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[0..27]   ; Lost fanout                            ;
+; datapath:d0|drawsquare:white|y_in[7,8]                                  ; Lost fanout                            ;
+; datapath:d0|drawsquare:white|x_in[7,8]                                  ; Lost fanout                            ;
+; datapath:d0|counterhz:ncounter|counter:modifiedcounter|q[1..3]          ; Lost fanout                            ;
+; datapath:d0|ballpos:ballpos|value_y[9,10]                               ; Lost fanout                            ;
+; datapath:d0|ballpos:ballpos|value_x[9,10]                               ; Lost fanout                            ;
+; Total Number of Removed Registers = 251                                 ;                                        ;
++-------------------------------------------------------------------------+----------------------------------------+
 
 
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -336,6 +346,30 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +---------------------------------------------------------------------+--------------------+-----------------------------------------------------------------------+
 ; Register name                                                       ; Reason for Removal ; Registers Removed due to This Register                                ;
 +---------------------------------------------------------------------+--------------------+-----------------------------------------------------------------------+
+; datapath:d0|counterhz:ncounter|ratedivider:clock0_25hz|q[0]         ; Lost Fanouts       ; datapath:d0|counterhz:ncounter|ratedivider:clock0_25hz|q[22],         ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock0_25hz|q[23],         ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock0_25hz|q[24],         ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock0_25hz|q[25],         ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock0_25hz|q[26],         ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock0_25hz|q[27]          ;
+; datapath:d0|counterhz:ncounter|ratedivider:clock0_5hz|q[0]          ; Lost Fanouts       ; datapath:d0|counterhz:ncounter|ratedivider:clock0_5hz|q[22],          ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock0_5hz|q[23],          ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock0_5hz|q[24],          ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock0_5hz|q[25],          ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock0_5hz|q[26],          ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock0_5hz|q[27]           ;
+; datapath:d0|counterhz:ncounter|ratedivider:clock1hz|q[0]            ; Lost Fanouts       ; datapath:d0|counterhz:ncounter|ratedivider:clock1hz|q[22],            ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock1hz|q[23],            ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock1hz|q[24],            ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock1hz|q[25],            ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock1hz|q[26],            ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock1hz|q[27]             ;
+; datapath:d0|counterhz:ncounter|ratedivider:clock50hz|q[0]           ; Lost Fanouts       ; datapath:d0|counterhz:ncounter|ratedivider:clock50hz|q[22],           ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock50hz|q[23],           ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock50hz|q[24],           ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock50hz|q[25],           ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock50hz|q[26],           ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|ratedivider:clock50hz|q[27]            ;
 ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[0] ; Lost Fanouts       ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[24], ;
 ;                                                                     ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[25], ;
 ;                                                                     ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[26], ;
@@ -344,10 +378,16 @@ Note: All latches listed above may not be present at the end of synthesis due to
 ;                                                                     ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[25],  ;
 ;                                                                     ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[26],  ;
 ;                                                                     ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[27]   ;
+; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[0]   ; Lost Fanouts       ; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[24],   ;
+;                                                                     ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[25],   ;
+;                                                                     ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[26],   ;
+;                                                                     ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[27]    ;
 ; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[0]   ; Lost Fanouts       ; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[24],   ;
 ;                                                                     ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[25],   ;
 ;                                                                     ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[26],   ;
 ;                                                                     ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[27]    ;
+; datapath:d0|counterhz:ncounter|counter:modifiedcounter|q[1]         ; Lost Fanouts       ; datapath:d0|counterhz:ncounter|counter:modifiedcounter|q[2],          ;
+;                                                                     ;                    ; datapath:d0|counterhz:ncounter|counter:modifiedcounter|q[3]           ;
 +---------------------------------------------------------------------+--------------------+-----------------------------------------------------------------------+
 
 
@@ -356,10 +396,10 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 105   ;
-; Number of registers using Synchronous Clear  ; 10    ;
+; Total registers                              ; 138   ;
+; Number of registers using Synchronous Clear  ; 11    ;
 ; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 37    ;
+; Number of registers using Asynchronous Clear ; 20    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
 ; Number of registers using Clock Enable       ; 30    ;
 ; Number of registers using Preset             ; 0     ;
@@ -371,12 +411,14 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +----------------------------------------+---------+
 ; Inverted Register                      ; Fan out ;
 +----------------------------------------+---------+
-; datapath:d0|ballpos:ballpos|value_y[6] ; 4       ;
-; datapath:d0|ballpos:ballpos|value_y[4] ; 4       ;
-; datapath:d0|ballpos:ballpos|value_x[3] ; 3       ;
-; datapath:d0|ballpos:ballpos|value_x[1] ; 2       ;
+; datapath:d0|ballpos:ballpos|value_y[6] ; 3       ;
+; datapath:d0|ballpos:ballpos|value_y[5] ; 3       ;
+; datapath:d0|ballpos:ballpos|value_y[4] ; 3       ;
+; datapath:d0|ballpos:ballpos|value_y[2] ; 3       ;
+; datapath:d0|ballpos:ballpos|value_x[1] ; 4       ;
 ; datapath:d0|ballcollisions:bc|dir_y    ; 11      ;
-; Total number of inverted registers = 5 ;         ;
+; datapath:d0|ballcollisions:bc|dir_x    ; 9       ;
+; Total number of inverted registers = 7 ;         ;
 +----------------------------------------+---------+
 
 
@@ -933,6 +975,21 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
 
 
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "datapath:d0|counterhz:ncounter"                                                                                                             ;
++--------------------+--------+----------+-------------------------------------------------------------------------------------------------------------------------------+
+; Port               ; Type   ; Severity ; Details                                                                                                                       ;
++--------------------+--------+----------+-------------------------------------------------------------------------------------------------------------------------------+
+; enable             ; Input  ; Info     ; Stuck at VCC                                                                                                                  ;
+; reset_n            ; Input  ; Info     ; Stuck at GND                                                                                                                  ;
+; speed[1..0]        ; Input  ; Info     ; Stuck at GND                                                                                                                  ;
+; speed[2]           ; Input  ; Info     ; Stuck at VCC                                                                                                                  ;
+; counterlimit[3..1] ; Input  ; Info     ; Stuck at GND                                                                                                                  ;
+; counterlimit[0]    ; Input  ; Info     ; Stuck at VCC                                                                                                                  ;
+; counterOut         ; Output ; Warning  ; Output or bidir port (4 bits) is wider than the port expression (1 bits) it drives; bit(s) "counterOut[3..1]" have no fanouts ;
++--------------------+--------+----------+-------------------------------------------------------------------------------------------------------------------------------+
+
+
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; Port Connectivity Checks: "datapath:d0|ballcollisions:bc"                                                                                                                     ;
 +--------+--------+----------+--------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -940,7 +997,6 @@ Note: In order to hide this table in the UI and the text report file, please set
 +--------+--------+----------+--------------------------------------------------------------------------------------------------------------------------------------------------+
 ; ball_x ; Input  ; Warning  ; Input port expression (9 bits) is smaller than the input port (11 bits) it drives.  Extra input bit(s) "ball_x[10..9]" will be connected to GND. ;
 ; ball_y ; Input  ; Warning  ; Input port expression (9 bits) is smaller than the input port (11 bits) it drives.  Extra input bit(s) "ball_y[10..9]" will be connected to GND. ;
-; oob    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                              ;
 ; hit    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                              ;
 +--------+--------+----------+--------------------------------------------------------------------------------------------------------------------------------------------------+
 
@@ -957,18 +1013,18 @@ Note: In order to hide this table in the UI and the text report file, please set
 +---------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "datapath:d0|drawsquare:white"                                                                                                                       ;
-+-----------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port      ; Type   ; Severity ; Details                                                                                                                                        ;
-+-----------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------+
-; xpos      ; Input  ; Warning  ; Input port expression (9 bits) is smaller than the input port (11 bits) it drives.  Extra input bit(s) "xpos[10..9]" will be connected to GND. ;
-; ypos      ; Input  ; Warning  ; Input port expression (9 bits) is smaller than the input port (11 bits) it drives.  Extra input bit(s) "ypos[10..9]" will be connected to GND. ;
-; colourin  ; Input  ; Info     ; Stuck at VCC                                                                                                                                   ;
-; ld_enable ; Input  ; Info     ; Stuck at VCC                                                                                                                                   ;
-; xout      ; Output ; Warning  ; Output or bidir port (12 bits) is wider than the port expression (7 bits) it drives; bit(s) "xout[11..7]" have no fanouts                      ;
-; yout      ; Output ; Warning  ; Output or bidir port (11 bits) is wider than the port expression (7 bits) it drives; bit(s) "yout[10..7]" have no fanouts                      ;
-+-----------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "datapath:d0|drawsquare:white"                                                                                                                            ;
++----------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port           ; Type   ; Severity ; Details                                                                                                                                        ;
++----------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------+
+; xpos           ; Input  ; Warning  ; Input port expression (9 bits) is smaller than the input port (11 bits) it drives.  Extra input bit(s) "xpos[10..9]" will be connected to GND. ;
+; ypos           ; Input  ; Warning  ; Input port expression (9 bits) is smaller than the input port (11 bits) it drives.  Extra input bit(s) "ypos[10..9]" will be connected to GND. ;
+; colourin[2..1] ; Input  ; Info     ; Stuck at VCC                                                                                                                                   ;
+; colourin[0]    ; Input  ; Info     ; Stuck at GND                                                                                                                                   ;
+; xout           ; Output ; Warning  ; Output or bidir port (12 bits) is wider than the port expression (7 bits) it drives; bit(s) "xout[11..7]" have no fanouts                      ;
+; yout           ; Output ; Warning  ; Output or bidir port (11 bits) is wider than the port expression (7 bits) it drives; bit(s) "yout[10..7]" have no fanouts                      ;
++----------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +--------------------------------------------------------------------------------------------+
@@ -1025,6 +1081,27 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 
 +------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz" ;
++------------------------+-------+----------+----------------------------------------------+
+; Port                   ; Type  ; Severity ; Details                                      ;
++------------------------+-------+----------+----------------------------------------------+
+; countdownvalue[19..18] ; Input ; Info     ; Stuck at VCC                                 ;
+; countdownvalue[13..12] ; Input ; Info     ; Stuck at VCC                                 ;
+; countdownvalue[10..8]  ; Input ; Info     ; Stuck at VCC                                 ;
+; countdownvalue[5..4]   ; Input ; Info     ; Stuck at VCC                                 ;
+; countdownvalue[27..20] ; Input ; Info     ; Stuck at GND                                 ;
+; countdownvalue[17..16] ; Input ; Info     ; Stuck at GND                                 ;
+; countdownvalue[7..6]   ; Input ; Info     ; Stuck at GND                                 ;
+; countdownvalue[1..0]   ; Input ; Info     ; Stuck at GND                                 ;
+; countdownvalue[15]     ; Input ; Info     ; Stuck at VCC                                 ;
+; countdownvalue[14]     ; Input ; Info     ; Stuck at GND                                 ;
+; countdownvalue[11]     ; Input ; Info     ; Stuck at GND                                 ;
+; countdownvalue[3]      ; Input ; Info     ; Stuck at GND                                 ;
+; countdownvalue[2]      ; Input ; Info     ; Stuck at VCC                                 ;
++------------------------+-------+----------+----------------------------------------------+
+
+
++------------------------------------------------------------------------------------------+
 ; Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz" ;
 +-----------------------+-------+----------+-----------------------------------------------+
 ; Port                  ; Type  ; Severity ; Details                                       ;
@@ -1040,7 +1117,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Port               ; Type  ; Severity ; Details                    ;
 +--------------------+-------+----------+----------------------------+
 ; reset_n            ; Input ; Info     ; Stuck at GND               ;
-; speed[1]           ; Input ; Info     ; Stuck at GND               ;
+; speed[2..1]        ; Input ; Info     ; Stuck at GND               ;
 ; speed[0]           ; Input ; Info     ; Stuck at VCC               ;
 ; counterlimit[1..0] ; Input ; Info     ; Stuck at GND               ;
 ; counterlimit[3]    ; Input ; Info     ; Stuck at GND               ;
@@ -1073,26 +1150,26 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 102                         ;
-; cycloneiii_ff         ; 105                         ;
-;     CLR               ; 37                          ;
+; cycloneiii_ff         ; 138                         ;
+;     CLR               ; 20                          ;
 ;     ENA               ; 30                          ;
-;     SCLR              ; 10                          ;
-;     plain             ; 28                          ;
-; cycloneiii_lcell_comb ; 251                         ;
-;     arith             ; 108                         ;
-;         2 data inputs ; 73                          ;
-;         3 data inputs ; 35                          ;
-;     normal            ; 143                         ;
+;     SCLR              ; 11                          ;
+;     plain             ; 77                          ;
+; cycloneiii_lcell_comb ; 329                         ;
+;     arith             ; 135                         ;
+;         2 data inputs ; 101                         ;
+;         3 data inputs ; 34                          ;
+;     normal            ; 194                         ;
 ;         0 data inputs ; 4                           ;
-;         1 data inputs ; 10                          ;
-;         2 data inputs ; 38                          ;
-;         3 data inputs ; 13                          ;
-;         4 data inputs ; 78                          ;
+;         1 data inputs ; 11                          ;
+;         2 data inputs ; 73                          ;
+;         3 data inputs ; 17                          ;
+;         4 data inputs ; 89                          ;
 ; cycloneiii_pll        ; 1                           ;
 ; cycloneiii_ram_block  ; 9                           ;
 ;                       ;                             ;
 ; Max LUT depth         ; 4.90                        ;
-; Average LUT depth     ; 2.99                        ;
+; Average LUT depth     ; 3.14                        ;
 +-----------------------+-----------------------------+
 
 
@@ -1111,29 +1188,22 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
-    Info: Processing started: Tue Jul 18 18:57:22 2017
+    Info: Processing started: Tue Jul 18 21:38:53 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off final_project -c final_project
 Warning (20028): Parallel compilation is not licensed and has been disabled
-Info (12021): Found 0 design units, including 0 entities, in source file Verilog FIles/test2.v
-Info (12021): Found 0 design units, including 0 entities, in source file Verilog FIles/test.v
-Warning (10238): Verilog Module Declaration warning at graphics.v(150): ignored anonymous port(s) indicated by duplicate or dangling comma(s) in the port list for module "ballpos" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 150
-Info (12021): Found 4 design units, including 4 entities, in source file Verilog FIles/graphics.v
+Info (12021): Found 2 design units, including 2 entities, in source file Verilog FIles/graphics.v
     Info (12023): Found entity 1: highlightstate File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 1
-    Info (12023): Found entity 2: ballpos File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 142
-    Info (12023): Found entity 3: drawsquare File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 196
-    Info (12023): Found entity 4: ballcollisions File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 245
-Info (12021): Found 0 design units, including 0 entities, in source file Verilog FIles/drawsquare.v
-Info (12021): Found 3 design units, including 3 entities, in source file Verilog FIles/counter.v
-    Info (12023): Found entity 1: counterhz File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/counter.v Line: 8
-    Info (12023): Found entity 2: counter File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/counter.v Line: 126
-    Info (12023): Found entity 3: ratedivider File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/counter.v Line: 150
-Warning (12019): Can't analyze file -- file Verilog FIles/writeText.v is missing
+    Info (12023): Found entity 2: drawsquare File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 141
 Info (12021): Found 1 design units, including 1 entities, in source file Verilog FIles/endgame.v
     Info (12023): Found entity 1: endgamemux File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/endgame.v Line: 5
-Info (12021): Found 0 design units, including 0 entities, in source file Verilog FIles/drawStart.v
-Info (12021): Found 1 design units, including 1 entities, in source file Verilog FIles/collision.v
-    Info (12023): Found entity 1: collision File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/collision.v Line: 1
-Warning (12019): Can't analyze file -- file Verilog FIles/clearscreen.v is missing
+Info (12021): Found 3 design units, including 3 entities, in source file Verilog FIles/counter.v
+    Info (12023): Found entity 1: counterhz File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/counter.v Line: 8
+    Info (12023): Found entity 2: counter File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/counter.v Line: 143
+    Info (12023): Found entity 3: ratedivider File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/counter.v Line: 167
+Warning (10238): Verilog Module Declaration warning at collision2.v(10): ignored anonymous port(s) indicated by duplicate or dangling comma(s) in the port list for module "ballpos" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/collision2.v Line: 10
+Info (12021): Found 2 design units, including 2 entities, in source file Verilog FIles/collision2.v
+    Info (12023): Found entity 1: ballpos File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/collision2.v Line: 2
+    Info (12023): Found entity 2: ballcollisions File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/collision2.v Line: 56
 Warning (10238): Verilog Module Declaration warning at block.v(66): ignored anonymous port(s) indicated by duplicate or dangling comma(s) in the port list for module "moveblock" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/block.v Line: 66
 Info (12021): Found 2 design units, including 2 entities, in source file Verilog FIles/block.v
     Info (12023): Found entity 1: chooseblock File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/block.v Line: 1
@@ -1142,8 +1212,8 @@ Warning (10275): Verilog HDL Module Instantiation warning at project.v(343): ign
 Info (12021): Found 4 design units, including 4 entities, in source file project.v
     Info (12023): Found entity 1: projectVGA File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 2
     Info (12023): Found entity 2: datapath File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 171
-    Info (12023): Found entity 3: control File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 373
-    Info (12023): Found entity 4: hex_decoder File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 488
+    Info (12023): Found entity 3: control File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 382
+    Info (12023): Found entity 4: hex_decoder File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 497
 Info (12021): Found 1 design units, including 1 entities, in source file /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/VGA/vga_adapter/vga_pll.v
     Info (12023): Found entity 1: vga_pll File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/VGA/vga_adapter/vga_pll.v Line: 36
 Info (12021): Found 1 design units, including 1 entities, in source file /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/VGA/vga_adapter/vga_controller.v
@@ -1212,29 +1282,29 @@ Warning (10036): Verilog HDL or VHDL warning at project.v(211): object "statereg
 Warning (10036): Verilog HDL or VHDL warning at project.v(212): object "startingBlocks" assigned a value but never read File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 212
 Warning (10034): Output port "stateleds" at project.v(194) has no driver File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 194
 Info (12128): Elaborating entity "counterhz" for hierarchy "datapath:d0|counterhz:numblockscounter" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 296
-Info (12128): Elaborating entity "ratedivider" for hierarchy "datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/counter.v Line: 77
-Info (12128): Elaborating entity "counter" for hierarchy "datapath:d0|counterhz:numblockscounter|counter:modifiedcounter" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/counter.v Line: 117
+Info (12128): Elaborating entity "ratedivider" for hierarchy "datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/counter.v Line: 84
+Info (12128): Elaborating entity "counter" for hierarchy "datapath:d0|counterhz:numblockscounter|counter:modifiedcounter" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/counter.v Line: 134
 Info (12128): Elaborating entity "drawsquare" for hierarchy "datapath:d0|drawsquare:white" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 309
-Warning (10036): Verilog HDL or VHDL warning at graphics.v(213): object "colour_in" assigned a value but never read File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 213
+Warning (10036): Verilog HDL or VHDL warning at graphics.v(158): object "colour_in" assigned a value but never read File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 158
 Info (12128): Elaborating entity "ballpos" for hierarchy "datapath:d0|ballpos:ballpos" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 343
 Info (12128): Elaborating entity "ballcollisions" for hierarchy "datapath:d0|ballcollisions:bc" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 355
 Info (12128): Elaborating entity "control" for hierarchy "control:c0" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 135
-Warning (10240): Verilog HDL Always Construct warning at project.v(414): inferring latch(es) for variable "numBlocksUsed", which holds its previous value in one or more paths through the always construct File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 414
-Warning (10270): Verilog HDL Case Statement warning at project.v(450): incomplete case statement has no default case item File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 450
-Info (10041): Inferred latch for "numBlocksUsed[0]" at project.v(414) File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 414
-Info (10041): Inferred latch for "numBlocksUsed[1]" at project.v(414) File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 414
-Info (10041): Inferred latch for "numBlocksUsed[2]" at project.v(414) File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 414
-Info (10041): Inferred latch for "numBlocksUsed[3]" at project.v(414) File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 414
+Warning (10240): Verilog HDL Always Construct warning at project.v(423): inferring latch(es) for variable "numBlocksUsed", which holds its previous value in one or more paths through the always construct File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 423
+Warning (10270): Verilog HDL Case Statement warning at project.v(459): incomplete case statement has no default case item File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 459
+Info (10041): Inferred latch for "numBlocksUsed[0]" at project.v(423) File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 423
+Info (10041): Inferred latch for "numBlocksUsed[1]" at project.v(423) File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 423
+Info (10041): Inferred latch for "numBlocksUsed[2]" at project.v(423) File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 423
+Info (10041): Inferred latch for "numBlocksUsed[3]" at project.v(423) File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 423
 Info (12128): Elaborating entity "hex_decoder" for hierarchy "hex_decoder:hex0" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 141
-Warning (12241): 6 hierarchies have connectivity warnings - see the Connectivity Checks report folder
-Warning (13012): Latch control:c0|numBlocksUsed[0] has unsafe behavior File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 414
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal control:c0|numBlocksUsed[0] File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 414
-Warning (13012): Latch control:c0|numBlocksUsed[1] has unsafe behavior File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 414
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal control:c0|numBlocksUsed[1] File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 414
-Warning (13012): Latch control:c0|numBlocksUsed[2] has unsafe behavior File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 414
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal control:c0|numBlocksUsed[2] File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 414
-Warning (13012): Latch control:c0|numBlocksUsed[3] has unsafe behavior File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 414
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal control:c0|numBlocksUsed[3] File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 414
+Warning (12241): 7 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (13012): Latch control:c0|numBlocksUsed[0] has unsafe behavior File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 423
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal control:c0|numBlocksUsed[0] File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 423
+Warning (13012): Latch control:c0|numBlocksUsed[1] has unsafe behavior File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 423
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal control:c0|numBlocksUsed[1] File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 423
+Warning (13012): Latch control:c0|numBlocksUsed[2] has unsafe behavior File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 423
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal control:c0|numBlocksUsed[2] File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 423
+Warning (13012): Latch control:c0|numBlocksUsed[3] has unsafe behavior File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 423
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal control:c0|numBlocksUsed[3] File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 423
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "HEX0[0]" is stuck at GND File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 28
     Warning (13410): Pin "HEX0[1]" is stuck at GND File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 28
@@ -1272,7 +1342,7 @@ Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "LEDG[6]" is stuck at GND File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 33
     Warning (13410): Pin "VGA_SYNC_N" is stuck at VCC File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 41
 Info (286030): Timing-Driven Synthesis is running
-Info (17049): 92 registers lost all their fanouts during netlist optimizations.
+Info (17049): 235 registers lost all their fanouts during netlist optimizations.
 Info (144001): Generated suppressed messages file /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/output_files/final_project.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
@@ -1287,15 +1357,15 @@ Warning (21074): Design contains 10 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "SW[7]" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 25
     Warning (15610): No output dependent on input pin "SW[8]" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 25
     Warning (15610): No output dependent on input pin "SW[9]" File: /cmshome/shenkev4/Desktop/week3/Cscb58-final-project/final_project/project.v Line: 25
-Info (21057): Implemented 368 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 447 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 15 input pins
     Info (21059): Implemented 87 output pins
-    Info (21061): Implemented 256 logic cells
+    Info (21061): Implemented 335 logic cells
     Info (21064): Implemented 9 RAM segments
     Info (21065): Implemented 1 PLLs
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 73 warnings
-    Info: Peak virtual memory: 1290 megabytes
-    Info: Processing ended: Tue Jul 18 18:57:32 2017
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 71 warnings
+    Info: Peak virtual memory: 1288 megabytes
+    Info: Processing ended: Tue Jul 18 21:39:03 2017
     Info: Elapsed time: 00:00:10
     Info: Total CPU time (on all processors): 00:00:20
 

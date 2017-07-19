@@ -1115,18 +1115,12 @@ set_instance_assignment -name IO_MAXIMUM_TOGGLE_RATE "0 MHz" -to SW
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_global_assignment -name VERILOG_FILE "Verilog FIles/test2.v"
-set_global_assignment -name VERILOG_FILE "Verilog FIles/test.v"
 set_global_assignment -name VERILOG_FILE "Verilog FIles/graphics.v"
-set_global_assignment -name VERILOG_FILE "Verilog FIles/drawsquare.v"
-set_global_assignment -name VERILOG_FILE "Verilog FIles/counter.v"
-set_global_assignment -name MIF_FILE background.mif
-set_global_assignment -name VERILOG_FILE "Verilog FIles/writeText.v"
 set_global_assignment -name VERILOG_FILE "Verilog FIles/endgame.v"
-set_global_assignment -name VERILOG_FILE "Verilog FIles/drawStart.v"
-set_global_assignment -name VERILOG_FILE "Verilog FIles/collision.v"
-set_global_assignment -name VERILOG_FILE "Verilog FIles/clearscreen.v"
+set_global_assignment -name VERILOG_FILE "Verilog FIles/counter.v"
+set_global_assignment -name VERILOG_FILE "Verilog FIles/collision2.v"
 set_global_assignment -name VERILOG_FILE "Verilog FIles/block.v"
+set_global_assignment -name MIF_FILE background.mif
 set_global_assignment -name VERILOG_FILE project.v
 set_global_assignment -name VERILOG_FILE ../VGA/vga_adapter/vga_pll.v
 set_global_assignment -name VERILOG_FILE ../VGA/vga_adapter/vga_controller.v

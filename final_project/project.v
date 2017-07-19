@@ -290,7 +290,7 @@ module datapath (
 		.enable(blockenable),
 		.clk(clk),
 		.reset_n(1'b0),
-		.speed(2'b01),
+		.speed(3'b001),
 		.counterlimit(4'b0100), // only count up to 4
 		.counterOut(numBlocks[3:0]) // set the number of blocks
 		);
@@ -300,8 +300,8 @@ module datapath (
 		.reset_n(reset_n),
 		.xpos(cxpos),
 		.ypos(cypos),
-		.colourin(3'b111),
-		.ld_enable(1'b1),
+		.colourin(3'b110),
+		.ld_enable(!outofbounds),
 		.xout(xout),
 		.yout(yout),
 		.colourout(colourout),
@@ -333,7 +333,7 @@ module datapath (
 */
 
 ballpos ballpos(
-	.clk(clk),
+	.clk(newclock),
 	.reset(reset_n),
 	.speed(1'b1),
 	.dir_x(dirx),		// 0 = LEFT, 1 = RIGHT
@@ -343,16 +343,25 @@ ballpos ballpos(
 	);
 		
 ballcollisions bc(
-	.clk(clk),
+	.clk(newclock),
 	.reset(reset_n),
 	.ball_x(cxpos),
 	.ball_y(cypos),
 	.dir_x(dirx),
 	.dir_y(diry),
-	.oob(lmao3),	// whether ball is out of bounds
+	.oob(outofbounds),	// whether ball is out of bounds
 	.hit(lmao1),
 	.mode(lmao2)
 	);
+	
+	counterhz ncounter(
+		.enable(1'b1),
+		.clk(clk),
+		.reset_n(1'b0),
+		.speed(3'b100),
+		.counterlimit(4'b0001), // only count up to 4
+		.counterOut(newclock) // set the number of blocks
+		);
 
 	wire collidevga;
 	wire [8:0] cxpos;
@@ -361,7 +370,7 @@ ballcollisions bc(
 	wire diry;
 	wire lmao1;
 	wire lmao2;
-	wire lmao3;
+	wire outofbounds;
 	wire newclock;
 	
 
