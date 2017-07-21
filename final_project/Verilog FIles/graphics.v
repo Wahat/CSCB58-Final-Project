@@ -308,8 +308,8 @@ module vdrawblock (
 					 counter <= 3'b000;
 			 end
 			 else begin
-						 x_in[11:0] <= {1'b0, xpos[10:0]}; // load alu_out if load_alu_out signal is high, otherwise load from data_in
-						 y_in[10:0] <= ypos[10:0]; // load alu_out if load_alu_out signal is high, otherwise load from data_in
+						 x_in[11:0] <= {1'b0, xpos[10:0]};
+						 y_in[10:0] <= ypos[10:0];
 					 if(vga_out) begin
 							 counter <= counter + 1'b1;
 							 if (counter == 4'b000) begin
@@ -357,8 +357,8 @@ module drawsquare (
 					 counter <= 3'b000;
 			 end
 			 else begin
-						 x_in[11:0] <= {1'b0, xpos[10:0]}; // load alu_out if load_alu_out signal is high, otherwise load from data_in
-						 y_in[10:0] <= ypos[10:0]; // load alu_out if load_alu_out signal is high, otherwise load from data_in
+						 x_in[11:0] <= {1'b0, xpos[10:0]};
+						 y_in[10:0] <= ypos[10:0];
 					 if(vga_out) begin
 							 counter <= counter + 1'b1;
 							 if (counter == 4'b000) begin
@@ -453,6 +453,7 @@ ballpos ballpos(
 	.speed(1'b1),
 	.dir_x(dirx),		// 0 = LEFT, 1 = RIGHT
 	.dir_y(diry),		// 0 = UP, 1 = DOWN
+	// output to drawsquare
 	.value_x(xposout),
 	.value_y(yposout)
 	);
@@ -460,8 +461,8 @@ ballpos ballpos(
 counterhz clock60hz(
 	.enable(1'b1),
 	.clk(clk),
-	.reset_n(1'b0),
-	.speed(3'b100),
+	.reset_n(reset_n),
+	.speed(3'b100), // 60hz
 	.counterlimit(4'b0001), // only count up to 1
 	.counterOut(clock60hz) // set the number of blocks
 	);

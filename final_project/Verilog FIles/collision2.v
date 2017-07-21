@@ -63,19 +63,19 @@ module ballcollisions(
 	dir_y,
 	oob,	// whether ball is out of bounds
 	hit,
-	mode
-
+	mode,
 	dir_xstart,
 	dir_ystart,
 
-	bar1;
-	bar2;
-	bar3;
-	bar4;
+	bar1,
+	bar2,
+	bar3,
+	bar4,
 	);
 	//dir_x,		// 0 = LEFT, 1 = RIGHT
 	//dir_y,		// 0 = UP, 1 = DOWN
 	input clk, reset, mode;
+	input dir_xstart, dir_ystart;
 	input [10:0] ball_x, ball_y;
 	input [15:0] bar1;
 	input [15:0] bar2;
@@ -87,8 +87,8 @@ module ballcollisions(
 
 	reg dir_x, dir_y, hit, oob;
 	initial begin
-		dir_x <= 1;
-		dir_y <= 1;
+		dir_x <= dir_xstart;
+		dir_y <= dir_ystart;
 		oob <= 0;
 		hit <= 0;
 	end
@@ -123,208 +123,270 @@ module ballcollisions(
 
 				dir_x <= 0;	// reverse direction
 				hit <= 1;
-
 			end
 
-
-
+			// ######################BLOCK1###################################
 			// check if vertical bar
 			if (bar1[0] == 1'b1) begin
 
 				// check if it hit top
-				if (((ball_y == (bar1[15:9] - 2'b10)) && (ball_x >= (bar1[8:1] - 1'b1)) && (ball_x <= (bar1[8:1] + 1'b1)))  begin
+				if (((ball_y == (bar1[15:9] - 2'b10)) && (ball_x >= (bar1[8:1] - 1'b1))
+						&& (ball_x <= (bar1[8:1] + 1'b1))))  begin
+
 					dir_y <= 0;
 				end
 
 				// check if hit bottom
-				if  ((ball_y == (bar1[15:9] + 4'b1010)) && (ball_x >= (bar1[8:1] - 1'b1)) && (ball_x <= (bar1[8:1] + 1'b1))) begin
+				if  ((ball_y == (bar1[15:9] + 4'b1010)) && (ball_x >= (bar1[8:1] - 1'b1))
+				 		&& (ball_x <= (bar1[8:1] + 1'b1))) begin
+
 					dir_y <= 1;
 				end
 
 				// check if hit left
-				if ((ball_y >= (bar1[15:9] - 1'b1)) && (ball_y <= (bar1[15:9] + 4'b1001)) && (ball_x == (bar1[8:1] + 2'b10))) begin
+				if ((ball_y >= (bar1[15:9] - 1'b1)) && (ball_y <= (bar1[15:9] + 4'b1001))
+					 && (ball_x == (bar1[8:1] + 2'b10))) begin
+
 					 dir_x = 0;
 				end
 
 				// check if hit right
-			  if ((ball_y >= (bar1[15:9] - 1'b1)) && (ball_y <= (bar1[15:9] + 4'b1001)) && (ball_x == (bar1[8:1] - 2'b10))) begin
+			  if ((ball_y >= (bar1[15:9] - 1'b1)) && (ball_y <= (bar1[15:9] + 4'b1001))
+					 && (ball_x == (bar1[8:1] - 2'b10))) begin
+
+					dir_x <= 1;
+				end
+		  end
+
+			// check if horz block
+			if (bar1[0] == 1'b1) begin
+
+				// check if it hit top
+				if (((ball_y == (bar1[15:9] - 2'b10)) && (ball_x >= (bar1[8:1] - 1'b1))
+					 && (ball_x <= (bar1[8:1] + 4'b1001))))  begin
+
+					dir_y <= 0;
+				end
+
+				// check if hit bottom
+				if  ((ball_y == (bar1[15:9] + 2'b10)) && (ball_x >= (bar1[8:1] - 1'b1))
+						&& (ball_x <= (bar1[8:1] + 4'b1001))) begin
+
+					dir_y <= 1;
+				end
+
+				// check if hit left
+				if ((ball_y >= (bar1[15:9] - 1'b1)) && (ball_y <= (bar1[15:9] + 4'b1001))
+					 && (ball_x == (bar1[8:1] - 2'b10))) begin
+
+					 dir_x = 0;
+				end
+
+				// check if hit right
+				if ((ball_y >= (bar1[15:9] - 1'b1)) && (ball_y <= (bar1[15:9] + 4'b1001))
+					 && (ball_x == (bar1[8:1] + 4'b1010))) begin
+
+					dir_x <= 1;
+				end
+			end
+
+			// ######################BLOCK2###################################
+			// check if vertical bar
+			if (bar2[0] == 1'b1) begin
+
+				// check if it hit top
+				if (((ball_y == (bar2[15:9] - 2'b10)) && (ball_x >= (bar2[8:1] - 1'b1))
+					 && (ball_x <= (bar2[8:1] + 1'b1))))  begin
+
+					 dir_y <= 0;
+				end
+
+				// check if hit bottom
+				if  ((ball_y == (bar2[15:9] + 4'b1010)) && (ball_x >= (bar2[8:1] - 1'b1))
+				 		&& (ball_x <= (bar2[8:1] + 1'b1))) begin
+
+					  dir_y <= 1;
+				end
+
+				// check if hit left
+				if ((ball_y >= (bar2[15:9] - 1'b1)) && (ball_y <= (bar2[15:9] + 4'b1001))
+				 	 && (ball_x == (bar2[8:1] + 2'b10))) begin
+
+					 dir_x = 0;
+				end
+
+				// check if hit right
+			  if ((ball_y >= (bar2[15:9] - 1'b1)) && (ball_y <= (bar2[15:9] + 4'b1001))
+					 && (ball_x == (bar2[8:1] - 2'b10))) begin
+
+					dir_x <= 1;
+				end
+		  end
+
+			// check if horz block
+			if (bar2[0] == 1'b1) begin
+
+				// check if it hit top
+				if (((ball_y == (bar2[15:9] - 2'b10)) && (ball_x >= (bar2[8:1] - 1'b1))
+					 && (ball_x <= (bar2[8:1] + 4'b1001))))  begin
+
+					 dir_y <= 0;
+				end
+
+				// check if hit bottom
+				if  ((ball_y == (bar2[15:9] + 2'b10)) && (ball_x >= (bar2[8:1] - 1'b1))
+						&& (ball_x <= (bar2[8:1] + 4'b1001))) begin
+
+						dir_y <= 1;
+				end
+
+				// check if hit left
+				if ((ball_y >= (bar2[15:9] - 1'b1)) && (ball_y <= (bar2[15:9] + 4'b1001))
+				 	 && (ball_x == (bar2[8:1] - 2'b10))) begin
+
+					 dir_x = 0;
+				end
+
+				// check if hit right
+				if ((ball_y >= (bar2[15:9] - 1'b1)) && (ball_y <= (bar2[15:9] + 4'b1001))
+					 && (ball_x == (bar2[8:1] + 4'b1010))) begin
+
+					dir_x <= 1;
+				end
+			end
+
+		// ######################BLOCK3###################################
+			// check if vertical bar
+			if (bar3[0] == 1'b1) begin
+
+				// check if it hit top
+				if (((ball_y == (bar3[15:9] - 2'b10)) && (ball_x >= (bar3[8:1] - 1'b1))
+					 && (ball_x <= (bar3[8:1] + 1'b1)))) begin
+
+					 dir_y <= 0;
+				end
+
+				// check if hit bottom
+				if ((ball_y == (bar3[15:9] + 4'b1010)) && (ball_x >= (bar3[8:1] - 1'b1))
+						&& (ball_x <= (bar3[8:1] + 1'b1))) begin
+
+						dir_y <= 1;
+				end
+
+				// check if hit left
+				if ((ball_y >= (bar3[15:9] - 1'b1)) && (ball_y <= (bar3[15:9] + 4'b1001))
+				   && (ball_x == (bar3[8:1] + 2'b10))) begin
+
+					 dir_x = 0;
+				end
+
+				// check if hit right
+			  if ((ball_y >= (bar3[15:9] - 1'b1)) && (ball_y <= (bar3[15:9] + 4'b1001))
+				   && (ball_x == (bar3[8:1] - 2'b10))) begin
+
+					dir_x <= 1;
+				end
+		  end
+
+
+			// check if horz block
+			if (bar3[0] == 1'b1) begin
+
+				// check if it hit top
+				if (((ball_y == (bar3[15:9] - 2'b10)) && (ball_x >= (bar3[8:1] - 1'b1))
+				   && (ball_x <= (bar3[8:1] + 4'b1001))))  begin
+
+					 dir_y <= 0;
+				end
+
+				// check if hit bottom
+				if  ((ball_y == (bar3[15:9] + 2'b10)) && (ball_x >= (bar3[8:1] - 1'b1))
+				    && (ball_x <= (bar3[8:1] + 4'b1001))) begin
+
+					 dir_y <= 1;
+				end
+
+				// check if hit left
+				if ((ball_y >= (bar3[15:9] - 1'b1)) && (ball_y <= (bar3[15:9] + 4'b1001))
+				 	 && (ball_x == (bar3[8:1] - 2'b10))) begin
+
+					 dir_x = 0;
+				end
+
+				// check if hit right
+				if ((ball_y >= (bar3[15:9] - 1'b1)) && (ball_y <= (bar3[15:9] + 4'b1001))
+				 	 && (ball_x == (bar3[8:1] + 4'b1010))) begin
+
+					dir_x <= 1;
+				end
+			end
+
+			// ######################BLOCK4###################################
+			// check if vertical bar
+			if (bar4[0] == 1'b1) begin
+
+				// check if it hit top
+				if (((ball_y == (bar4[15:9] - 2'b10)) && (ball_x >= (bar4[8:1] - 1'b1))
+					 && (ball_x <= (bar4[8:1] + 1'b1))))  begin
+					dir_y <= 0;
+				end
+
+				// check if hit bottom
+				if  ((ball_y == (bar4[15:9] + 4'b1010)) && (ball_x >= (bar4[8:1] - 1'b1))
+						&& (ball_x <= (bar4[8:1] + 1'b1))) begin
+					dir_y <= 1;
+				end
+
+				// check if hit left
+				if ((ball_y >= (bar4[15:9] - 1'b1)) && (ball_y <= (bar4[15:9] + 4'b1001))
+					 && (ball_x == (bar4[8:1] + 2'b10))) begin
+					 dir_x = 0;
+				end
+
+				// check if hit right
+			  if ((ball_y >= (bar4[15:9] - 1'b1)) && (ball_y <= (bar4[15:9] + 4'b1001))
+					 && (ball_x == (bar4[8:1] - 2'b10))) begin
+
 					dir_x <= 1;
 				end
 		  end
 
 		// check if horz block
-		if (bar1[0] == 1'b1) begin
+		if (bar4[0] == 1'b1) begin
 
 			// check if it hit top
-			if (((ball_y == (bar1[15:9] - 2'b10)) && (ball_x >= (bar1[8:1] - 1'b1)) && (ball_x <= (bar1[8:1] + 4'b1001)))  begin
-				dir_y <= 0;
+			if (((ball_y == (bar4[15:9] - 2'b10)) && (ball_x >= (bar4[8:1] - 1'b1))
+				 && (ball_x <= (bar4[8:1] + 4'b1001))))  begin
+
+				 dir_y <= 0;
 			end
 
 			// check if hit bottom
-			if  ((ball_y == (bar1[15:9] + 2'b10)) && (ball_x >= (bar1[8:1] - 1'b1)) && (ball_x <= (bar1[8:1] + 4'b1001))) begin
-				dir_y <= 1;
+			if  ((ball_y == (bar4[15:9] + 2'b10)) && (ball_x >= (bar4[8:1] - 1'b1))
+			 		&& (ball_x <= (bar4[8:1] + 4'b1001))) begin
+
+				 dir_y <= 1;
 			end
 
 			// check if hit left
-			if ((ball_y >= (bar1[15:9] - 1'b1)) && (ball_y <= (bar1[15:9] + 1'b1001)) && (ball_x == (bar1[8:1] - 2'b10))) begin
+			if ((ball_y >= (bar4[15:9] - 1'b1)) && (ball_y <= (bar4[15:9] + 4'b1001))
+				 && (ball_x == (bar4[8:1] - 2'b10))) begin
+
 				 dir_x = 0;
 			end
 
 			// check if hit right
-			if ((ball_y >= (bar1[15:9] - 1'b1)) && (ball_y <= (bar1[15:9] + 1'b1001)) && (ball_x == (bar1[8:1] + 4'b1010))) begin
-				dir_x <= 1;
+			if ((ball_y >= (bar4[15:9] - 1'b1)) && (ball_y <= (bar4[15:9] + 4'b1001))
+			   && (ball_x == (bar4[8:1] + 4'b1010))) begin
+
+				 dir_x <= 1;
 			end
-		end
-
-
-					// check if vertical bar
-					if (bar2[0] == 1'b1) begin
-
-						// check if it hit top
-						if (((ball_y == (bar2[15:9] - 2'b10)) && (ball_x >= (bar2[8:1] - 1'b1)) && (ball_x <= (bar2[8:1] + 1'b1)))  begin
-							dir_y <= 0;
-						end
-
-						// check if hit bottom
-						if  ((ball_y == (bar2[15:9] + 4'b1010)) && (ball_x >= (bar2[8:1] - 1'b1)) && (ball_x <= (bar2[8:1] + 1'b1))) begin
-							dir_y <= 1;
-						end
-
-						// check if hit left
-						if ((ball_y >= (bar2[15:9] - 1'b1)) && (ball_y <= (bar2[15:9] + 4'b1001)) && (ball_x == (bar2[8:1] + 2'b10))) begin
-							 dir_x = 0;
-						end
-
-						// check if hit right
-					  if ((ball_y >= (bar2[15:9] - 1'b1)) && (ball_y <= (bar2[15:9] + 4'b1001)) && (ball_x == (bar2[8:1] - 2'b10))) begin
-							dir_x <= 1;
-						end
-				  end
-
-				// check if horz block
-				if (bar2[0] == 1'b1) begin
-
-					// check if it hit top
-					if (((ball_y == (bar2[15:9] - 2'b10)) && (ball_x >= (bar2[8:1] - 1'b1)) && (ball_x <= (bar2[8:1] + 4'b1001)))  begin
-						dir_y <= 0;
-					end
-
-					// check if hit bottom
-					if  ((ball_y == (bar2[15:9] + 2'b10)) && (ball_x >= (bar2[8:1] - 1'b1)) && (ball_x <= (bar2[8:1] + 4'b1001))) begin
-						dir_y <= 1;
-					end
-
-					// check if hit left
-					if ((ball_y >= (bar2[15:9] - 1'b1)) && (ball_y <= (bar2[15:9] + 1'b1001)) && (ball_x == (bar2[8:1] - 2'b10))) begin
-						 dir_x = 0;
-					end
-
-					// check if hit right
-					if ((ball_y >= (bar2[15:9] - 1'b1)) && (ball_y <= (bar2[15:9] + 1'b1001)) && (ball_x == (bar2[8:1] + 4'b1010))) begin
-						dir_x <= 1;
-					end
-				end
-
-							// check if vertical bar
-							if (bar3[0] == 1'b1) begin
-
-								// check if it hit top
-								if (((ball_y == (bar3[15:9] - 2'b10)) && (ball_x >= (bar3[8:1] - 1'b1)) && (ball_x <= (bar3[8:1] + 1'b1)))  begin
-									dir_y <= 0;
-								end
-
-								// check if hit bottom
-								if  ((ball_y == (bar3[15:9] + 4'b1010)) && (ball_x >= (bar3[8:1] - 1'b1)) && (ball_x <= (bar3[8:1] + 1'b1))) begin
-									dir_y <= 1;
-								end
-
-								// check if hit left
-								if ((ball_y >= (bar3[15:9] - 1'b1)) && (ball_y <= (bar3[15:9] + 4'b1001)) && (ball_x == (bar3[8:1] + 2'b10))) begin
-									 dir_x = 0;
-								end
-
-								// check if hit right
-							  if ((ball_y >= (bar3[15:9] - 1'b1)) && (ball_y <= (bar3[15:9] + 4'b1001)) && (ball_x == (bar3[8:1] - 2'b10))) begin
-									dir_x <= 1;
-								end
-						  end
-
-						// check if horz block
-						if (bar3[0] == 1'b1) begin
-
-							// check if it hit top
-							if (((ball_y == (bar3[15:9] - 2'b10)) && (ball_x >= (bar3[8:1] - 1'b1)) && (ball_x <= (bar3[8:1] + 4'b1001)))  begin
-								dir_y <= 0;
-							end
-
-							// check if hit bottom
-							if  ((ball_y == (bar3[15:9] + 2'b10)) && (ball_x >= (bar3[8:1] - 1'b1)) && (ball_x <= (bar3[8:1] + 4'b1001))) begin
-								dir_y <= 1;
-							end
-
-							// check if hit left
-							if ((ball_y >= (bar3[15:9] - 1'b1)) && (ball_y <= (bar3[15:9] + 1'b1001)) && (ball_x == (bar3[8:1] - 2'b10))) begin
-								 dir_x = 0;
-							end
-
-							// check if hit right
-							if ((ball_y >= (bar3[15:9] - 1'b1)) && (ball_y <= (bar3[15:9] + 1'b1001)) && (ball_x == (bar3[8:1] + 4'b1010))) begin
-								dir_x <= 1;
-							end
-						end
-
-									// check if vertical bar
-									if (bar4[0] == 1'b1) begin
-
-										// check if it hit top
-										if (((ball_y == (bar4[15:9] - 2'b10)) && (ball_x >= (bar4[8:1] - 1'b1)) && (ball_x <= (bar4[8:1] + 1'b1)))  begin
-											dir_y <= 0;
-										end
-
-										// check if hit bottom
-										if  ((ball_y == (bar4[15:9] + 4'b1010)) && (ball_x >= (bar4[8:1] - 1'b1)) && (ball_x <= (bar4[8:1] + 1'b1))) begin
-											dir_y <= 1;
-										end
-
-										// check if hit left
-										if ((ball_y >= (bar4[15:9] - 1'b1)) && (ball_y <= (bar4[15:9] + 4'b1001)) && (ball_x == (bar4[8:1] + 2'b10))) begin
-											 dir_x = 0;
-										end
-
-										// check if hit right
-									  if ((ball_y >= (bar4[15:9] - 1'b1)) && (ball_y <= (bar4[15:9] + 4'b1001)) && (ball_x == (bar4[8:1] - 2'b10))) begin
-											dir_x <= 1;
-										end
-								  end
-
-								// check if horz block
-								if (bar4[0] == 1'b1) begin
-
-									// check if it hit top
-									if (((ball_y == (bar4[15:9] - 2'b10)) && (ball_x >= (bar4[8:1] - 1'b1)) && (ball_x <= (bar4[8:1] + 4'b1001)))  begin
-										dir_y <= 0;
-									end
-
-									// check if hit bottom
-									if  ((ball_y == (bar4[15:9] + 2'b10)) && (ball_x >= (bar4[8:1] - 1'b1)) && (ball_x <= (bar4[8:1] + 4'b1001))) begin
-										dir_y <= 1;
-									end
-
-									// check if hit left
-									if ((ball_y >= (bar4[15:9] - 1'b1)) && (ball_y <= (bar4[15:9] + 1'b1001)) && (ball_x == (bar4[8:1] - 2'b10))) begin
-										 dir_x = 0;
-									end
-
-									// check if hit right
-									if ((ball_y >= (bar4[15:9] - 1'b1)) && (ball_y <= (bar4[15:9] + 1'b1001)) && (ball_x == (bar4[8:1] + 4'b1010))) begin
-										dir_x <= 1;
-									end
-								end
+		 end
 
 		// check if ball hit target
-		if ((ball_x == 3'd120) && (ball_y <= 3'd65) && (ball_y >= 3'd55)) begin
+		if ((ball_x == 10'b1110100) && (ball_y <= 10'b1000001) && (ball_y >= 10'b110111)) begin
 			hit = 1'b1;
 		end // ends if !oob block
-	end  // ends always block
-
+	end  // end else if
+end // end always block
 endmodule
