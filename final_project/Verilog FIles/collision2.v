@@ -25,7 +25,7 @@ module ballpos(
 
 	always @ (posedge clk) begin
 		if (!reset) begin
-			value_x <= 11'b1010;
+			 value_x <= 11'b1010;
 		   value_y <= 11'b1010000;
 		end
 		else begin

@@ -205,11 +205,11 @@ module datapath (
 	// rgb(0,0,0)
 
 	reg [3:0] selected;
-	wire result;
 	reg blockenable;
 	wire [3:0] numBlocks;
-	reg [2:0] statereg;
 	reg [3:0] startingBlocks;
+	wire hit;
+	wire obb;
 
 	// Registers start, block, set,startgame with respective input logic
 	always@(posedge clk) begin
@@ -224,35 +224,22 @@ module datapath (
 
 				// From control FSM, Press Key[0]
 				if(ld_begin) begin
-						 // clear module
-						 // draw target and startblock - drawStart module
-						 // writeText - highlight start
 						 blockenable = 1'b1; // begin looping through number of blocks
-						 statereg = 3'b000;
 
 				end
 
 				// From control FSM, Press Key[1]
 				if(ld_block) begin
-						//writeText module - highlight block
-						//If SW[0] then make block vertical
-						//elif SW[1] then make block horizontal
 						// stop looping through number of blocks
 						// once the counter stops, it'll set the startingBlocks
 						blockenable = 1'b0;
 						startingBlocks[3:0] <= numBlocks[3:0];
-						//colourout[2:0] <= 3'b100;
-						statereg = 3'b001;
-
-
+						// block module - set to red
 				end
 
 				 // From control FSM, Press Key[2]
 				if(ld_set) begin
-						 //writeText module - highlight set
-						 statereg = 3'b010;
-						 // Setting Position (red)
-						 // When set make color gray
+						 // Draw block in grey
 						 //colourout[2:0] <= 3'b101;
 						 // block module, draw vertical or horizontal block depending on what was chosen
 						 // set to register
@@ -260,17 +247,19 @@ module datapath (
 
 					// From control FSM, Press Key[1]
 				 if (ld_startgame) begin
-						//writeText module - highlight startgame
 						statereg = 3'b011;
 						//if up (SW[0]) then move startblock up
 						//elif (SW[1]) then move startblock down
 						// run game -> gameresult (0 or 1)
 
 					end
+					// From control FSM, Press KEY[1]
 					if (ld_endgame) begin
-						statereg = 3'b100;
-						//increment win or loss from endgame module
-						//selected <= selected + 4'b1;
+							statereg = 3'b100;
+							if (obb)
+								win <= win + 1;
+							if (hit)
+								lose <= lose + 1;
 				 end
 		   end
 		end
@@ -286,93 +275,28 @@ module datapath (
 		*/
 	assign blocksout[3:0] = numBlocks[3:0];
 
+	// counter for the number of blocks
 	counterhz numblockscounter(
 		.enable(blockenable),
 		.clk(clk),
 		.reset_n(1'b0),
-		.speed(3'b001),
+		.speed(3'b100),
 		.counterlimit(4'b0100), // only count up to 4
 		.counterOut(numBlocks[3:0]) // set the number of blocks
 		);
 
-	drawsquare white(
+	graphics display(
 		.clk(clk),
-		.reset_n(reset_n),
-		.xpos(cxpos),
-		.ypos(cypos),
-		.colourin(3'b110),
-		.ld_enable(!outofbounds),
-		.xout(xout),
-		.yout(yout),
+		.reset(reset_n),
+		.state(statereg),
+		.hit(hit),
+		.oob(obb),
+		.xout(yout),
+		.yout(xout),
 		.colourout(colourout),
 		.plot(plot)
 		);
 
-/*
-	collision collide(
-   .clock(newclock),
-   .reset(reset_n),
-	 // inputs
-   .startvelocityx(1'b1),
-   .startvelocityy(1'b1),
-	 .startposx(9'b1010),
-	 .startposy(9'b1010000),
-
-   .bar1(block1),
-   .bar2(block2),
-   .bar3(block3),
-   .bar4(block4),
-
-	 // outputs
-    .draw(collidevga),
-    .xpos(cxpos),
-    .ypos(cypos),
-    .win(lmao1),
-    .lose(lmao2)
-);
-*/
-
-ballpos ballpos(
-	.clk(newclock),
-	.reset(reset_n),
-	.speed(1'b1),
-	.dir_x(dirx),		// 0 = LEFT, 1 = RIGHT
-	.dir_y(diry),		// 0 = UP, 1 = DOWN
-	.value_x(cxpos),
-	.value_y(cypos),
-	);
-		
-ballcollisions bc(
-	.clk(newclock),
-	.reset(reset_n),
-	.ball_x(cxpos),
-	.ball_y(cypos),
-	.dir_x(dirx),
-	.dir_y(diry),
-	.oob(outofbounds),	// whether ball is out of bounds
-	.hit(lmao1),
-	.mode(lmao2)
-	);
-	
-	counterhz ncounter(
-		.enable(1'b1),
-		.clk(clk),
-		.reset_n(1'b0),
-		.speed(3'b100),
-		.counterlimit(4'b0001), // only count up to 4
-		.counterOut(newclock) // set the number of blocks
-		);
-
-	wire collidevga;
-	wire [8:0] cxpos;
-	wire [8:0] cypos;
-	wire dirx;
-	wire diry;
-	wire lmao1;
-	wire lmao2;
-	wire outofbounds;
-	wire newclock;
-	
 
 endmodule
 
