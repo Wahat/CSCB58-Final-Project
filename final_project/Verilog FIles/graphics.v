@@ -1,25 +1,25 @@
 // graphics module
 // controls and outputs the graphics to the vga adapter
-module graphics(clk, reset_n, state, oob, hit, xout, yout, colourout, plot);
+module graphics(clk, select, reset_n, state, oob, hit, xout, yout, colourout, plot);
 input clk;
 input reset_n;
 input [3:0] state;
+input [1:0] select;
 
 output hit;
-output outofbounds;
-output reg [11:0] xout;
-output reg [10:0] yout;
-output reg [2:0] colourout;
-output reg plot;
+output oob;
+output [11:0] xout;
+output [10:0] yout;
+output [2:0] colourout;
+output plot;
 
 wire rsquareplot;
 wire rsxout;
 wire rsyout;
-wire [8:0] cxpos;
-wire [8:0] cypos;
-wire bxout;
-wire byout;
-wire bcolourout;
+wire rscolourout;
+wire [10:0] bxout;
+wire [10:0] byout;
+wire [2:0] bcolourout;
 wire ballplot;
 
 reg [2:0] colourin;
@@ -34,29 +34,26 @@ begin
 	3'b010: begin // load set
 	end
 	3'b011: begin // load start game
-		xout <= bxout;
-		yout <= byout;
-		colourout <= bcolourout;
-		plot <= ballplot;
 	end
 	3'b100: begin // load end game
-		xout <= rsxout;
-		yout <= rsyout;
-		plot <= rsquareplot;
+
 	end
 endcase
 end
-
-drawsquare state(
+		assign xout[10:0] = bxout[10:0];
+		assign yout[10:0] = byout[10:0];
+		assign colourout[2:0] = bcolourout[2:0];
+		assign plot = ballplot;
+drawsquare state1(
 	.clk(clk),
 	.reset_n(reset_n),
 	.xpos(11'b10010100),
-	.ypos(yposr[10:0]),
+	.ypos(11'b1001),
 	.colourin(colourin[2:0]),
 	.ld_enable(enablered),
 	.xout(rsxout),
 	.yout(rsyout),
-	.colourout(colourout[2:0]),
+	.colourout(rscolourout),
 	.plot(rsquareplot)
 	);
 
@@ -78,11 +75,12 @@ drawsquare blackstate(
 ball whiteball(
 	.clk(clk),
 	.reset_n(reset_n),
+	.select(select[1:0]),
 	.hit(hit),
 	.outofbounds(obb),
-	.xout(byout),
-	.yout(byout),
-	.colourout(bcolourout),
+	.xout(bxout[10:0]),
+	.yout(byout[10:0]),
+	.colourout(bcolourout[2:0]),
 	.plot(ballplot)
 	);
 
@@ -376,6 +374,7 @@ module drawsquare (
 	 assign colourout = colourin;
 endmodule
 
+/*
 module clearscreen (
 	 input clk,
 	 input reset_n,
@@ -417,22 +416,34 @@ module clearscreen (
 			 end
 	 end
 endmodule
+*/
 
-module ball(clk, reset_n, outofbounds, xout, yout, colourout, plot);
+module ball(clk, select, reset_n, hit, outofbounds, xout, yout, colourout, plot);
 	input clk;
 	input reset_n;
+	input [1:0] select;
 
+	output hit;
 	output outofbounds;
-	output xout;
-	output yout;
-	output colourout;
+	output [10:0] xout;
+	output [10:0] yout;
+	output [2:0] colourout;
 	output plot;
 
-  wire clock60hz;
-	wire [8:0] xposout;
-	wire [8:0] yyposout;
+   wire clock60hz;
+	wire [10:0] xposout;
+	wire [10:0] yposout;
 	wire dirx;
 	wire diry;
+	
+counterhz clock_60hz(
+	.enable(1'b1),
+	.clk(clk),
+	.reset_n(reset_n),
+	.speed(3'b100), // 60hz
+	.counterlimit(4'b0001), // only count up to 1
+	.counterOut(clock60hz) // set the number of blocks
+	);
 
 drawsquare ball(
 	.clk(clk),
@@ -441,16 +452,16 @@ drawsquare ball(
 	.ypos(yposout),
 	.colourin(3'b111), // make white
 	.ld_enable(outofbounds), // only move if the ball is not outofbounds
-	.xout(xout),
-	.yout(yout),
-	.colourout(colourout),
+	.xout(xout[10:0]),
+	.yout(yout[10:0]),
+	.colourout(colourout[2:0]),
 	.plot(plot)
 	);
 
 ballpos ballpos(
 	.clk(clock60hz),
 	.reset(reset_n),
-	.speed(1'b1),
+	.speed(3'b001),
 	.dir_x(dirx),		// 0 = LEFT, 1 = RIGHT
 	.dir_y(diry),		// 0 = UP, 1 = DOWN
 	// output to drawsquare
@@ -458,13 +469,23 @@ ballpos ballpos(
 	.value_y(yposout)
 	);
 
-counterhz clock60hz(
-	.enable(1'b1),
-	.clk(clk),
-	.reset_n(reset_n),
-	.speed(3'b100), // 60hz
-	.counterlimit(4'b0001), // only count up to 1
-	.counterOut(clock60hz) // set the number of blocks
+
+	
+ballcollisions collide(
+	.clk(clock60hz),
+	.reset(reset_n),
+	.ball_x(xposout),
+	.ball_y(yposout),
+	.dir_x(dirx),
+	.dir_y(diry),
+	.oob(outofbounds),	// whether ball is out of bounds
+	.hit(hit),
+	.dir_xstart(select[0]),
+	.dir_ystart(select[1]),
+	.bar1(10'b111111111),
+	.bar2(10'b111111111),
+	.bar3(10'b111111111),
+	.bar4(10'b111111111)
 	);
 
 endmodule

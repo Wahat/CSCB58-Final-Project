@@ -19,15 +19,15 @@ module ballpos(
 
 	// the initial position of the ball is at the top of the screen, in the middle,
 	initial begin
-		value_x <= 11'b10;
-		value_y <= 11'b1110100;
+		value_x <= 11'b1110;
+		value_y <= 11'b1111;
 	end
 
 	always @ (posedge clk) begin
 		if (!reset) begin
 			value_x <= 11'b1010;
 
-		   value_y <= 11'b1010000;
+		   value_y <= 11'b1111;
 		end
 		else begin
 			// increment x
@@ -63,7 +63,6 @@ module ballcollisions(
 	dir_y,
 	oob,	// whether ball is out of bounds
 	hit,
-	mode,
 	dir_xstart,
 	dir_ystart,
 
@@ -74,7 +73,7 @@ module ballcollisions(
 	);
 	//dir_x,		// 0 = LEFT, 1 = RIGHT
 	//dir_y,		// 0 = UP, 1 = DOWN
-	input clk, reset, mode;
+	input clk, reset;
 	input dir_xstart, dir_ystart;
 	input [10:0] ball_x, ball_y;
 	input [15:0] bar1;
@@ -87,8 +86,8 @@ module ballcollisions(
 
 	reg dir_x, dir_y, hit, oob;
 	initial begin
-		dir_x <= dir_xstart;
-		dir_y <= dir_ystart;
+		dir_x <= 1;
+		dir_y <= 1;
 		oob <= 0;
 		hit <= 0;
 	end
@@ -104,10 +103,6 @@ module ballcollisions(
 			// out of bounds (i.e. one of the players missed the ball)
 			if (ball_x <= 1) begin
 				oob <= 1;
-			end
-			else begin
-				oob <= 0;
-				hit <= 0;
 			end
 
 			// collision with top & bottom walls
@@ -125,6 +120,7 @@ module ballcollisions(
 				hit <= 1;
 			end
 
+			/*
 			// ######################BLOCK1###################################
 			// check if vertical bar
 			if (bar1[0] == 1'b1) begin
@@ -147,7 +143,7 @@ module ballcollisions(
 				if ((ball_y >= (bar1[15:9] - 1'b1)) && (ball_y <= (bar1[15:9] + 4'b1001))
 					 && (ball_x == (bar1[8:1] + 2'b10))) begin
 
-					 dir_x = 0;
+					 dir_x <= 0;
 				end
 
 				// check if hit right
@@ -179,7 +175,7 @@ module ballcollisions(
 				if ((ball_y >= (bar1[15:9] - 1'b1)) && (ball_y <= (bar1[15:9] + 4'b1001))
 					 && (ball_x == (bar1[8:1] - 2'b10))) begin
 
-					 dir_x = 0;
+					 dir_x <= 0;
 				end
 
 				// check if hit right
@@ -212,7 +208,7 @@ module ballcollisions(
 				if ((ball_y >= (bar2[15:9] - 1'b1)) && (ball_y <= (bar2[15:9] + 4'b1001))
 				 	 && (ball_x == (bar2[8:1] + 2'b10))) begin
 
-					 dir_x = 0;
+					 dir_x <= 0;
 				end
 
 				// check if hit right
@@ -244,7 +240,7 @@ module ballcollisions(
 				if ((ball_y >= (bar2[15:9] - 1'b1)) && (ball_y <= (bar2[15:9] + 4'b1001))
 				 	 && (ball_x == (bar2[8:1] - 2'b10))) begin
 
-					 dir_x = 0;
+					 dir_x <= 0;
 				end
 
 				// check if hit right
@@ -277,7 +273,7 @@ module ballcollisions(
 				if ((ball_y >= (bar3[15:9] - 1'b1)) && (ball_y <= (bar3[15:9] + 4'b1001))
 				   && (ball_x == (bar3[8:1] + 2'b10))) begin
 
-					 dir_x = 0;
+					 dir_x <= 0;
 				end
 
 				// check if hit right
@@ -310,7 +306,7 @@ module ballcollisions(
 				if ((ball_y >= (bar3[15:9] - 1'b1)) && (ball_y <= (bar3[15:9] + 4'b1001))
 				 	 && (ball_x == (bar3[8:1] - 2'b10))) begin
 
-					 dir_x = 0;
+					 dir_x <= 0;
 				end
 
 				// check if hit right
@@ -340,7 +336,7 @@ module ballcollisions(
 				// check if hit left
 				if ((ball_y >= (bar4[15:9] - 1'b1)) && (ball_y <= (bar4[15:9] + 4'b1001))
 					 && (ball_x == (bar4[8:1] + 2'b10))) begin
-					 dir_x = 0;
+					 dir_x <= 0;
 				end
 
 				// check if hit right
@@ -372,7 +368,7 @@ module ballcollisions(
 			if ((ball_y >= (bar4[15:9] - 1'b1)) && (ball_y <= (bar4[15:9] + 4'b1001))
 				 && (ball_x == (bar4[8:1] - 2'b10))) begin
 
-				 dir_x = 0;
+				 dir_x <= 0;
 			end
 
 			// check if hit right
@@ -385,8 +381,9 @@ module ballcollisions(
 
 		// check if ball hit target
 		if ((ball_x == 10'b1110100) && (ball_y <= 10'b1000001) && (ball_y >= 10'b110111)) begin
-			hit = 1'b1;
+			hit <= 1'b1;
 		end // ends if !oob block
+		*/
 	end  // end else if
 end // end always block
 endmodule

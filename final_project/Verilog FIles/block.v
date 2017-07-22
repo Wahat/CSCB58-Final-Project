@@ -67,7 +67,7 @@ moveydown,
 
 set,
 select,
-selectdir,
+selectdir
 );
 
 input [15:0] b1;
@@ -75,7 +75,7 @@ input [15:0] b2;
 input [15:0] b3;
 input [15:0] b4;
 input [2:0] select;
-input selectdir, // 0 for horz, 1 for vertical
+input selectdir; // 0 for horz, 1 for vertical
 
 input set;
 
@@ -166,6 +166,7 @@ always@(*) begin
 			block4out = block4;
 			block4[0] = selectdir;
 		end
+	end
 end
 
 endmodule

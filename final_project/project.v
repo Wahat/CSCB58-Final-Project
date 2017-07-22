@@ -180,8 +180,8 @@ module datapath (
 	input ld_endgame,
 
 	// registers to output to VGA
-	output [6:0] xout,
-	output [6:0] yout,
+	output [11:0] xout,
+	output [10:0] yout,
 	output [2:0] colourout,
 	output plot,
 	// Registers for the end of the game
@@ -208,6 +208,7 @@ module datapath (
 	reg blockenable;
 	wire [3:0] numBlocks;
 	reg [3:0] startingBlocks;
+	reg [3:0] statereg;
 	wire hit;
 	wire obb;
 
@@ -224,6 +225,7 @@ module datapath (
 
 				// From control FSM, Press Key[0]
 				if(ld_begin) begin
+						 statereg = 3'b000;
 						 blockenable = 1'b1; // begin looping through number of blocks
 
 				end
@@ -232,6 +234,7 @@ module datapath (
 				if(ld_block) begin
 						// stop looping through number of blocks
 						// once the counter stops, it'll set the startingBlocks
+						statereg = 3'b001;
 						blockenable = 1'b0;
 						startingBlocks[3:0] <= numBlocks[3:0];
 						// block module - set to red
@@ -239,6 +242,7 @@ module datapath (
 
 				 // From control FSM, Press Key[2]
 				if(ld_set) begin
+						 statereg = 3'b010;
 						 // Draw block in grey
 						 //colourout[2:0] <= 3'b101;
 						 // block module, draw vertical or horizontal block depending on what was chosen
@@ -257,9 +261,9 @@ module datapath (
 					if (ld_endgame) begin
 							statereg = 3'b100;
 							if (obb)
-								win <= win + 1;
+								wins <= wins + 1;
 							if (hit)
-								lose <= lose + 1;
+								losses <= losses + 1;
 				 end
 		   end
 		end
@@ -280,22 +284,36 @@ module datapath (
 		.enable(blockenable),
 		.clk(clk),
 		.reset_n(1'b0),
-		.speed(3'b100),
-		.counterlimit(4'b0100), // only count up to 4
+		.speed(3'b001),
+		.counterlimit(4'b100), // only count up to 4
 		.counterOut(numBlocks[3:0]) // set the number of blocks
 		);
 
+		/*
 	graphics display(
 		.clk(clk),
-		.reset(reset_n),
+		.reset_n(reset_n),
 		.state(statereg),
+		.select(2'b01),
 		.hit(hit),
 		.oob(obb),
-		.xout(yout),
-		.yout(xout),
-		.colourout(colourout),
+		.xout(yout[10:0]),
+		.yout(xout[10:0]),
+		.colourout(colourout[2:0]),
 		.plot(plot)
 		);
+		*/
+	ball whiteball(
+	.clk(clk),
+	.select(2'b11),
+	.reset_n(reset_n),
+	.hit(hit),
+	.outofbounds(obb),
+	.xout(xout),
+	.yout(yout),
+	.colourout(colourout),
+	.plot(plot)
+	);
 
 
 endmodule
@@ -330,16 +348,16 @@ module control(
 	wire [3:0] counterout;
 	reg [3:0] counter;
 
-	localparam   S_BEGIN              = 4'd0,
+	localparam        S_BEGIN              = 4'd0,
 						   S_BEGIN_WAIT         = 4'd1,
 						   S_LOAD_BLOCK         = 4'd2,
-	  					 S_LOAD_BLOCK_WAIT    = 4'd3,
+	  					   S_LOAD_BLOCK_WAIT    = 4'd3,
 						   S_LOAD_SET           = 4'd4,
 						   S_LOAD_SET_WAIT      = 4'd5,
 						   S_OUT_STARTGAME      = 4'd6,
 						   S_OUT_STARTGAME_WAIT = 4'd7,
-							 S_OUT_ENDGAME        = 4'd8,
-							 S_OUT_ENDGAME_WAIT   = 4'd9;
+							S_OUT_ENDGAME        = 4'd8,
+							S_OUT_ENDGAME_WAIT   = 4'd9;
 
 
 	// Next state logic aka our state table
