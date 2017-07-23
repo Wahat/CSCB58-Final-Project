@@ -19,15 +19,14 @@ module ballpos(
 
 	// the initial position of the ball is at the top of the screen, in the middle,
 	initial begin
-		value_x <= 11'b1110;
-		value_y <= 11'b1111;
+		value_x <= 11'b0010;
+		value_y <= 11'b11110;
 	end
 
 	always @ (posedge clk) begin
 		if (!reset) begin
-			value_x <= 11'b1010;
-
-		   value_y <= 11'b1111;
+			  value_x <= 11'b1100;
+		    value_y <= 11'b11110;
 		end
 		else begin
 			// increment x
@@ -87,15 +86,15 @@ module ballcollisions(
 	reg dir_x, dir_y, hit, oob;
 	initial begin
 		dir_x <= 1;
-		dir_y <= 1;
+		dir_y <= 0;
 		oob <= 0;
 		hit <= 0;
 	end
 
 	always @ (posedge clk) begin
 		if (!reset) begin
-			dir_x <= dir_xstart;
-			dir_y <= dir_ystart;
+			dir_x <= 1;
+			dir_y <= 0;
 			oob <= 0;
 			hit <= 0;
 		end
@@ -107,20 +106,19 @@ module ballcollisions(
 
 			// collision with top & bottom walls
 			if (ball_y <= 3) begin
-				dir_y <= 1;
+				dir_y = 1;
 			end
 			if (ball_y >= 116) begin
-				dir_y <= 0;
+				dir_y = 0;
 			end
 
 			// collision with wall
 			if (ball_x >= 115) begin
 
-				dir_x <= 0;	// reverse direction
+				dir_x = 0;	// reverse direction
 				hit <= 1;
 			end
 
-			/*
 			// ######################BLOCK1###################################
 			// check if vertical bar
 			if (bar1[0] == 1'b1) begin
@@ -383,7 +381,7 @@ module ballcollisions(
 		if ((ball_x == 10'b1110100) && (ball_y <= 10'b1000001) && (ball_y >= 10'b110111)) begin
 			hit <= 1'b1;
 		end // ends if !oob block
-		*/
+
 	end  // end else if
 end // end always block
 endmodule

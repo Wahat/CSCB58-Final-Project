@@ -430,16 +430,16 @@ module ball(clk, select, reset_n, hit, outofbounds, xout, yout, colourout, plot)
 	output [2:0] colourout;
 	output plot;
 
-   wire clock60hz;
+  wire clock60hz;
 	wire [10:0] xposout;
 	wire [10:0] yposout;
 	wire dirx;
 	wire diry;
-	
+
 counterhz clock_60hz(
 	.enable(1'b1),
 	.clk(clk),
-	.reset_n(reset_n),
+	.reset_n(1'b0),
 	.speed(3'b100), // 60hz
 	.counterlimit(4'b0001), // only count up to 1
 	.counterOut(clock60hz) // set the number of blocks
@@ -451,10 +451,10 @@ drawsquare ball(
 	.xpos(xposout),
 	.ypos(yposout),
 	.colourin(3'b111), // make white
-	.ld_enable(outofbounds), // only move if the ball is not outofbounds
-	.xout(xout[10:0]),
-	.yout(yout[10:0]),
-	.colourout(colourout[2:0]),
+	.ld_enable(!outofbounds), // only move if the ball is not outofbounds
+	.xout(xout),
+	.yout(yout),
+	.colourout(colourout),
 	.plot(plot)
 	);
 
@@ -469,8 +469,6 @@ ballpos ballpos(
 	.value_y(yposout)
 	);
 
-
-	
 ballcollisions collide(
 	.clk(clock60hz),
 	.reset(reset_n),

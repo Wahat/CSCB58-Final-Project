@@ -1,6 +1,6 @@
 Analysis & Synthesis report for final_project
-Fri Jul 21 20:42:44 2017
-Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
+Sat Jul 22 22:55:47 2017
+Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
 ---------------------
@@ -9,85 +9,90 @@ Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
   1. Legal Notice
   2. Analysis & Synthesis Summary
   3. Analysis & Synthesis Settings
-  4. Parallel Compilation
-  5. Analysis & Synthesis Source Files Read
-  6. Analysis & Synthesis Resource Usage Summary
-  7. Analysis & Synthesis Resource Utilization by Entity
-  8. Analysis & Synthesis RAM Summary
-  9. User-Specified and Inferred Latches
- 10. Registers Removed During Synthesis
- 11. Removed Registers Triggering Further Register Optimizations
- 12. General Register Statistics
- 13. Inverted Register Statistics
- 14. Multiplexer Restructuring Statistics (Restructuring Performed)
- 15. Source assignments for vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated
- 16. Parameter Settings for User Entity Instance: vga_adapter:VGA
- 17. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_address_translator:user_input_translator
- 18. Parameter Settings for User Entity Instance: vga_adapter:VGA|altsyncram:VideoMemory
- 19. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component
- 20. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_controller:controller
- 21. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_controller:controller|vga_address_translator:controller_translator
- 22. altsyncram Parameter Settings by Entity Instance
- 23. altpll Parameter Settings by Entity Instance
- 24. Port Connectivity Checks: "control:c0"
- 25. Port Connectivity Checks: "datapath:d0|ball:whiteball|ballcollisions:collide"
- 26. Port Connectivity Checks: "datapath:d0|ball:whiteball|ballpos:ballpos"
- 27. Port Connectivity Checks: "datapath:d0|ball:whiteball|drawsquare:ball"
- 28. Port Connectivity Checks: "datapath:d0|ball:whiteball|counterhz:clock_60hz"
- 29. Port Connectivity Checks: "datapath:d0|ball:whiteball"
- 30. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz"
- 31. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz"
- 32. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock1hz"
- 33. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz"
- 34. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz"
- 35. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter"
- 36. Port Connectivity Checks: "datapath:d0"
- 37. Port Connectivity Checks: "vga_adapter:VGA"
- 38. Post-Synthesis Netlist Statistics for Top Partition
- 39. Elapsed Time Per Partition
- 40. Analysis & Synthesis Messages
- 41. Analysis & Synthesis Suppressed Messages
+  4. Analysis & Synthesis Source Files Read
+  5. Analysis & Synthesis Resource Usage Summary
+  6. Analysis & Synthesis Resource Utilization by Entity
+  7. Analysis & Synthesis RAM Summary
+  8. Analysis & Synthesis IP Cores Summary
+  9. State Machine - |projectVGA|datapath:d0|PS2_Controller:PS2|s_ps2_transceiver
+ 10. State Machine - |projectVGA|datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter
+ 11. State Machine - |projectVGA|datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver
+ 12. Registers Removed During Synthesis
+ 13. Removed Registers Triggering Further Register Optimizations
+ 14. General Register Statistics
+ 15. Inverted Register Statistics
+ 16. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 17. Source assignments for vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated
+ 18. Source assignments for vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated|altsyncram_n6r1:altsyncram1
+ 19. Parameter Settings for User Entity Instance: vga_adapter:VGA
+ 20. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_address_translator:user_input_translator
+ 21. Parameter Settings for User Entity Instance: vga_adapter:VGA|altsyncram:VideoMemory
+ 22. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component
+ 23. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_controller:controller
+ 24. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_controller:controller|vga_address_translator:controller_translator
+ 25. Parameter Settings for User Entity Instance: datapath:d0|PS2_Controller:PS2
+ 26. Parameter Settings for User Entity Instance: datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out
+ 27. altsyncram Parameter Settings by Entity Instance
+ 28. altpll Parameter Settings by Entity Instance
+ 29. Port Connectivity Checks: "control:c0|counterhz:numblocksUsedcounter"
+ 30. Port Connectivity Checks: "control:c0"
+ 31. Port Connectivity Checks: "datapath:d0|PS2_Controller:PS2"
+ 32. Port Connectivity Checks: "datapath:d0|ball:whiteball|ballcollisions:collide"
+ 33. Port Connectivity Checks: "datapath:d0|ball:whiteball|ballpos:ballpos"
+ 34. Port Connectivity Checks: "datapath:d0|ball:whiteball|drawsquare:ball"
+ 35. Port Connectivity Checks: "datapath:d0|ball:whiteball|counterhz:clock_60hz"
+ 36. Port Connectivity Checks: "datapath:d0|ball:whiteball"
+ 37. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz"
+ 38. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz"
+ 39. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock1hz"
+ 40. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz"
+ 41. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz"
+ 42. Port Connectivity Checks: "datapath:d0|counterhz:numblockscounter"
+ 43. Port Connectivity Checks: "datapath:d0"
+ 44. Port Connectivity Checks: "vga_adapter:VGA"
+ 45. Elapsed Time Per Partition
+ 46. Analysis & Synthesis Messages
+ 47. Analysis & Synthesis Suppressed Messages
 
 
 
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
+Copyright (C) 1991-2013 Altera Corporation
 Your use of Altera Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
 to the terms and conditions of the Altera Program License 
-Subscription Agreement, the Altera Quartus Prime License Agreement,
-the Altera MegaCore Function License Agreement, or other 
-applicable license agreement, including, without limitation, 
-that your use is for the sole purpose of programming logic 
-devices manufactured by Altera and sold by Altera or its 
-authorized distributors.  Please refer to the applicable 
-agreement for further details.
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
 
 
 
-+----------------------------------------------------------------------------------+
-; Analysis & Synthesis Summary                                                     ;
-+------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Jul 21 20:42:44 2017       ;
-; Quartus Prime Version              ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition ;
-; Revision Name                      ; final_project                               ;
-; Top-level Entity Name              ; projectVGA                                  ;
-; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 350                                         ;
-;     Total combinational functions  ; 345                                         ;
-;     Dedicated logic registers      ; 150                                         ;
-; Total registers                    ; 150                                         ;
-; Total pins                         ; 102                                         ;
-; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 57,600                                      ;
-; Embedded Multiplier 9-bit elements ; 0                                           ;
-; Total PLLs                         ; 1                                           ;
-+------------------------------------+---------------------------------------------+
++--------------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                         ;
++------------------------------------+-------------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Sat Jul 22 22:55:47 2017           ;
+; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
+; Revision Name                      ; final_project                                   ;
+; Top-level Entity Name              ; projectVGA                                      ;
+; Family                             ; Cyclone II                                      ;
+; Total logic elements               ; 415                                             ;
+;     Total combinational functions  ; 409                                             ;
+;     Dedicated logic registers      ; 184                                             ;
+; Total registers                    ; 184                                             ;
+; Total pins                         ; 104                                             ;
+; Total virtual pins                 ; 0                                               ;
+; Total memory bits                  ; 57,600                                          ;
+; Embedded Multiplier 9-bit elements ; 0                                               ;
+; Total PLLs                         ; 1                                               ;
++------------------------------------+-------------------------------------------------+
 
 
 +----------------------------------------------------------------------------------------------------------------------+
@@ -95,9 +100,9 @@ agreement for further details.
 +----------------------------------------------------------------------------+--------------------+--------------------+
 ; Option                                                                     ; Setting            ; Default Value      ;
 +----------------------------------------------------------------------------+--------------------+--------------------+
-; Device                                                                     ; EP4CE115F29C7      ;                    ;
+; Device                                                                     ; EP2C35F672C6       ;                    ;
 ; Top-level entity name                                                      ; projectVGA         ; final_project      ;
-; Family name                                                                ; Cyclone IV E       ; Cyclone V          ;
+; Family name                                                                ; Cyclone II         ; Cyclone IV GX      ;
 ; Use smart compilation                                                      ; Off                ; Off                ;
 ; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
 ; Enable compact report table                                                ; Off                ; Off                ;
@@ -136,14 +141,12 @@ agreement for further details.
 ; Perform WYSIWYG Primitive Resynthesis                                      ; Off                ; Off                ;
 ; Auto ROM Replacement                                                       ; On                 ; On                 ;
 ; Auto RAM Replacement                                                       ; On                 ; On                 ;
-; Auto DSP Block Replacement                                                 ; On                 ; On                 ;
 ; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
 ; Allow Shift Register Merging across Hierarchies                            ; Auto               ; Auto               ;
 ; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
 ; Strict RAM Replacement                                                     ; Off                ; Off                ;
 ; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
 ; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
-; Auto RAM Block Balancing                                                   ; On                 ; On                 ;
 ; Auto RAM to Logic Cell Conversion                                          ; Off                ; Off                ;
 ; Auto Resource Sharing                                                      ; Off                ; Off                ;
 ; Allow Any RAM Size For Recognition                                         ; Off                ; Off                ;
@@ -151,13 +154,13 @@ agreement for further details.
 ; Allow Any Shift Register Size For Recognition                              ; Off                ; Off                ;
 ; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
 ; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
-; Timing-Driven Synthesis                                                    ; On                 ; On                 ;
+; Timing-Driven Synthesis                                                    ; Off                ; Off                ;
 ; Report Parameter Settings                                                  ; On                 ; On                 ;
 ; Report Source Assignments                                                  ; On                 ; On                 ;
 ; Report Connectivity Checks                                                 ; On                 ; On                 ;
 ; Ignore Maximum Fan-Out Assignments                                         ; Off                ; Off                ;
 ; Synchronization Register Chain Length                                      ; 2                  ; 2                  ;
-; PowerPlay Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; PowerPlay Power Optimization                                               ; Normal compilation ; Normal compilation ;
 ; HDL message level                                                          ; Level2             ; Level2             ;
 ; Suppress Register Optimization Related Messages                            ; Off                ; Off                ;
 ; Number of Removed Registers Reported in Synthesis Report                   ; 5000               ; 5000               ;
@@ -177,214 +180,358 @@ agreement for further details.
 +----------------------------------------------------------------------------+--------------------+--------------------+
 
 
-Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
-+-------------------------------------+
-; Parallel Compilation                ;
-+----------------------------+--------+
-; Processors                 ; Number ;
-+----------------------------+--------+
-; Number detected on machine ; 4      ;
-; Maximum allowed            ; 1      ;
-+----------------------------+--------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                         ;
++---------------------------------------------+-----------------+----------------------------------+-----------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path            ; Used in Netlist ; File Type                        ; File Name with Absolute Path                                                      ; Library ;
++---------------------------------------------+-----------------+----------------------------------+-----------------------------------------------------------------------------------+---------+
+; ../PS2/PS2_Controller.v                     ; yes             ; User Verilog HDL File            ; /home/kevin/Dropbox/CSCB58-Final-Project/PS2/PS2_Controller.v                     ;         ;
+; ../PS2/Altera_UP_PS2_Data_In.v              ; yes             ; User Verilog HDL File            ; /home/kevin/Dropbox/CSCB58-Final-Project/PS2/Altera_UP_PS2_Data_In.v              ;         ;
+; ../PS2/Altera_UP_PS2_Command_Out.v          ; yes             ; User Verilog HDL File            ; /home/kevin/Dropbox/CSCB58-Final-Project/PS2/Altera_UP_PS2_Command_Out.v          ;         ;
+; Verilog FIles/graphics.v                    ; yes             ; User Verilog HDL File            ; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/Verilog FIles/graphics.v   ;         ;
+; Verilog FIles/counter.v                     ; yes             ; User Verilog HDL File            ; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/Verilog FIles/counter.v    ;         ;
+; Verilog FIles/collision2.v                  ; yes             ; User Verilog HDL File            ; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/Verilog FIles/collision2.v ;         ;
+; background.mif                              ; yes             ; User Memory Initialization File  ; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/background.mif             ;         ;
+; project.v                                   ; yes             ; User Verilog HDL File            ; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/project.v                  ;         ;
+; ../VGA/vga_adapter/vga_pll.v                ; yes             ; User Wizard-Generated File       ; /home/kevin/Dropbox/CSCB58-Final-Project/VGA/vga_adapter/vga_pll.v                ;         ;
+; ../VGA/vga_adapter/vga_controller.v         ; yes             ; User Verilog HDL File            ; /home/kevin/Dropbox/CSCB58-Final-Project/VGA/vga_adapter/vga_controller.v         ;         ;
+; ../VGA/vga_adapter/vga_address_translator.v ; yes             ; User Verilog HDL File            ; /home/kevin/Dropbox/CSCB58-Final-Project/VGA/vga_adapter/vga_address_translator.v ;         ;
+; ../VGA/vga_adapter/vga_adapter.v            ; yes             ; User Verilog HDL File            ; /home/kevin/Dropbox/CSCB58-Final-Project/VGA/vga_adapter/vga_adapter.v            ;         ;
+; altsyncram.tdf                              ; yes             ; Megafunction                     ; /home/kevin/altera/13.0sp1/quartus/libraries/megafunctions/altsyncram.tdf         ;         ;
+; stratix_ram_block.inc                       ; yes             ; Megafunction                     ; /home/kevin/altera/13.0sp1/quartus/libraries/megafunctions/stratix_ram_block.inc  ;         ;
+; lpm_mux.inc                                 ; yes             ; Megafunction                     ; /home/kevin/altera/13.0sp1/quartus/libraries/megafunctions/lpm_mux.inc            ;         ;
+; lpm_decode.inc                              ; yes             ; Megafunction                     ; /home/kevin/altera/13.0sp1/quartus/libraries/megafunctions/lpm_decode.inc         ;         ;
+; aglobal130.inc                              ; yes             ; Megafunction                     ; /home/kevin/altera/13.0sp1/quartus/libraries/megafunctions/aglobal130.inc         ;         ;
+; a_rdenreg.inc                               ; yes             ; Megafunction                     ; /home/kevin/altera/13.0sp1/quartus/libraries/megafunctions/a_rdenreg.inc          ;         ;
+; altrom.inc                                  ; yes             ; Megafunction                     ; /home/kevin/altera/13.0sp1/quartus/libraries/megafunctions/altrom.inc             ;         ;
+; altram.inc                                  ; yes             ; Megafunction                     ; /home/kevin/altera/13.0sp1/quartus/libraries/megafunctions/altram.inc             ;         ;
+; altdpram.inc                                ; yes             ; Megafunction                     ; /home/kevin/altera/13.0sp1/quartus/libraries/megafunctions/altdpram.inc           ;         ;
+; db/altsyncram_ncg1.tdf                      ; yes             ; Auto-Generated Megafunction      ; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/db/altsyncram_ncg1.tdf     ;         ;
+; db/altsyncram_n6r1.tdf                      ; yes             ; Auto-Generated Megafunction      ; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/db/altsyncram_n6r1.tdf     ;         ;
+; db/decode_6oa.tdf                           ; yes             ; Auto-Generated Megafunction      ; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/db/decode_6oa.tdf          ;         ;
+; db/mux_hib.tdf                              ; yes             ; Auto-Generated Megafunction      ; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/db/mux_hib.tdf             ;         ;
+; altpll.tdf                                  ; yes             ; Megafunction                     ; /home/kevin/altera/13.0sp1/quartus/libraries/megafunctions/altpll.tdf             ;         ;
+; stratix_pll.inc                             ; yes             ; Megafunction                     ; /home/kevin/altera/13.0sp1/quartus/libraries/megafunctions/stratix_pll.inc        ;         ;
+; stratixii_pll.inc                           ; yes             ; Megafunction                     ; /home/kevin/altera/13.0sp1/quartus/libraries/megafunctions/stratixii_pll.inc      ;         ;
+; cycloneii_pll.inc                           ; yes             ; Megafunction                     ; /home/kevin/altera/13.0sp1/quartus/libraries/megafunctions/cycloneii_pll.inc      ;         ;
++---------------------------------------------+-----------------+----------------------------------+-----------------------------------------------------------------------------------+---------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                                   ;
-+---------------------------------------------+-----------------+----------------------------------+---------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path            ; Used in Netlist ; File Type                        ; File Name with Absolute Path                                                                ; Library ;
-+---------------------------------------------+-----------------+----------------------------------+---------------------------------------------------------------------------------------------+---------+
-; Verilog FIles/graphics.v                    ; yes             ; User Verilog HDL File            ; /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/graphics.v   ;         ;
-; Verilog FIles/counter.v                     ; yes             ; User Verilog HDL File            ; /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/counter.v    ;         ;
-; Verilog FIles/collision2.v                  ; yes             ; User Verilog HDL File            ; /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/collision2.v ;         ;
-; background.mif                              ; yes             ; User Memory Initialization File  ; /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/background.mif             ;         ;
-; project.v                                   ; yes             ; User Verilog HDL File            ; /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v                  ;         ;
-; ../VGA/vga_adapter/vga_pll.v                ; yes             ; User Wizard-Generated File       ; /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_pll.v                ;         ;
-; ../VGA/vga_adapter/vga_controller.v         ; yes             ; User Verilog HDL File            ; /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_controller.v         ;         ;
-; ../VGA/vga_adapter/vga_address_translator.v ; yes             ; User Verilog HDL File            ; /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_address_translator.v ;         ;
-; ../VGA/vga_adapter/vga_adapter.v            ; yes             ; User Verilog HDL File            ; /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_adapter.v            ;         ;
-; altsyncram.tdf                              ; yes             ; Megafunction                     ; /usr/local/cms/altera_lite/16.0/quartus/libraries/megafunctions/altsyncram.tdf              ;         ;
-; stratix_ram_block.inc                       ; yes             ; Megafunction                     ; /usr/local/cms/altera_lite/16.0/quartus/libraries/megafunctions/stratix_ram_block.inc       ;         ;
-; lpm_mux.inc                                 ; yes             ; Megafunction                     ; /usr/local/cms/altera_lite/16.0/quartus/libraries/megafunctions/lpm_mux.inc                 ;         ;
-; lpm_decode.inc                              ; yes             ; Megafunction                     ; /usr/local/cms/altera_lite/16.0/quartus/libraries/megafunctions/lpm_decode.inc              ;         ;
-; aglobal160.inc                              ; yes             ; Megafunction                     ; /usr/local/cms/altera_lite/16.0/quartus/libraries/megafunctions/aglobal160.inc              ;         ;
-; a_rdenreg.inc                               ; yes             ; Megafunction                     ; /usr/local/cms/altera_lite/16.0/quartus/libraries/megafunctions/a_rdenreg.inc               ;         ;
-; altrom.inc                                  ; yes             ; Megafunction                     ; /usr/local/cms/altera_lite/16.0/quartus/libraries/megafunctions/altrom.inc                  ;         ;
-; altram.inc                                  ; yes             ; Megafunction                     ; /usr/local/cms/altera_lite/16.0/quartus/libraries/megafunctions/altram.inc                  ;         ;
-; altdpram.inc                                ; yes             ; Megafunction                     ; /usr/local/cms/altera_lite/16.0/quartus/libraries/megafunctions/altdpram.inc                ;         ;
-; db/altsyncram_9hg1.tdf                      ; yes             ; Auto-Generated Megafunction      ; /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/db/altsyncram_9hg1.tdf     ;         ;
-; db/decode_lsa.tdf                           ; yes             ; Auto-Generated Megafunction      ; /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/db/decode_lsa.tdf          ;         ;
-; db/decode_e8a.tdf                           ; yes             ; Auto-Generated Megafunction      ; /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/db/decode_e8a.tdf          ;         ;
-; db/mux_0nb.tdf                              ; yes             ; Auto-Generated Megafunction      ; /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/db/mux_0nb.tdf             ;         ;
-; altpll.tdf                                  ; yes             ; Megafunction                     ; /usr/local/cms/altera_lite/16.0/quartus/libraries/megafunctions/altpll.tdf                  ;         ;
-; stratix_pll.inc                             ; yes             ; Megafunction                     ; /usr/local/cms/altera_lite/16.0/quartus/libraries/megafunctions/stratix_pll.inc             ;         ;
-; stratixii_pll.inc                           ; yes             ; Megafunction                     ; /usr/local/cms/altera_lite/16.0/quartus/libraries/megafunctions/stratixii_pll.inc           ;         ;
-; cycloneii_pll.inc                           ; yes             ; Megafunction                     ; /usr/local/cms/altera_lite/16.0/quartus/libraries/megafunctions/cycloneii_pll.inc           ;         ;
-+---------------------------------------------+-----------------+----------------------------------+---------------------------------------------------------------------------------------------+---------+
++--------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary            ;
++---------------------------------------------+----------+
+; Resource                                    ; Usage    ;
++---------------------------------------------+----------+
+; Estimated Total logic elements              ; 415      ;
+;                                             ;          ;
+; Total combinational functions               ; 409      ;
+; Logic element usage by number of LUT inputs ;          ;
+;     -- 4 input functions                    ; 118      ;
+;     -- 3 input functions                    ; 79       ;
+;     -- <=2 input functions                  ; 212      ;
+;                                             ;          ;
+; Logic elements by mode                      ;          ;
+;     -- normal mode                          ; 237      ;
+;     -- arithmetic mode                      ; 172      ;
+;                                             ;          ;
+; Total registers                             ; 184      ;
+;     -- Dedicated logic registers            ; 184      ;
+;     -- I/O registers                        ; 0        ;
+;                                             ;          ;
+; I/O pins                                    ; 104      ;
+; Total memory bits                           ; 57600    ;
+; Embedded Multiplier 9-bit elements          ; 0        ;
+; Total PLLs                                  ; 1        ;
+;     -- PLLs                                 ; 1        ;
+;                                             ;          ;
+; Maximum fan-out node                        ; CLOCK_50 ;
+; Maximum fan-out                             ; 143      ;
+; Total fan-out                               ; 2182     ;
+; Average fan-out                             ; 3.06     ;
++---------------------------------------------+----------+
 
 
-+--------------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary                  ;
-+---------------------------------------------+----------------+
-; Resource                                    ; Usage          ;
-+---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 350            ;
-;                                             ;                ;
-; Total combinational functions               ; 345            ;
-; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 105            ;
-;     -- 3 input functions                    ; 57             ;
-;     -- <=2 input functions                  ; 183            ;
-;                                             ;                ;
-; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 200            ;
-;     -- arithmetic mode                      ; 145            ;
-;                                             ;                ;
-; Total registers                             ; 150            ;
-;     -- Dedicated logic registers            ; 150            ;
-;     -- I/O registers                        ; 0              ;
-;                                             ;                ;
-; I/O pins                                    ; 102            ;
-; Total memory bits                           ; 57600          ;
-;                                             ;                ;
-; Embedded Multiplier 9-bit elements          ; 0              ;
-;                                             ;                ;
-; Total PLLs                                  ; 1              ;
-;     -- PLLs                                 ; 1              ;
-;                                             ;                ;
-; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 105            ;
-; Total fan-out                               ; 1797           ;
-; Average fan-out                             ; 2.53           ;
-+---------------------------------------------+----------------+
-
-
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                      ;
-+---------------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------+------------------------+--------------+
-; Compilation Hierarchy Node                              ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                        ; Entity Name            ; Library Name ;
-+---------------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------+------------------------+--------------+
-; |projectVGA                                             ; 345 (1)           ; 150 (0)      ; 57600       ; 0            ; 0       ; 0         ; 102  ; 0            ; |projectVGA                                                                                                ; projectVGA             ; work         ;
-;    |control:c0|                                         ; 26 (26)           ; 4 (4)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|control:c0                                                                                     ; control                ; work         ;
-;    |datapath:d0|                                        ; 193 (10)          ; 116 (9)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0                                                                                    ; datapath               ; work         ;
-;       |ball:whiteball|                                  ; 131 (0)           ; 74 (0)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ball:whiteball                                                                     ; ball                   ; work         ;
-;          |ballcollisions:collide|                       ; 13 (13)           ; 3 (3)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ball:whiteball|ballcollisions:collide                                              ; ballcollisions         ; work         ;
-;          |ballpos:ballpos|                              ; 44 (44)           ; 22 (22)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ball:whiteball|ballpos:ballpos                                                     ; ballpos                ; work         ;
-;          |counterhz:clock_60hz|                         ; 40 (9)            ; 30 (1)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ball:whiteball|counterhz:clock_60hz                                                ; counterhz              ; work         ;
-;             |counter:modifiedcounter|                   ; 2 (2)             ; 1 (1)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter                        ; counter                ; work         ;
-;             |ratedivider:clock60hz|                     ; 29 (29)           ; 28 (28)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock60hz                          ; ratedivider            ; work         ;
-;          |drawsquare:ball|                              ; 34 (34)           ; 19 (19)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ball:whiteball|drawsquare:ball                                                     ; drawsquare             ; work         ;
-;       |counterhz:numblockscounter|                      ; 52 (9)            ; 33 (1)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|counterhz:numblockscounter                                                         ; counterhz              ; work         ;
-;          |counter:modifiedcounter|                      ; 5 (5)             ; 4 (4)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|counterhz:numblockscounter|counter:modifiedcounter                                 ; counter                ; work         ;
-;          |ratedivider:clock1hz|                         ; 38 (38)           ; 28 (28)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|counterhz:numblockscounter|ratedivider:clock1hz                                    ; ratedivider            ; work         ;
-;    |hex_decoder:hex0|                                   ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|hex_decoder:hex0                                                                               ; hex_decoder            ; work         ;
-;    |hex_decoder:hex2|                                   ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|hex_decoder:hex2                                                                               ; hex_decoder            ; work         ;
-;    |hex_decoder:hex4|                                   ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|hex_decoder:hex4                                                                               ; hex_decoder            ; work         ;
-;    |hex_decoder:hex5|                                   ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|hex_decoder:hex5                                                                               ; hex_decoder            ; work         ;
-;    |vga_adapter:VGA|                                    ; 97 (1)            ; 30 (0)       ; 57600       ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA                                                                                ; vga_adapter            ; work         ;
-;       |altsyncram:VideoMemory|                          ; 12 (0)            ; 4 (0)        ; 57600       ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|altsyncram:VideoMemory                                                         ; altsyncram             ; work         ;
-;          |altsyncram_9hg1:auto_generated|               ; 12 (0)            ; 4 (4)        ; 57600       ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated                          ; altsyncram_9hg1        ; work         ;
-;             |decode_e8a:rden_decode_b|                  ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated|decode_e8a:rden_decode_b ; decode_e8a             ; work         ;
-;             |decode_lsa:decode2|                        ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated|decode_lsa:decode2       ; decode_lsa             ; work         ;
-;             |mux_0nb:mux3|                              ; 6 (6)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated|mux_0nb:mux3             ; mux_0nb                ; work         ;
-;       |vga_address_translator:user_input_translator|    ; 18 (18)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|vga_address_translator:user_input_translator                                   ; vga_address_translator ; work         ;
-;       |vga_controller:controller|                       ; 66 (48)           ; 26 (26)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|vga_controller:controller                                                      ; vga_controller         ; work         ;
-;          |vga_address_translator:controller_translator| ; 18 (18)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|vga_controller:controller|vga_address_translator:controller_translator         ; vga_address_translator ; work         ;
-;       |vga_pll:mypll|                                   ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|vga_pll:mypll                                                                  ; vga_pll                ; work         ;
-;          |altpll:altpll_component|                      ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component                                          ; altpll                 ; work         ;
-+---------------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------------------+------------------------+--------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                    ;
++---------------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------------------------------------------------------+--------------+
+; Compilation Hierarchy Node                              ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                               ; Library Name ;
++---------------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------------------------------------------------------+--------------+
+; |projectVGA                                             ; 409 (1)           ; 184 (0)      ; 57600       ; 0            ; 0       ; 0         ; 104  ; 0            ; |projectVGA                                                                                                                       ; work         ;
+;    |control:c0|                                         ; 60 (12)           ; 37 (4)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|control:c0                                                                                                            ; work         ;
+;       |counterhz:numblocksUsedcounter|                  ; 48 (10)           ; 33 (1)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|control:c0|counterhz:numblocksUsedcounter                                                                             ; work         ;
+;          |counter:modifiedcounter|                      ; 8 (8)             ; 4 (4)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|control:c0|counterhz:numblocksUsedcounter|counter:modifiedcounter                                                     ; work         ;
+;          |ratedivider:clock60hz|                        ; 30 (30)           ; 28 (28)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|control:c0|counterhz:numblocksUsedcounter|ratedivider:clock60hz                                                       ; work         ;
+;    |datapath:d0|                                        ; 211 (11)          ; 115 (9)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0                                                                                                           ; work         ;
+;       |ball:whiteball|                                  ; 152 (0)           ; 73 (0)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ball:whiteball                                                                                            ; work         ;
+;          |ballcollisions:collide|                       ; 19 (19)           ; 4 (4)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ball:whiteball|ballcollisions:collide                                                                     ; work         ;
+;          |ballpos:ballpos|                              ; 45 (45)           ; 21 (21)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ball:whiteball|ballpos:ballpos                                                                            ; work         ;
+;          |counterhz:clock_60hz|                         ; 55 (9)            ; 30 (1)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ball:whiteball|counterhz:clock_60hz                                                                       ; work         ;
+;             |counter:modifiedcounter|                   ; 1 (1)             ; 1 (1)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter                                               ; work         ;
+;             |ratedivider:clock60hz|                     ; 45 (45)           ; 28 (28)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock60hz                                                 ; work         ;
+;          |drawsquare:ball|                              ; 33 (33)           ; 18 (18)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|ball:whiteball|drawsquare:ball                                                                            ; work         ;
+;       |counterhz:numblockscounter|                      ; 48 (10)           ; 33 (1)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|counterhz:numblockscounter                                                                                ; work         ;
+;          |counter:modifiedcounter|                      ; 8 (8)             ; 4 (4)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|counterhz:numblockscounter|counter:modifiedcounter                                                        ; work         ;
+;          |ratedivider:clock1hz|                         ; 30 (30)           ; 28 (28)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|datapath:d0|counterhz:numblockscounter|ratedivider:clock1hz                                                           ; work         ;
+;    |hex_decoder:hex0|                                   ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|hex_decoder:hex0                                                                                                      ; work         ;
+;    |hex_decoder:hex2|                                   ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|hex_decoder:hex2                                                                                                      ; work         ;
+;    |hex_decoder:hex4|                                   ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|hex_decoder:hex4                                                                                                      ; work         ;
+;    |hex_decoder:hex5|                                   ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|hex_decoder:hex5                                                                                                      ; work         ;
+;    |vga_adapter:VGA|                                    ; 109 (2)           ; 32 (0)       ; 57600       ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA                                                                                                       ; work         ;
+;       |altsyncram:VideoMemory|                          ; 24 (0)            ; 6 (0)        ; 57600       ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|altsyncram:VideoMemory                                                                                ; work         ;
+;          |altsyncram_ncg1:auto_generated|               ; 24 (0)            ; 6 (0)        ; 57600       ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated                                                 ; work         ;
+;             |altsyncram_n6r1:altsyncram1|               ; 24 (0)            ; 6 (6)        ; 57600       ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated|altsyncram_n6r1:altsyncram1                     ; work         ;
+;                |decode_6oa:decode4|                     ; 5 (5)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated|altsyncram_n6r1:altsyncram1|decode_6oa:decode4  ; work         ;
+;                |decode_6oa:decode_a|                    ; 5 (5)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated|altsyncram_n6r1:altsyncram1|decode_6oa:decode_a ; work         ;
+;                |decode_6oa:decode_b|                    ; 5 (5)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated|altsyncram_n6r1:altsyncram1|decode_6oa:decode_b ; work         ;
+;                |mux_hib:mux5|                           ; 9 (9)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated|altsyncram_n6r1:altsyncram1|mux_hib:mux5        ; work         ;
+;       |vga_address_translator:user_input_translator|    ; 18 (18)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|vga_address_translator:user_input_translator                                                          ; work         ;
+;       |vga_controller:controller|                       ; 65 (47)           ; 26 (26)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|vga_controller:controller                                                                             ; work         ;
+;          |vga_address_translator:controller_translator| ; 18 (18)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|vga_controller:controller|vga_address_translator:controller_translator                                ; work         ;
+;       |vga_pll:mypll|                                   ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|vga_pll:mypll                                                                                         ; work         ;
+;          |altpll:altpll_component|                      ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |projectVGA|vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component                                                                 ; work         ;
++---------------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------------------------------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis RAM Summary                                                                                                                                                                ;
-+----------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+----------------+
-; Name                                                                             ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF            ;
-+----------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+----------------+
-; vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 19200        ; 3            ; 19200        ; 3            ; 57600 ; background.mif ;
-+----------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+----------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                                          ;
++--------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+-------+----------------+
+; Name                                                                                                         ; Type ; Mode           ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF            ;
++--------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+-------+----------------+
+; vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated|altsyncram_n6r1:altsyncram1|ALTSYNCRAM ; AUTO ; True Dual Port ; 19200        ; 3            ; 19200        ; 3            ; 57600 ; background.mif ;
++--------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+-------+----------------+
 
 
-+----------------------------------------------------------------------------------------------------+
-; User-Specified and Inferred Latches                                                                ;
-+----------------------------------------------------+----------------------+------------------------+
-; Latch Name                                         ; Latch Enable Signal  ; Free of Timing Hazards ;
-+----------------------------------------------------+----------------------+------------------------+
-; control:c0|numBlocksUsed[0]                        ; control:c0|Selector8 ; yes                    ;
-; control:c0|numBlocksUsed[1]                        ; control:c0|Selector8 ; yes                    ;
-; control:c0|numBlocksUsed[2]                        ; control:c0|Selector8 ; yes                    ;
-; control:c0|numBlocksUsed[3]                        ; control:c0|Selector8 ; yes                    ;
-; Number of user-specified and inferred latches = 4  ;                      ;                        ;
-+----------------------------------------------------+----------------------+------------------------+
-Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis IP Cores Summary                                                                                                                                          ;
++--------+--------------+---------+--------------+--------------+-------------------------------------------+--------------------------------------------------------------------+
+; Vendor ; IP Core Name ; Version ; Release Date ; License Type ; Entity Instance                           ; IP Include File                                                    ;
++--------+--------------+---------+--------------+--------------+-------------------------------------------+--------------------------------------------------------------------+
+; Altera ; ALTPLL       ; N/A     ; N/A          ; N/A          ; |projectVGA|vga_adapter:VGA|vga_pll:mypll ; /home/kevin/Dropbox/CSCB58-Final-Project/VGA/vga_adapter/vga_pll.v ;
++--------+--------------+---------+--------------+--------------+-------------------------------------------+--------------------------------------------------------------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                                                                                     ;
-+----------------------------------------------------------------------------------+---------------------------------------------------------------------+
-; Register name                                                                    ; Reason for Removal                                                  ;
-+----------------------------------------------------------------------------------+---------------------------------------------------------------------+
-; control:c0|current_state[4..6]                                                   ; Stuck at GND due to stuck port data_in                              ;
-; datapath:d0|ball:whiteball|drawsquare:ball|x_in[11]                              ; Stuck at GND due to stuck port data_in                              ;
-; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_25hz|q[0..27] ; Lost fanout                                                         ;
-; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_5hz|q[0..27]  ; Lost fanout                                                         ;
-; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock1hz|q[0..27]    ; Lost fanout                                                         ;
-; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock50hz|q[0..27]   ; Lost fanout                                                         ;
-; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[0..27]          ; Lost fanout                                                         ;
-; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[0..27]           ; Lost fanout                                                         ;
-; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[0..27]            ; Lost fanout                                                         ;
-; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[0..27]            ; Lost fanout                                                         ;
-; datapath:d0|ball:whiteball|drawsquare:ball|y_in[7..10]                           ; Lost fanout                                                         ;
-; datapath:d0|ball:whiteball|drawsquare:ball|x_in[7..10]                           ; Lost fanout                                                         ;
-; datapath:d0|ball:whiteball|ballcollisions:collide|hit                            ; Merged with datapath:d0|ball:whiteball|ballcollisions:collide|dir_x ;
-; datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[1..3]  ; Lost fanout                                                         ;
-; Total Number of Removed Registers = 240                                          ;                                                                     ;
-+----------------------------------------------------------------------------------+---------------------------------------------------------------------+
+Encoding Type:  One-Hot
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |projectVGA|datapath:d0|PS2_Controller:PS2|s_ps2_transceiver                                                                                                                                                                                 ;
++--------------------------------------------+--------------------------------------------+-------------------------------------------+---------------------------------------+------------------------------------+-------------------------------------------+
+; Name                                       ; s_ps2_transceiver.PS2_STATE_3_END_TRANSFER ; s_ps2_transceiver.PS2_STATE_2_COMMAND_OUT ; s_ps2_transceiver.PS2_STATE_1_DATA_IN ; s_ps2_transceiver.PS2_STATE_0_IDLE ; s_ps2_transceiver.PS2_STATE_4_END_DELAYED ;
++--------------------------------------------+--------------------------------------------+-------------------------------------------+---------------------------------------+------------------------------------+-------------------------------------------+
+; s_ps2_transceiver.PS2_STATE_0_IDLE         ; 0                                          ; 0                                         ; 0                                     ; 0                                  ; 0                                         ;
+; s_ps2_transceiver.PS2_STATE_1_DATA_IN      ; 0                                          ; 0                                         ; 1                                     ; 1                                  ; 0                                         ;
+; s_ps2_transceiver.PS2_STATE_2_COMMAND_OUT  ; 0                                          ; 1                                         ; 0                                     ; 1                                  ; 0                                         ;
+; s_ps2_transceiver.PS2_STATE_3_END_TRANSFER ; 1                                          ; 0                                         ; 0                                     ; 1                                  ; 0                                         ;
+; s_ps2_transceiver.PS2_STATE_4_END_DELAYED  ; 0                                          ; 0                                         ; 0                                     ; 1                                  ; 1                                         ;
++--------------------------------------------+--------------------------------------------+-------------------------------------------+---------------------------------------+------------------------------------+-------------------------------------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                                                                                                                        ;
-+------------------------------------------------------------------------------+--------------------+--------------------------------------------------------------------------------+
-; Register name                                                                ; Reason for Removal ; Registers Removed due to This Register                                         ;
-+------------------------------------------------------------------------------+--------------------+--------------------------------------------------------------------------------+
-; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_25hz|q[0] ; Lost Fanouts       ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_25hz|q[23], ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_25hz|q[24], ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_25hz|q[25], ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_25hz|q[26], ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_25hz|q[27]  ;
-; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_5hz|q[0]  ; Lost Fanouts       ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_5hz|q[23],  ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_5hz|q[24],  ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_5hz|q[25],  ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_5hz|q[26],  ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_5hz|q[27]   ;
-; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock1hz|q[0]    ; Lost Fanouts       ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock1hz|q[23],    ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock1hz|q[24],    ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock1hz|q[25],    ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock1hz|q[26],    ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock1hz|q[27]     ;
-; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock50hz|q[0]   ; Lost Fanouts       ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock50hz|q[23],   ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock50hz|q[24],   ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock50hz|q[25],   ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock50hz|q[26],   ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock50hz|q[27]    ;
-; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[0]          ; Lost Fanouts       ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[24],          ;
-;                                                                              ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[25],          ;
-;                                                                              ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[26],          ;
-;                                                                              ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[27]           ;
-; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[0]           ; Lost Fanouts       ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[24],           ;
-;                                                                              ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[25],           ;
-;                                                                              ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[26],           ;
-;                                                                              ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[27]            ;
-; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[0]            ; Lost Fanouts       ; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[24],            ;
-;                                                                              ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[25],            ;
-;                                                                              ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[26],            ;
-;                                                                              ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[27]             ;
-; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[0]            ; Lost Fanouts       ; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[24],            ;
-;                                                                              ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[25],            ;
-;                                                                              ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[26],            ;
-;                                                                              ;                    ; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[27]             ;
-; datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[1] ; Lost Fanouts       ; datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[2],  ;
-;                                                                              ;                    ; datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[3]   ;
-+------------------------------------------------------------------------------+--------------------+--------------------------------------------------------------------------------+
+Encoding Type:  One-Hot
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |projectVGA|datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter                                                                                                                                                                                                                                                                                                                              ;
++------------------------------------------------------+--------------------------------------------------+------------------------------------------------+-----------------------------------------------+-------------------------------------------------+---------------------------------------------+----------------------------------------------+------------------------------------------------------+------------------------------------+
+; Name                                                 ; s_ps2_transmitter.PS2_STATE_7_TRANSMISSION_ERROR ; s_ps2_transmitter.PS2_STATE_6_COMMAND_WAS_SENT ; s_ps2_transmitter.PS2_STATE_5_RECEIVE_ACK_BIT ; s_ps2_transmitter.PS2_STATE_4_TRANSMIT_STOP_BIT ; s_ps2_transmitter.PS2_STATE_3_TRANSMIT_DATA ; s_ps2_transmitter.PS2_STATE_2_WAIT_FOR_CLOCK ; s_ps2_transmitter.PS2_STATE_1_INITIATE_COMMUNICATION ; s_ps2_transmitter.PS2_STATE_0_IDLE ;
++------------------------------------------------------+--------------------------------------------------+------------------------------------------------+-----------------------------------------------+-------------------------------------------------+---------------------------------------------+----------------------------------------------+------------------------------------------------------+------------------------------------+
+; s_ps2_transmitter.PS2_STATE_0_IDLE                   ; 0                                                ; 0                                              ; 0                                             ; 0                                               ; 0                                           ; 0                                            ; 0                                                    ; 0                                  ;
+; s_ps2_transmitter.PS2_STATE_1_INITIATE_COMMUNICATION ; 0                                                ; 0                                              ; 0                                             ; 0                                               ; 0                                           ; 0                                            ; 1                                                    ; 1                                  ;
+; s_ps2_transmitter.PS2_STATE_2_WAIT_FOR_CLOCK         ; 0                                                ; 0                                              ; 0                                             ; 0                                               ; 0                                           ; 1                                            ; 0                                                    ; 1                                  ;
+; s_ps2_transmitter.PS2_STATE_3_TRANSMIT_DATA          ; 0                                                ; 0                                              ; 0                                             ; 0                                               ; 1                                           ; 0                                            ; 0                                                    ; 1                                  ;
+; s_ps2_transmitter.PS2_STATE_4_TRANSMIT_STOP_BIT      ; 0                                                ; 0                                              ; 0                                             ; 1                                               ; 0                                           ; 0                                            ; 0                                                    ; 1                                  ;
+; s_ps2_transmitter.PS2_STATE_5_RECEIVE_ACK_BIT        ; 0                                                ; 0                                              ; 1                                             ; 0                                               ; 0                                           ; 0                                            ; 0                                                    ; 1                                  ;
+; s_ps2_transmitter.PS2_STATE_6_COMMAND_WAS_SENT       ; 0                                                ; 1                                              ; 0                                             ; 0                                               ; 0                                           ; 0                                            ; 0                                                    ; 1                                  ;
+; s_ps2_transmitter.PS2_STATE_7_TRANSMISSION_ERROR     ; 1                                                ; 0                                              ; 0                                             ; 0                                               ; 0                                           ; 0                                            ; 0                                                    ; 1                                  ;
++------------------------------------------------------+--------------------------------------------------+------------------------------------------------+-----------------------------------------------+-------------------------------------------------+---------------------------------------------+----------------------------------------------+------------------------------------------------------+------------------------------------+
+
+
+Encoding Type:  One-Hot
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |projectVGA|datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver                                                                                                                            ;
++------------------------------------------+--------------------------------------+------------------------------------+------------------------------------------+---------------------------------+------------------------------------+
+; Name                                     ; s_ps2_receiver.PS2_STATE_3_PARITY_IN ; s_ps2_receiver.PS2_STATE_2_DATA_IN ; s_ps2_receiver.PS2_STATE_1_WAIT_FOR_DATA ; s_ps2_receiver.PS2_STATE_0_IDLE ; s_ps2_receiver.PS2_STATE_4_STOP_IN ;
++------------------------------------------+--------------------------------------+------------------------------------+------------------------------------------+---------------------------------+------------------------------------+
+; s_ps2_receiver.PS2_STATE_0_IDLE          ; 0                                    ; 0                                  ; 0                                        ; 0                               ; 0                                  ;
+; s_ps2_receiver.PS2_STATE_1_WAIT_FOR_DATA ; 0                                    ; 0                                  ; 1                                        ; 1                               ; 0                                  ;
+; s_ps2_receiver.PS2_STATE_2_DATA_IN       ; 0                                    ; 1                                  ; 0                                        ; 1                               ; 0                                  ;
+; s_ps2_receiver.PS2_STATE_3_PARITY_IN     ; 1                                    ; 0                                  ; 0                                        ; 1                               ; 0                                  ;
+; s_ps2_receiver.PS2_STATE_4_STOP_IN       ; 0                                    ; 0                                  ; 0                                        ; 1                               ; 1                                  ;
++------------------------------------------+--------------------------------------+------------------------------------+------------------------------------------+---------------------------------+------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                                                                                                                                  ;
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------+
+; Register name                                                                                                                 ; Reason for Removal                                                                                  ;
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------+
+; control:c0|current_state[4..6]                                                                                                ; Stuck at GND due to stuck port data_in                                                              ;
+; datapath:d0|ball:whiteball|drawsquare:ball|x_in[11]                                                                           ; Stuck at GND due to stuck port data_in                                                              ;
+; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock0_25hz|q[0..27]                                                    ; Lost fanout                                                                                         ;
+; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock0_5hz|q[0..27]                                                     ; Lost fanout                                                                                         ;
+; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock1hz|q[0..27]                                                       ; Lost fanout                                                                                         ;
+; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock50hz|q[0..27]                                                      ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|idle_counter[0..7]                                                                             ; Lost fanout                                                                                         ;
+; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_25hz|q[0..27]                                              ; Lost fanout                                                                                         ;
+; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_5hz|q[0..27]                                               ; Lost fanout                                                                                         ;
+; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock1hz|q[0..27]                                                 ; Lost fanout                                                                                         ;
+; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock50hz|q[0..27]                                                ; Lost fanout                                                                                         ;
+; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[0..27]                                                       ; Lost fanout                                                                                         ;
+; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[0..27]                                                        ; Lost fanout                                                                                         ;
+; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[0..27]                                                         ; Lost fanout                                                                                         ;
+; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[0..27]                                                         ; Lost fanout                                                                                         ;
+; datapath:d0|ball:whiteball|drawsquare:ball|y_in[7..10]                                                                        ; Lost fanout                                                                                         ;
+; datapath:d0|ball:whiteball|drawsquare:ball|x_in[7..10]                                                                        ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|ps2_command[1..7]                                    ; Merged with datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|ps2_command[0] ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|ps2_command[0]                                       ; Stuck at GND due to stuck port data_in                                                              ;
+; datapath:d0|ball:whiteball|ballpos:ballpos|value_x[0]                                                                         ; Merged with datapath:d0|ball:whiteball|ballpos:ballpos|value_y[0]                                   ;
+; datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[1..3]                                               ; Lost fanout                                                                                         ;
+; datapath:d0|ball:whiteball|drawsquare:ball|x_in[0]                                                                            ; Merged with datapath:d0|ball:whiteball|drawsquare:ball|y_in[0]                                      ;
+; datapath:d0|PS2_Controller:PS2|s_ps2_transceiver~2                                                                            ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|s_ps2_transceiver~3                                                                            ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter~2                                  ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter~3                                  ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter~4                                  ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver~2                                             ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver~3                                             ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|ps2_data_reg                                                                                   ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|received_data_en                                             ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|command_was_sent                                     ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|error_communication_timed_out                        ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|data_count[0..3]                                             ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|s_ps2_transceiver.PS2_STATE_4_END_DELAYED                                                      ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|s_ps2_transceiver.PS2_STATE_0_IDLE                                                             ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|s_ps2_transceiver.PS2_STATE_1_DATA_IN                                                          ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|s_ps2_transceiver.PS2_STATE_2_COMMAND_OUT                                                      ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|s_ps2_transceiver.PS2_STATE_3_END_TRANSFER                                                     ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver.PS2_STATE_4_STOP_IN                           ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver.PS2_STATE_0_IDLE                              ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver.PS2_STATE_1_WAIT_FOR_DATA                     ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver.PS2_STATE_2_DATA_IN                           ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver.PS2_STATE_3_PARITY_IN                         ; Lost fanout                                                                                         ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_1_INITIATE_COMMUNICATION ; Stuck at GND due to stuck port data_in                                                              ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|command_initiate_counter[1..13]                      ; Stuck at GND due to stuck port data_in                                                              ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_2_WAIT_FOR_CLOCK         ; Stuck at GND due to stuck port data_in                                                              ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[1..20]                               ; Stuck at GND due to stuck port data_in                                                              ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_3_TRANSMIT_DATA          ; Stuck at GND due to stuck port data_in                                                              ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|cur_bit[0..3]                                        ; Stuck at GND due to stuck port data_in                                                              ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_4_TRANSMIT_STOP_BIT      ; Stuck at GND due to stuck port data_in                                                              ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_5_RECEIVE_ACK_BIT        ; Stuck at GND due to stuck port data_in                                                              ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[1..17]                              ; Stuck at GND due to stuck port data_in                                                              ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_6_COMMAND_WAS_SENT       ; Stuck at GND due to stuck port data_in                                                              ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_7_TRANSMISSION_ERROR     ; Stuck at GND due to stuck port data_in                                                              ;
+; Total Number of Removed Registers = 455                                                                                       ;                                                                                                     ;
++-------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                                                                                                                                                           ;
++-------------------------------------------------------------------------------------------------------------------------------+---------------------------+---------------------------------------------------------------------------------------------------------------------------+
+; Register name                                                                                                                 ; Reason for Removal        ; Registers Removed due to This Register                                                                                    ;
++-------------------------------------------------------------------------------------------------------------------------------+---------------------------+---------------------------------------------------------------------------------------------------------------------------+
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_3_TRANSMIT_DATA          ; Stuck at GND              ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_4_TRANSMIT_STOP_BIT, ;
+;                                                                                                                               ; due to stuck port data_in ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_5_RECEIVE_ACK_BIT,   ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[5],                             ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[6],                             ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[7],                             ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[8],                             ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[9],                             ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[10],                            ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[11],                            ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[12],                            ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[13],                            ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[14],                            ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[15],                            ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[16],                            ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[17],                            ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_6_COMMAND_WAS_SENT   ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_2_WAIT_FOR_CLOCK         ; Stuck at GND              ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[7],                              ;
+;                                                                                                                               ; due to stuck port data_in ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[8],                              ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[9],                              ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[10],                             ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[11],                             ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[12],                             ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[13],                             ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[14],                             ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[15],                             ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[16],                             ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[17],                             ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[18],                             ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[19],                             ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[20]                              ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver~2                                             ; Lost Fanouts              ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|data_count[0],                                           ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|data_count[1],                                           ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|data_count[2],                                           ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|data_count[3],                                           ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|s_ps2_transceiver.PS2_STATE_3_END_TRANSFER,                                                ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver.PS2_STATE_1_WAIT_FOR_DATA,                ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver.PS2_STATE_2_DATA_IN,                      ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver.PS2_STATE_3_PARITY_IN                     ;
+; datapath:d0|PS2_Controller:PS2|s_ps2_transceiver~2                                                                            ; Lost Fanouts              ; datapath:d0|PS2_Controller:PS2|ps2_data_reg,                                                                              ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|received_data_en,                                        ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|command_was_sent,                                ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|error_communication_timed_out,                   ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|s_ps2_transceiver.PS2_STATE_1_DATA_IN,                                                     ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|s_ps2_transceiver.PS2_STATE_2_COMMAND_OUT,                                                 ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver.PS2_STATE_4_STOP_IN                       ;
+; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_1_INITIATE_COMMUNICATION ; Stuck at GND              ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|command_initiate_counter[7],                     ;
+;                                                                                                                               ; due to stuck port data_in ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|command_initiate_counter[8],                     ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|command_initiate_counter[9],                     ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|command_initiate_counter[10],                    ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|command_initiate_counter[11],                    ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|command_initiate_counter[12],                    ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_7_TRANSMISSION_ERROR ;
+; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_25hz|q[0]                                                  ; Lost Fanouts              ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_25hz|q[22],                                            ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_25hz|q[23],                                            ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_25hz|q[24],                                            ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_25hz|q[25],                                            ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_25hz|q[26],                                            ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_25hz|q[27]                                             ;
+; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_5hz|q[0]                                                   ; Lost Fanouts              ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_5hz|q[22],                                             ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_5hz|q[23],                                             ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_5hz|q[24],                                             ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_5hz|q[25],                                             ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_5hz|q[26],                                             ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock0_5hz|q[27]                                              ;
+; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock1hz|q[0]                                                     ; Lost Fanouts              ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock1hz|q[22],                                               ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock1hz|q[23],                                               ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock1hz|q[24],                                               ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock1hz|q[25],                                               ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock1hz|q[26],                                               ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock1hz|q[27]                                                ;
+; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock50hz|q[0]                                                    ; Lost Fanouts              ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock50hz|q[22],                                              ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock50hz|q[23],                                              ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock50hz|q[24],                                              ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock50hz|q[25],                                              ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock50hz|q[26],                                              ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock50hz|q[27]                                               ;
+; datapath:d0|PS2_Controller:PS2|idle_counter[3]                                                                                ; Lost Fanouts              ; datapath:d0|PS2_Controller:PS2|idle_counter[4],                                                                           ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|idle_counter[5],                                                                           ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|idle_counter[6],                                                                           ;
+;                                                                                                                               ;                           ; datapath:d0|PS2_Controller:PS2|idle_counter[7]                                                                            ;
+; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock0_25hz|q[0]                                                        ; Lost Fanouts              ; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock0_25hz|q[25],                                                  ;
+;                                                                                                                               ;                           ; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock0_25hz|q[26],                                                  ;
+;                                                                                                                               ;                           ; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock0_25hz|q[27]                                                   ;
+; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock0_5hz|q[0]                                                         ; Lost Fanouts              ; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock0_5hz|q[25],                                                   ;
+;                                                                                                                               ;                           ; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock0_5hz|q[26],                                                   ;
+;                                                                                                                               ;                           ; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock0_5hz|q[27]                                                    ;
+; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock1hz|q[0]                                                           ; Lost Fanouts              ; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock1hz|q[25],                                                     ;
+;                                                                                                                               ;                           ; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock1hz|q[26],                                                     ;
+;                                                                                                                               ;                           ; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock1hz|q[27]                                                      ;
+; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock50hz|q[0]                                                          ; Lost Fanouts              ; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock50hz|q[25],                                                    ;
+;                                                                                                                               ;                           ; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock50hz|q[26],                                                    ;
+;                                                                                                                               ;                           ; control:c0|counterhz:numblocksUsedcounter|ratedivider:clock50hz|q[27]                                                     ;
+; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[0]                                                           ; Lost Fanouts              ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[25],                                                     ;
+;                                                                                                                               ;                           ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[26],                                                     ;
+;                                                                                                                               ;                           ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_25hz|q[27]                                                      ;
+; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[0]                                                            ; Lost Fanouts              ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[25],                                                      ;
+;                                                                                                                               ;                           ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[26],                                                      ;
+;                                                                                                                               ;                           ; datapath:d0|counterhz:numblockscounter|ratedivider:clock0_5hz|q[27]                                                       ;
+; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[0]                                                             ; Lost Fanouts              ; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[25],                                                       ;
+;                                                                                                                               ;                           ; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[26],                                                       ;
+;                                                                                                                               ;                           ; datapath:d0|counterhz:numblockscounter|ratedivider:clock60hz|q[27]                                                        ;
+; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[0]                                                             ; Lost Fanouts              ; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[25],                                                       ;
+;                                                                                                                               ;                           ; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[26],                                                       ;
+;                                                                                                                               ;                           ; datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz|q[27]                                                        ;
+; datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[1]                                                  ; Lost Fanouts              ; datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[2],                                             ;
+;                                                                                                                               ;                           ; datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[3]                                              ;
++-------------------------------------------------------------------------------------------------------------------------------+---------------------------+---------------------------------------------------------------------------------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -392,12 +539,12 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 150   ;
-; Number of registers using Synchronous Clear  ; 19    ;
-; Number of registers using Synchronous Load   ; 28    ;
+; Total registers                              ; 184   ;
+; Number of registers using Synchronous Clear  ; 21    ;
+; Number of registers using Synchronous Load   ; 56    ;
 ; Number of registers using Asynchronous Clear ; 20    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 39    ;
+; Number of registers using Clock Enable       ; 73    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -407,39 +554,51 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +---------------------------------------------------------+---------+
 ; Inverted Register                                       ; Fan out ;
 +---------------------------------------------------------+---------+
-; datapath:d0|ball:whiteball|ballcollisions:collide|dir_x ; 12      ;
-; datapath:d0|ball:whiteball|ballpos:ballpos|value_x[2]   ; 4       ;
-; datapath:d0|ball:whiteball|ballpos:ballpos|value_x[3]   ; 4       ;
-; datapath:d0|ball:whiteball|ballpos:ballpos|value_x[1]   ; 4       ;
+; datapath:d0|ball:whiteball|ballpos:ballpos|value_x[1]   ; 5       ;
+; datapath:d0|ball:whiteball|ballpos:ballpos|value_y[4]   ; 3       ;
 ; datapath:d0|ball:whiteball|ballpos:ballpos|value_y[3]   ; 3       ;
 ; datapath:d0|ball:whiteball|ballpos:ballpos|value_y[2]   ; 3       ;
-; datapath:d0|ball:whiteball|ballpos:ballpos|value_y[1]   ; 2       ;
-; datapath:d0|ball:whiteball|ballpos:ballpos|value_y[0]   ; 2       ;
-; datapath:d0|ball:whiteball|ballcollisions:collide|dir_y ; 13      ;
-; Total number of inverted registers = 9                  ;         ;
+; datapath:d0|ball:whiteball|ballpos:ballpos|value_y[1]   ; 3       ;
+; datapath:d0|ball:whiteball|ballcollisions:collide|dir_x ; 13      ;
+; Total number of inverted registers = 6                  ;         ;
 +---------------------------------------------------------+---------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                                                              ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                    ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------------------------+
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |projectVGA|datapath:d0|wins[2]                                                                               ;
-; 3:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |projectVGA|vga_adapter:VGA|vga_controller:controller|yCounter[4]                                             ;
-; 3:1                ; 28 bits   ; 56 LEs        ; 28 LEs               ; 28 LEs                 ; Yes        ; |projectVGA|datapath:d0|ball:whiteball|counterhz:clock_60hz|ratedivider:clock60hz|q[27]                       ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |projectVGA|datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]                      ;
-; 3:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |projectVGA|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated|mux_0nb:mux3|result_node[0] ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                                                                 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                       ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------------+
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |projectVGA|datapath:d0|wins[1]                                                                                  ;
+; 3:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |projectVGA|vga_adapter:VGA|vga_controller:controller|yCounter[7]                                                ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |projectVGA|control:c0|counterhz:numblocksUsedcounter|counter:modifiedcounter|q[3]                               ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |projectVGA|datapath:d0|counterhz:numblockscounter|counter:modifiedcounter|q[3]                                  ;
+; 4:1                ; 28 bits   ; 56 LEs        ; 28 LEs               ; 28 LEs                 ; Yes        ; |projectVGA|control:c0|counterhz:numblocksUsedcounter|ratedivider:clock60hz|q[11]                                ;
+; 4:1                ; 28 bits   ; 56 LEs        ; 28 LEs               ; 28 LEs                 ; Yes        ; |projectVGA|datapath:d0|counterhz:numblockscounter|ratedivider:clock1hz|q[7]                                     ;
+; 4:1                ; 17 bits   ; 34 LEs        ; 17 LEs               ; 17 LEs                 ; Yes        ; |projectVGA|datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[16]        ;
+; 4:1                ; 13 bits   ; 26 LEs        ; 13 LEs               ; 13 LEs                 ; Yes        ; |projectVGA|datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|command_initiate_counter[2] ;
+; 4:1                ; 20 bits   ; 40 LEs        ; 20 LEs               ; 20 LEs                 ; Yes        ; |projectVGA|datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[4]          ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |projectVGA|datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out|cur_bit[0]                  ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |projectVGA|datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In|data_count[2]                       ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------------+
 
 
 +----------------------------------------------------------------------------------------------+
-; Source assignments for vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated ;
+; Source assignments for vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated ;
 +---------------------------------+--------------------+------+--------------------------------+
 ; Assignment                      ; Value              ; From ; To                             ;
 +---------------------------------+--------------------+------+--------------------------------+
 ; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                              ;
 +---------------------------------+--------------------+------+--------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------+
+; Source assignments for vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated|altsyncram_n6r1:altsyncram1 ;
++---------------------------------+--------------------+------+------------------------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                                         ;
++---------------------------------+--------------------+------+------------------------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                                          ;
++---------------------------------+--------------------+------+------------------------------------------------------------+
 
 
 +--------------------------------------------------------------+
@@ -520,8 +679,8 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; ENABLE_ECC                         ; FALSE                ; Untyped                 ;
 ; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                 ;
 ; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                 ;
-; DEVICE_FAMILY                      ; Cyclone IV E         ; Untyped                 ;
-; CBXI_PARAMETER                     ; altsyncram_9hg1      ; Untyped                 ;
+; DEVICE_FAMILY                      ; Cyclone II           ; Untyped                 ;
+; CBXI_PARAMETER                     ; altsyncram_ncg1      ; Untyped                 ;
 +------------------------------------+----------------------+-------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
@@ -889,7 +1048,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; WIDTH_CLOCK                   ; 6                 ; Untyped                                        ;
 ; WIDTH_PHASECOUNTERSELECT      ; 4                 ; Untyped                                        ;
 ; USING_FBMIMICBIDIR_PORT       ; OFF               ; Untyped                                        ;
-; DEVICE_FAMILY                 ; Cyclone IV E      ; Untyped                                        ;
+; DEVICE_FAMILY                 ; Cyclone II        ; Untyped                                        ;
 ; SCAN_CHAIN_MIF_FILE           ; UNUSED            ; Untyped                                        ;
 ; SIM_GATE_LOCK_DEVICE_BEHAVIOR ; OFF               ; Untyped                                        ;
 ; AUTO_CARRY_CHAINS             ; ON                ; AUTO_CARRY                                     ;
@@ -930,6 +1089,42 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
++-----------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:d0|PS2_Controller:PS2 ;
++------------------+-------+--------------------------------------------------+
+; Parameter Name   ; Value ; Type                                             ;
++------------------+-------+--------------------------------------------------+
+; INITIALIZE_MOUSE ; 0     ; Signed Integer                                   ;
++------------------+-------+--------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out ;
++------------------------------------+----------------------+-----------------------------------------------------------+
+; Parameter Name                     ; Value                ; Type                                                      ;
++------------------------------------+----------------------+-----------------------------------------------------------+
+; CLOCK_CYCLES_FOR_101US             ; 5050                 ; Signed Integer                                            ;
+; NUMBER_OF_BITS_FOR_101US           ; 13                   ; Signed Integer                                            ;
+; COUNTER_INCREMENT_FOR_101US        ; 0000000000001        ; Unsigned Binary                                           ;
+; CLOCK_CYCLES_FOR_15MS              ; 750000               ; Signed Integer                                            ;
+; NUMBER_OF_BITS_FOR_15MS            ; 20                   ; Signed Integer                                            ;
+; COUNTER_INCREMENT_FOR_15MS         ; 00000000000000000001 ; Unsigned Binary                                           ;
+; CLOCK_CYCLES_FOR_2MS               ; 100000               ; Signed Integer                                            ;
+; NUMBER_OF_BITS_FOR_2MS             ; 17                   ; Signed Integer                                            ;
+; COUNTER_INCREMENT_FOR_2MS          ; 00000000000000001    ; Unsigned Binary                                           ;
+; PS2_STATE_0_IDLE                   ; 000                  ; Unsigned Binary                                           ;
+; PS2_STATE_1_INITIATE_COMMUNICATION ; 001                  ; Unsigned Binary                                           ;
+; PS2_STATE_2_WAIT_FOR_CLOCK         ; 010                  ; Unsigned Binary                                           ;
+; PS2_STATE_3_TRANSMIT_DATA          ; 011                  ; Unsigned Binary                                           ;
+; PS2_STATE_4_TRANSMIT_STOP_BIT      ; 100                  ; Unsigned Binary                                           ;
+; PS2_STATE_5_RECEIVE_ACK_BIT        ; 101                  ; Unsigned Binary                                           ;
+; PS2_STATE_6_COMMAND_WAS_SENT       ; 110                  ; Unsigned Binary                                           ;
+; PS2_STATE_7_TRANSMISSION_ERROR     ; 111                  ; Unsigned Binary                                           ;
++------------------------------------+----------------------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
 +------------------------------------------------------------------------------------+
 ; altsyncram Parameter Settings by Entity Instance                                   ;
 +-------------------------------------------+----------------------------------------+
@@ -967,6 +1162,19 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-------------------------------+-------------------------------------------------------+
 
 
++-----------------------------------------------------------------------+
+; Port Connectivity Checks: "control:c0|counterhz:numblocksUsedcounter" ;
++--------------------+-------+----------+-------------------------------+
+; Port               ; Type  ; Severity ; Details                       ;
++--------------------+-------+----------+-------------------------------+
+; speed[1..0]        ; Input ; Info     ; Stuck at GND                  ;
+; speed[2]           ; Input ; Info     ; Stuck at VCC                  ;
+; counterlimit[1..0] ; Input ; Info     ; Stuck at GND                  ;
+; counterlimit[3]    ; Input ; Info     ; Stuck at GND                  ;
+; counterlimit[2]    ; Input ; Info     ; Stuck at VCC                  ;
++--------------------+-------+----------+-------------------------------+
+
+
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; Port Connectivity Checks: "control:c0"                                                                                                                                           ;
 +----------------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
@@ -974,6 +1182,20 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
 ; startingBlocks ; Input ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
 +----------------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "datapath:d0|PS2_Controller:PS2"                                                                                                                                       ;
++-------------------------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port                          ; Type   ; Severity ; Details                                                                                                                                      ;
++-------------------------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; received_data                 ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                          ;
+; received_data_en              ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                          ;
+; the_command                   ; Input  ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; send_command                  ; Input  ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; command_was_sent              ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                     ;
+; error_communication_timed_out ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                     ;
++-------------------------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -1023,6 +1245,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Port               ; Type   ; Severity ; Details                                                                                                                       ;
 +--------------------+--------+----------+-------------------------------------------------------------------------------------------------------------------------------+
 ; enable             ; Input  ; Info     ; Stuck at VCC                                                                                                                  ;
+; reset_n            ; Input  ; Info     ; Stuck at GND                                                                                                                  ;
 ; speed[1..0]        ; Input  ; Info     ; Stuck at GND                                                                                                                  ;
 ; speed[2]           ; Input  ; Info     ; Stuck at VCC                                                                                                                  ;
 ; counterlimit[3..1] ; Input  ; Info     ; Stuck at GND                                                                                                                  ;
@@ -1130,7 +1353,6 @@ Note: In order to hide this table in the UI and the text report file, please set
 +--------------------+-------+----------+----------------------------+
 ; Port               ; Type  ; Severity ; Details                    ;
 +--------------------+-------+----------+----------------------------+
-; reset_n            ; Input ; Info     ; Stuck at GND               ;
 ; speed[2..1]        ; Input ; Info     ; Stuck at GND               ;
 ; speed[0]           ; Input ; Info     ; Stuck at VCC               ;
 ; counterlimit[1..0] ; Input ; Info     ; Stuck at GND               ;
@@ -1160,43 +1382,12 @@ Note: In order to hide this table in the UI and the text report file, please set
 +------+-------+----------+-------------------------------------------------------------------------------------------------------------------------------------------+
 
 
-+-----------------------------------------------------+
-; Post-Synthesis Netlist Statistics for Top Partition ;
-+-----------------------+-----------------------------+
-; Type                  ; Count                       ;
-+-----------------------+-----------------------------+
-; boundary_port         ; 102                         ;
-; cycloneiii_ff         ; 150                         ;
-;     CLR               ; 20                          ;
-;     ENA               ; 31                          ;
-;     ENA SCLR          ; 8                           ;
-;     SCLR              ; 11                          ;
-;     SLD               ; 28                          ;
-;     plain             ; 52                          ;
-; cycloneiii_lcell_comb ; 350                         ;
-;     arith             ; 145                         ;
-;         2 data inputs ; 105                         ;
-;         3 data inputs ; 40                          ;
-;     normal            ; 205                         ;
-;         0 data inputs ; 4                           ;
-;         1 data inputs ; 15                          ;
-;         2 data inputs ; 64                          ;
-;         3 data inputs ; 17                          ;
-;         4 data inputs ; 105                         ;
-; cycloneiii_pll        ; 1                           ;
-; cycloneiii_ram_block  ; 9                           ;
-;                       ;                             ;
-; Max LUT depth         ; 4.90                        ;
-; Average LUT depth     ; 2.93                        ;
-+-----------------------+-----------------------------+
-
-
 +-------------------------------+
 ; Elapsed Time Per Partition    ;
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:00     ;
+; Top            ; 00:00:02     ;
 +----------------+--------------+
 
 
@@ -1204,63 +1395,69 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Analysis & Synthesis Messages ;
 +-------------------------------+
 Info: *******************************************************************
-Info: Running Quartus Prime Analysis & Synthesis
-    Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
-    Info: Processing started: Fri Jul 21 20:42:34 2017
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+    Info: Processing started: Sat Jul 22 22:55:40 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off final_project -c final_project
 Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (12021): Found 1 design units, including 1 entities, in source file /home/kevin/Dropbox/CSCB58-Final-Project/PS2/PS2_Controller.v
+    Info (12023): Found entity 1: PS2_Controller
+Info (12021): Found 1 design units, including 1 entities, in source file /home/kevin/Dropbox/CSCB58-Final-Project/PS2/Altera_UP_PS2_Data_In.v
+    Info (12023): Found entity 1: Altera_UP_PS2_Data_In
+Info (12021): Found 1 design units, including 1 entities, in source file /home/kevin/Dropbox/CSCB58-Final-Project/PS2/Altera_UP_PS2_Command_Out.v
+    Info (12023): Found entity 1: Altera_UP_PS2_Command_Out
 Info (12021): Found 5 design units, including 5 entities, in source file Verilog FIles/graphics.v
-    Info (12023): Found entity 1: graphics File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 3
-    Info (12023): Found entity 2: hdrawblock File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 230
-    Info (12023): Found entity 3: vdrawblock File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 279
-    Info (12023): Found entity 4: drawsquare File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 328
-    Info (12023): Found entity 5: ball File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 421
+    Info (12023): Found entity 1: graphics
+    Info (12023): Found entity 2: hdrawblock
+    Info (12023): Found entity 3: vdrawblock
+    Info (12023): Found entity 4: drawsquare
+    Info (12023): Found entity 5: ball
 Info (12021): Found 1 design units, including 1 entities, in source file Verilog FIles/endgame.v
-    Info (12023): Found entity 1: endgamemux File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/endgame.v Line: 5
+    Info (12023): Found entity 1: endgamemux
 Info (12021): Found 3 design units, including 3 entities, in source file Verilog FIles/counter.v
-    Info (12023): Found entity 1: counterhz File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/counter.v Line: 8
-    Info (12023): Found entity 2: counter File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/counter.v Line: 143
-    Info (12023): Found entity 3: ratedivider File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/counter.v Line: 167
-Warning (10238): Verilog Module Declaration warning at collision2.v(10): ignored anonymous port(s) indicated by duplicate or dangling comma(s) in the port list for module "ballpos" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/collision2.v Line: 10
-Warning (10238): Verilog Module Declaration warning at collision2.v(73): ignored anonymous port(s) indicated by duplicate or dangling comma(s) in the port list for module "ballcollisions" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/collision2.v Line: 73
+    Info (12023): Found entity 1: counterhz
+    Info (12023): Found entity 2: counter
+    Info (12023): Found entity 3: ratedivider
+Warning (10238): Verilog Module Declaration warning at collision2.v(10): ignored anonymous port(s) indicated by duplicate or dangling comma(s) in the port list for module "ballpos"
+Warning (10238): Verilog Module Declaration warning at collision2.v(72): ignored anonymous port(s) indicated by duplicate or dangling comma(s) in the port list for module "ballcollisions"
 Info (12021): Found 2 design units, including 2 entities, in source file Verilog FIles/collision2.v
-    Info (12023): Found entity 1: ballpos File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/collision2.v Line: 2
-    Info (12023): Found entity 2: ballcollisions File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/collision2.v Line: 57
+    Info (12023): Found entity 1: ballpos
+    Info (12023): Found entity 2: ballcollisions
 Info (12021): Found 2 design units, including 2 entities, in source file Verilog FIles/block.v
-    Info (12023): Found entity 1: chooseblock File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/block.v Line: 1
-    Info (12023): Found entity 2: moveblock File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/block.v Line: 53
+    Info (12023): Found entity 1: chooseblock
+    Info (12023): Found entity 2: moveblock
 Info (12021): Found 4 design units, including 4 entities, in source file project.v
-    Info (12023): Found entity 1: projectVGA File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 2
-    Info (12023): Found entity 2: datapath File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 171
-    Info (12023): Found entity 3: control File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 324
-    Info (12023): Found entity 4: hex_decoder File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 439
-Info (12021): Found 1 design units, including 1 entities, in source file /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_pll.v
-    Info (12023): Found entity 1: vga_pll File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_pll.v Line: 36
-Info (12021): Found 1 design units, including 1 entities, in source file /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_controller.v
-    Info (12023): Found entity 1: vga_controller File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_controller.v Line: 9
-Info (12021): Found 1 design units, including 1 entities, in source file /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_address_translator.v
-    Info (12023): Found entity 1: vga_address_translator File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_address_translator.v Line: 4
-Info (12021): Found 1 design units, including 1 entities, in source file /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_adapter.v
-    Info (12023): Found entity 1: vga_adapter File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_adapter.v Line: 78
-Warning (10236): Verilog HDL Implicit Net warning at graphics.v(53): created implicit net for "enablered" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 53
-Warning (10236): Verilog HDL Implicit Net warning at graphics.v(80): created implicit net for "obb" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 80
-Critical Warning (10226): Verilog HDL Port Declaration warning at endgame.v(10): port declaration for "out" declares packed dimensions but the data type declaration does not File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/endgame.v Line: 10
-Info (10499): HDL info at endgame.v(9): see declaration for object "out" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/endgame.v Line: 9
-Warning (10227): Verilog HDL Port Declaration warning at block.v(92): data type declaration for "block1out" declares packed dimensions but the port declaration declaration does not File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/block.v Line: 92
-Info (10499): HDL info at block.v(99): see declaration for object "block1out" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/block.v Line: 99
-Warning (10227): Verilog HDL Port Declaration warning at block.v(93): data type declaration for "block2out" declares packed dimensions but the port declaration declaration does not File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/block.v Line: 93
-Info (10499): HDL info at block.v(100): see declaration for object "block2out" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/block.v Line: 100
-Warning (10227): Verilog HDL Port Declaration warning at block.v(94): data type declaration for "block3out" declares packed dimensions but the port declaration declaration does not File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/block.v Line: 94
-Info (10499): HDL info at block.v(101): see declaration for object "block3out" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/block.v Line: 101
-Warning (10227): Verilog HDL Port Declaration warning at block.v(95): data type declaration for "block4out" declares packed dimensions but the port declaration declaration does not File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/block.v Line: 95
-Info (10499): HDL info at block.v(102): see declaration for object "block4out" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/block.v Line: 102
+    Info (12023): Found entity 1: projectVGA
+    Info (12023): Found entity 2: datapath
+    Info (12023): Found entity 3: control
+    Info (12023): Found entity 4: hex_decoder
+Info (12021): Found 1 design units, including 1 entities, in source file /home/kevin/Dropbox/CSCB58-Final-Project/VGA/vga_adapter/vga_pll.v
+    Info (12023): Found entity 1: vga_pll
+Info (12021): Found 1 design units, including 1 entities, in source file /home/kevin/Dropbox/CSCB58-Final-Project/VGA/vga_adapter/vga_controller.v
+    Info (12023): Found entity 1: vga_controller
+Info (12021): Found 1 design units, including 1 entities, in source file /home/kevin/Dropbox/CSCB58-Final-Project/VGA/vga_adapter/vga_address_translator.v
+    Info (12023): Found entity 1: vga_address_translator
+Info (12021): Found 1 design units, including 1 entities, in source file /home/kevin/Dropbox/CSCB58-Final-Project/VGA/vga_adapter/vga_adapter.v
+    Info (12023): Found entity 1: vga_adapter
+Warning (10236): Verilog HDL Implicit Net warning at graphics.v(53): created implicit net for "enablered"
+Warning (10236): Verilog HDL Implicit Net warning at graphics.v(80): created implicit net for "obb"
+Critical Warning (10226): Verilog HDL Port Declaration warning at endgame.v(10): port declaration for "out" declares packed dimensions but the data type declaration does not
+Info (10499): HDL info at endgame.v(9): see declaration for object "out"
+Warning (10227): Verilog HDL Port Declaration warning at block.v(92): data type declaration for "block1out" declares packed dimensions but the port declaration declaration does not
+Info (10499): HDL info at block.v(99): see declaration for object "block1out"
+Warning (10227): Verilog HDL Port Declaration warning at block.v(93): data type declaration for "block2out" declares packed dimensions but the port declaration declaration does not
+Info (10499): HDL info at block.v(100): see declaration for object "block2out"
+Warning (10227): Verilog HDL Port Declaration warning at block.v(94): data type declaration for "block3out" declares packed dimensions but the port declaration declaration does not
+Info (10499): HDL info at block.v(101): see declaration for object "block3out"
+Warning (10227): Verilog HDL Port Declaration warning at block.v(95): data type declaration for "block4out" declares packed dimensions but the port declaration declaration does not
+Info (10499): HDL info at block.v(102): see declaration for object "block4out"
 Info (12127): Elaborating entity "projectVGA" for the top level hierarchy
-Warning (10034): Output port "LEDR" at project.v(34) has no driver File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-Info (12128): Elaborating entity "vga_adapter" for hierarchy "vga_adapter:VGA" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 80
-Info (12128): Elaborating entity "vga_address_translator" for hierarchy "vga_adapter:VGA|vga_address_translator:user_input_translator" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_adapter.v Line: 192
-Info (12128): Elaborating entity "altsyncram" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_adapter.v Line: 213
-Info (12130): Elaborated megafunction instantiation "vga_adapter:VGA|altsyncram:VideoMemory" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_adapter.v Line: 213
-Info (12133): Instantiated megafunction "vga_adapter:VGA|altsyncram:VideoMemory" with the following parameter: File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_adapter.v Line: 213
+Warning (10034): Output port "LEDR" at project.v(40) has no driver
+Info (12128): Elaborating entity "vga_adapter" for hierarchy "vga_adapter:VGA"
+Info (12128): Elaborating entity "vga_address_translator" for hierarchy "vga_adapter:VGA|vga_address_translator:user_input_translator"
+Info (12128): Elaborating entity "altsyncram" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory"
+Info (12130): Elaborated megafunction instantiation "vga_adapter:VGA|altsyncram:VideoMemory"
+Info (12133): Instantiated megafunction "vga_adapter:VGA|altsyncram:VideoMemory" with the following parameter:
     Info (12134): Parameter "WIDTH_A" = "3"
     Info (12134): Parameter "WIDTH_B" = "3"
     Info (12134): Parameter "INTENDED_DEVICE_FAMILY" = "Cyclone II"
@@ -1276,22 +1473,24 @@ Info (12133): Instantiated megafunction "vga_adapter:VGA|altsyncram:VideoMemory"
     Info (12134): Parameter "CLOCK_ENABLE_OUTPUT_B" = "BYPASS"
     Info (12134): Parameter "POWER_UP_UNINITIALIZED" = "FALSE"
     Info (12134): Parameter "INIT_FILE" = "background.mif"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_9hg1.tdf
-    Info (12023): Found entity 1: altsyncram_9hg1 File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/db/altsyncram_9hg1.tdf Line: 34
-Info (12128): Elaborating entity "altsyncram_9hg1" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated" File: /usr/local/cms/altera_lite/16.0/quartus/libraries/megafunctions/altsyncram.tdf Line: 792
-Info (12021): Found 1 design units, including 1 entities, in source file db/decode_lsa.tdf
-    Info (12023): Found entity 1: decode_lsa File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/db/decode_lsa.tdf Line: 23
-Info (12128): Elaborating entity "decode_lsa" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated|decode_lsa:decode2" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/db/altsyncram_9hg1.tdf Line: 47
-Info (12021): Found 1 design units, including 1 entities, in source file db/decode_e8a.tdf
-    Info (12023): Found entity 1: decode_e8a File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/db/decode_e8a.tdf Line: 23
-Info (12128): Elaborating entity "decode_e8a" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated|decode_e8a:rden_decode_b" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/db/altsyncram_9hg1.tdf Line: 48
-Info (12021): Found 1 design units, including 1 entities, in source file db/mux_0nb.tdf
-    Info (12023): Found entity 1: mux_0nb File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/db/mux_0nb.tdf Line: 23
-Info (12128): Elaborating entity "mux_0nb" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_9hg1:auto_generated|mux_0nb:mux3" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/db/altsyncram_9hg1.tdf Line: 50
-Info (12128): Elaborating entity "vga_pll" for hierarchy "vga_adapter:VGA|vga_pll:mypll" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_adapter.v Line: 231
-Info (12128): Elaborating entity "altpll" for hierarchy "vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_pll.v Line: 53
-Info (12130): Elaborated megafunction instantiation "vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_pll.v Line: 53
-Info (12133): Instantiated megafunction "vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component" with the following parameter: File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_pll.v Line: 53
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_ncg1.tdf
+    Info (12023): Found entity 1: altsyncram_ncg1
+Info (12128): Elaborating entity "altsyncram_ncg1" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_n6r1.tdf
+    Info (12023): Found entity 1: altsyncram_n6r1
+Info (12128): Elaborating entity "altsyncram_n6r1" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated|altsyncram_n6r1:altsyncram1"
+Warning (287013): Variable or input pin "clocken1" is defined but never used.
+Info (12021): Found 1 design units, including 1 entities, in source file db/decode_6oa.tdf
+    Info (12023): Found entity 1: decode_6oa
+Info (12128): Elaborating entity "decode_6oa" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated|altsyncram_n6r1:altsyncram1|decode_6oa:decode3"
+Info (12128): Elaborating entity "decode_6oa" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated|altsyncram_n6r1:altsyncram1|decode_6oa:decode_a"
+Info (12021): Found 1 design units, including 1 entities, in source file db/mux_hib.tdf
+    Info (12023): Found entity 1: mux_hib
+Info (12128): Elaborating entity "mux_hib" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_ncg1:auto_generated|altsyncram_n6r1:altsyncram1|mux_hib:mux5"
+Info (12128): Elaborating entity "vga_pll" for hierarchy "vga_adapter:VGA|vga_pll:mypll"
+Info (12128): Elaborating entity "altpll" for hierarchy "vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component"
+Info (12130): Elaborated megafunction instantiation "vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component"
+Info (12133): Instantiated megafunction "vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component" with the following parameter:
     Info (12134): Parameter "operation_mode" = "NORMAL"
     Info (12134): Parameter "intended_device_family" = "Cyclone II"
     Info (12134): Parameter "lpm_type" = "altpll"
@@ -1303,94 +1502,85 @@ Info (12133): Instantiated megafunction "vga_adapter:VGA|vga_pll:mypll|altpll:al
     Info (12134): Parameter "clk0_divide_by" = "2"
     Info (12134): Parameter "clk0_multiply_by" = "1"
     Info (12134): Parameter "clk0_duty_cycle" = "50"
-Info (12128): Elaborating entity "vga_controller" for hierarchy "vga_adapter:VGA|vga_controller:controller" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/VGA/vga_adapter/vga_adapter.v Line: 252
-Info (12128): Elaborating entity "datapath" for hierarchy "datapath:d0" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 108
-Warning (10036): Verilog HDL or VHDL warning at project.v(197): object "x_in" assigned a value but never read File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 197
-Warning (10036): Verilog HDL or VHDL warning at project.v(198): object "y_in" assigned a value but never read File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 198
-Warning (10036): Verilog HDL or VHDL warning at project.v(210): object "startingBlocks" assigned a value but never read File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 210
-Warning (10036): Verilog HDL or VHDL warning at project.v(211): object "statereg" assigned a value but never read File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 211
-Warning (10230): Verilog HDL assignment warning at project.v(264): truncated value with size 32 to match size of target (4) File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 264
-Warning (10230): Verilog HDL assignment warning at project.v(266): truncated value with size 32 to match size of target (4) File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 266
-Warning (10034): Output port "stateleds" at project.v(194) has no driver File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 194
-Info (12128): Elaborating entity "counterhz" for hierarchy "datapath:d0|counterhz:numblockscounter" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 290
-Info (12128): Elaborating entity "ratedivider" for hierarchy "datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/counter.v Line: 84
-Info (12128): Elaborating entity "counter" for hierarchy "datapath:d0|counterhz:numblockscounter|counter:modifiedcounter" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/counter.v Line: 134
-Info (12128): Elaborating entity "ball" for hierarchy "datapath:d0|ball:whiteball" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 316
-Info (12128): Elaborating entity "drawsquare" for hierarchy "datapath:d0|ball:whiteball|drawsquare:ball" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 459
-Warning (10036): Verilog HDL or VHDL warning at graphics.v(345): object "colour_in" assigned a value but never read File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 345
-Info (12128): Elaborating entity "ballpos" for hierarchy "datapath:d0|ball:whiteball|ballpos:ballpos" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 470
-Info (12128): Elaborating entity "ballcollisions" for hierarchy "datapath:d0|ball:whiteball|ballcollisions:collide" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/Verilog FIles/graphics.v Line: 489
-Info (12128): Elaborating entity "control" for hierarchy "control:c0" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 135
-Warning (10240): Verilog HDL Always Construct warning at project.v(365): inferring latch(es) for variable "numBlocksUsed", which holds its previous value in one or more paths through the always construct File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 365
-Warning (10270): Verilog HDL Case Statement warning at project.v(401): incomplete case statement has no default case item File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 401
-Info (10041): Inferred latch for "numBlocksUsed[0]" at project.v(365) File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 365
-Info (10041): Inferred latch for "numBlocksUsed[1]" at project.v(365) File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 365
-Info (10041): Inferred latch for "numBlocksUsed[2]" at project.v(365) File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 365
-Info (10041): Inferred latch for "numBlocksUsed[3]" at project.v(365) File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 365
-Info (12128): Elaborating entity "hex_decoder" for hierarchy "hex_decoder:hex0" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 141
-Warning (12241): 8 hierarchies have connectivity warnings - see the Connectivity Checks report folder
-Warning (13012): Latch control:c0|numBlocksUsed[0] has unsafe behavior File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 365
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal control:c0|numBlocksUsed[0] File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 365
-Warning (13012): Latch control:c0|numBlocksUsed[1] has unsafe behavior File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 365
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal control:c0|numBlocksUsed[1] File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 365
-Warning (13012): Latch control:c0|numBlocksUsed[2] has unsafe behavior File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 365
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal control:c0|numBlocksUsed[2] File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 365
-Warning (13012): Latch control:c0|numBlocksUsed[3] has unsafe behavior File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 365
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal control:c0|numBlocksUsed[3] File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 365
+Info (12128): Elaborating entity "vga_controller" for hierarchy "vga_adapter:VGA|vga_controller:controller"
+Info (12128): Elaborating entity "datapath" for hierarchy "datapath:d0"
+Warning (10036): Verilog HDL or VHDL warning at project.v(211): object "x_in" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at project.v(212): object "y_in" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at project.v(224): object "startingBlocks" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at project.v(225): object "statereg" assigned a value but never read
+Warning (10230): Verilog HDL assignment warning at project.v(285): truncated value with size 32 to match size of target (4)
+Warning (10230): Verilog HDL assignment warning at project.v(287): truncated value with size 32 to match size of target (4)
+Warning (10034): Output port "stateleds" at project.v(208) has no driver
+Info (12128): Elaborating entity "counterhz" for hierarchy "datapath:d0|counterhz:numblockscounter"
+Info (12128): Elaborating entity "ratedivider" for hierarchy "datapath:d0|counterhz:numblockscounter|ratedivider:clock50hz"
+Info (12128): Elaborating entity "counter" for hierarchy "datapath:d0|counterhz:numblockscounter|counter:modifiedcounter"
+Info (12128): Elaborating entity "ball" for hierarchy "datapath:d0|ball:whiteball"
+Info (12128): Elaborating entity "drawsquare" for hierarchy "datapath:d0|ball:whiteball|drawsquare:ball"
+Warning (10036): Verilog HDL or VHDL warning at graphics.v(345): object "colour_in" assigned a value but never read
+Info (12128): Elaborating entity "ballpos" for hierarchy "datapath:d0|ball:whiteball|ballpos:ballpos"
+Info (12128): Elaborating entity "ballcollisions" for hierarchy "datapath:d0|ball:whiteball|ballcollisions:collide"
+Info (12128): Elaborating entity "PS2_Controller" for hierarchy "datapath:d0|PS2_Controller:PS2"
+Info (12128): Elaborating entity "Altera_UP_PS2_Data_In" for hierarchy "datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Data_In:PS2_Data_In"
+Info (12128): Elaborating entity "Altera_UP_PS2_Command_Out" for hierarchy "datapath:d0|PS2_Controller:PS2|Altera_UP_PS2_Command_Out:PS2_Command_Out"
+Info (12128): Elaborating entity "control" for hierarchy "control:c0"
+Warning (10036): Verilog HDL or VHDL warning at project.v(388): object "count" assigned a value but never read
+Warning (10270): Verilog HDL Case Statement warning at project.v(442): incomplete case statement has no default case item
+Info (12128): Elaborating entity "hex_decoder" for hierarchy "hex_decoder:hex0"
+Warning (12241): 9 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "LEDR[0]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[1]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[2]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[3]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[4]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[5]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[6]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[7]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[8]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[9]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[10]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[11]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[12]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[13]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[14]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[15]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDR[16]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 34
-    Warning (13410): Pin "LEDG[4]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 33
-    Warning (13410): Pin "LEDG[5]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 33
-    Warning (13410): Pin "LEDG[6]" is stuck at GND File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 33
-    Warning (13410): Pin "VGA_SYNC_N" is stuck at VCC File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 41
-Info (286030): Timing-Driven Synthesis is running
-Info (17049): 235 registers lost all their fanouts during netlist optimizations.
-Info (144001): Generated suppressed messages file /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/output_files/final_project.map.smsg
+    Warning (13410): Pin "LEDR[0]" is stuck at GND
+    Warning (13410): Pin "LEDR[1]" is stuck at GND
+    Warning (13410): Pin "LEDR[2]" is stuck at GND
+    Warning (13410): Pin "LEDR[3]" is stuck at GND
+    Warning (13410): Pin "LEDR[4]" is stuck at GND
+    Warning (13410): Pin "LEDR[5]" is stuck at GND
+    Warning (13410): Pin "LEDR[6]" is stuck at GND
+    Warning (13410): Pin "LEDR[7]" is stuck at GND
+    Warning (13410): Pin "LEDR[8]" is stuck at GND
+    Warning (13410): Pin "LEDR[9]" is stuck at GND
+    Warning (13410): Pin "LEDR[10]" is stuck at GND
+    Warning (13410): Pin "LEDR[11]" is stuck at GND
+    Warning (13410): Pin "LEDR[12]" is stuck at GND
+    Warning (13410): Pin "LEDR[13]" is stuck at GND
+    Warning (13410): Pin "LEDR[14]" is stuck at GND
+    Warning (13410): Pin "LEDR[15]" is stuck at GND
+    Warning (13410): Pin "LEDR[16]" is stuck at GND
+    Warning (13410): Pin "LEDG[4]" is stuck at GND
+    Warning (13410): Pin "LEDG[5]" is stuck at GND
+    Warning (13410): Pin "LEDG[6]" is stuck at GND
+    Warning (13410): Pin "VGA_SYNC" is stuck at VCC
+Info (17049): 380 registers lost all their fanouts during netlist optimizations.
+Info (144001): Generated suppressed messages file /home/kevin/Dropbox/CSCB58-Final-Project/final_project/output_files/final_project.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 10 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "SW[0]" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 25
-    Warning (15610): No output dependent on input pin "SW[1]" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 25
-    Warning (15610): No output dependent on input pin "SW[2]" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 25
-    Warning (15610): No output dependent on input pin "SW[3]" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 25
-    Warning (15610): No output dependent on input pin "SW[4]" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 25
-    Warning (15610): No output dependent on input pin "SW[5]" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 25
-    Warning (15610): No output dependent on input pin "SW[6]" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 25
-    Warning (15610): No output dependent on input pin "SW[7]" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 25
-    Warning (15610): No output dependent on input pin "SW[8]" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 25
-    Warning (15610): No output dependent on input pin "SW[9]" File: /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/project.v Line: 25
-Info (21057): Implemented 466 device resources after synthesis - the final resource count might be different
+    Warning (15610): No output dependent on input pin "SW[0]"
+    Warning (15610): No output dependent on input pin "SW[1]"
+    Warning (15610): No output dependent on input pin "SW[2]"
+    Warning (15610): No output dependent on input pin "SW[3]"
+    Warning (15610): No output dependent on input pin "SW[4]"
+    Warning (15610): No output dependent on input pin "SW[5]"
+    Warning (15610): No output dependent on input pin "SW[6]"
+    Warning (15610): No output dependent on input pin "SW[7]"
+    Warning (15610): No output dependent on input pin "SW[8]"
+    Warning (15610): No output dependent on input pin "SW[9]"
+Info (21057): Implemented 539 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 15 input pins
     Info (21059): Implemented 87 output pins
-    Info (21061): Implemented 354 logic cells
-    Info (21064): Implemented 9 RAM segments
+    Info (21060): Implemented 2 bidirectional pins
+    Info (21061): Implemented 419 logic cells
+    Info (21064): Implemented 15 RAM segments
     Info (21065): Implemented 1 PLLs
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 63 warnings
-    Info: Peak virtual memory: 1288 megabytes
-    Info: Processing ended: Fri Jul 21 20:42:44 2017
-    Info: Elapsed time: 00:00:10
-    Info: Total CPU time (on all processors): 00:00:20
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 56 warnings
+    Info: Peak virtual memory: 666 megabytes
+    Info: Processing ended: Sat Jul 22 22:55:48 2017
+    Info: Elapsed time: 00:00:08
+    Info: Total CPU time (on all processors): 00:00:04
 
 
 +------------------------------------------+
 ; Analysis & Synthesis Suppressed Messages ;
 +------------------------------------------+
-The suppressed messages can be found in /cmshome/shenkev4/Desktop/new/cscb58-final-project/final_project/output_files/final_project.map.smsg.
+The suppressed messages can be found in /home/kevin/Dropbox/CSCB58-Final-Project/final_project/output_files/final_project.map.smsg.
 
 
