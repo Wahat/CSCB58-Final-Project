@@ -2,33 +2,33 @@
 TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow Model Setup 'datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
-Slack : -2.543
-TNS   : -50.714
+Type  : Slow Model Setup 'datapath:d0|graphics:display|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
+Slack : -2.108
+TNS   : -42.892
 
 Type  : Slow Model Setup 'CLOCK_50'
-Slack : -0.199
-TNS   : -0.744
+Slack : -0.332
+TNS   : -0.783
 
 Type  : Slow Model Setup 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 32.976
+Slack : 33.262
 TNS   : 0.000
 
 Type  : Slow Model Hold 'CLOCK_50'
-Slack : -2.557
-TNS   : -2.557
+Slack : -4.304
+TNS   : -60.918
 
 Type  : Slow Model Hold 'VGA|mypll|altpll_component|pll|clk[0]'
 Slack : 0.391
 TNS   : 0.000
 
-Type  : Slow Model Hold 'datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
+Type  : Slow Model Hold 'datapath:d0|graphics:display|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
 Slack : 0.391
 TNS   : 0.000
 
-Type  : Slow Model Minimum Pulse Width 'datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
+Type  : Slow Model Minimum Pulse Width 'datapath:d0|graphics:display|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
 Slack : -0.500
-TNS   : -25.000
+TNS   : -26.000
 
 Type  : Slow Model Minimum Pulse Width 'CLOCK_50'
 Slack : 7.620
@@ -38,33 +38,33 @@ Type  : Slow Model Minimum Pulse Width 'VGA|mypll|altpll_component|pll|clk[0]'
 Slack : 17.873
 TNS   : 0.000
 
-Type  : Fast Model Setup 'datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
-Slack : -0.620
-TNS   : -8.855
+Type  : Fast Model Setup 'datapath:d0|graphics:display|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
+Slack : -0.408
+TNS   : -4.989
 
 Type  : Fast Model Setup 'CLOCK_50'
-Slack : 0.559
+Slack : 0.472
 TNS   : 0.000
 
 Type  : Fast Model Setup 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 36.860
+Slack : 36.948
 TNS   : 0.000
 
 Type  : Fast Model Hold 'CLOCK_50'
-Slack : -1.597
-TNS   : -1.659
+Slack : -2.413
+TNS   : -34.690
 
 Type  : Fast Model Hold 'VGA|mypll|altpll_component|pll|clk[0]'
 Slack : 0.215
 TNS   : 0.000
 
-Type  : Fast Model Hold 'datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
+Type  : Fast Model Hold 'datapath:d0|graphics:display|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
 Slack : 0.215
 TNS   : 0.000
 
-Type  : Fast Model Minimum Pulse Width 'datapath:d0|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
+Type  : Fast Model Minimum Pulse Width 'datapath:d0|graphics:display|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
 Slack : -0.500
-TNS   : -25.000
+TNS   : -26.000
 
 Type  : Fast Model Minimum Pulse Width 'CLOCK_50'
 Slack : 7.620

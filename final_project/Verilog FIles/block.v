@@ -84,10 +84,15 @@ input movexright;
 input moveyup;
 input moveydown;
 
-reg [15:0] block1 = b1[15:0];
-reg [15:0] block2 = b2[15:0];
-reg [15:0] block3 = b3[15:0];
-reg [15:0] block4 = b4[15:0];
+reg [15:0] block1;
+reg [15:0] block2;
+reg [15:0] block3;
+reg [15:0] block4;
+
+output [15:0] block1out;
+output [15:0] block2out;
+output [15:0] block3out;
+output [15:0] block4out;
 
 reg [15:0] block1out;
 reg [15:0] block2out;
@@ -96,10 +101,7 @@ reg [15:0] block4out;
 
 // regs that hold the final positions of the blocks
 
-output block1out;
-output block2out;
-output block3out;
-output block4out;
+
 
 reg [6:0] currentx;
 reg [6:0] currenty;
@@ -108,7 +110,7 @@ always@(*) begin
 
 	if (select == 2'b00) begin
 		if (movexleft)
-			block1[1:8] <= block1[1:8] - 1'b1;
+			block1[8:1] <= block1[1:8] - 1'b1;
 		if (movexright)
 			block1[1:8] <= block1[1:8] + 1'b1;
 		if (moveyup)

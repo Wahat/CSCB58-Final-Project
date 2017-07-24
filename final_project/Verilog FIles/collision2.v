@@ -20,13 +20,13 @@ module ballpos(
 	// the initial position of the ball is at the top of the screen, in the middle,
 	initial begin
 		value_x <= 11'b0010;
-		value_y <= 11'b11110;
+		value_y <= 11'b110111;
 	end
 
 	always @ (posedge clk) begin
 		if (!reset) begin
 			  value_x <= 11'b1100;
-		    value_y <= 11'b11110;
+		    value_y <= 11'b110111;
 		end
 		else begin
 			// increment x
@@ -86,15 +86,15 @@ module ballcollisions(
 	reg dir_x, dir_y, hit, oob;
 	initial begin
 		dir_x <= 1;
-		dir_y <= 0;
+		dir_y <= 1;
 		oob <= 0;
 		hit <= 0;
 	end
 
 	always @ (posedge clk) begin
 		if (!reset) begin
-			dir_x <= 1;
-			dir_y <= 0;
+			dir_x <= dir_xstart;
+			dir_y <= dir_ystart;
 			oob <= 0;
 			hit <= 0;
 		end
@@ -114,7 +114,6 @@ module ballcollisions(
 
 			// collision with wall
 			if (ball_x >= 115) begin
-
 				dir_x = 0;	// reverse direction
 				hit <= 1;
 			end

@@ -17,16 +17,38 @@ UofT E-mail Address:
 
 Project Details
 ---------------
-Project Title: Blocker
+Project Title: Bounce
 
 Project Description:
 Set the walls for a ball to bounce off and fire the ball
 If you hit the goal, you win
 
+KEY[0] - Reset
+Select State
+—————————
+KEY[1] - Select number of blocks
+
+Choose State
+—————————
+KEY[2] - Select vertical or horizontal block
+
+Set State
+——————————
+Use keyboard controls to set the block
+Set the block by pressing KEY[2]
+
+PLAY state
+——————————
+Select which direction you want to fire the ball
+SW[0] for up
+SW[1] for down
+
+
 Video URL:
 
 Code URL (please upload a copy of this file to your repository at the end of the project as well, it will
 serve as a useful resource for future development):
+https://github.com/Wahat/CSCB58-Final-Project
 
 
 Proposal
@@ -39,7 +61,7 @@ What do you plan to have completed by the end of the second lab session?:
 What we plan to finish is game logic and the overall look of the game
 
 What do you plan to have completed by the end of the third lab session?:
-What we plan to
+What we plan to finish most of the VGA outputs
 
 What is your backup plan if things don’t work out as planned?
 Our backup plan is to implement on the dot runner game and add more obstacles
@@ -51,15 +73,24 @@ We might need to use a keyboard later on as we could run out of inputs
 Motivations
 -----------
 How does this project relate to the material covered in CSCB58?:
+This project relates to the many of the concepts that were introduced in B58. For example, we used registers to store data,
+rate dividers to slow down our clocks, muxs to control what data gets sent, flip-flops for our counters… etc. We also used a
+lot of knowledge gained from the labs to complete this project.
 
 Why is this project interesting/cool (for CSCB58 students, and for non CSCB58 students?):
+This project is interesting because it hasn’t been done before in CSCB58 and we plan to implement many features such as state
+hightlighter to tell the user what state they are in right now. For non-CSCB58 students, this would be interesting for them
+because this game requires some thought into aiming the target and might be fun for them.
 
 Why did you personally choose this project?:
+It was something that we haven’t seen done before in CSCB58 and CSC258 youtube videos. We didn’t feel like choosing a project
+that seemed too overdone and wanted to see something more unique (there were a lot of pong and brick breaker videos).
 
 Attributions
 ------------
 Provide a complete list of any external resources your project used (attributions should also be included in your
 code).
+PS2 MODULE - http://www.eecg.toronto.edu/~jayar/ece241_08F/AudioVideoCores/ps2/ps2.html
 
 Updates
 -------
@@ -76,3 +107,16 @@ a couple of problems such as how to display certain elements and how to control 
 input and we might have to use a keyboard for additional keys for controlling the block placer. This week we will finish the placing
 block modules and put the visuals into place. Some problems I see may occur in the future will be how we allow the user to place the blocks.
 The blocks may over lap and glitch the game or the ball might go through the block but I hope to fix this problem during week 3.
+
+Week 3:
+A significant amount of work was done this week. Backend Game logic is now finished, background mif file is in place. We tested and
+ensured that all the code we have been working on completely works now. During this week we added the PS2 module, updated our collision
+modules to support blocks, updated our blocks module to respond to keyboard inputs, a graphics mux to determine what gets output to the
+VGA (depending on state), highlighting the states on the screen and implemented our draw ball module. However, there were a lot of problems
+ with this week’s lab. Writing all the code beforehand and testing it this week was very risky because we didn’t know what worked and what
+ didn’t (nearly almost all of it didn’t work). Also, this was a reoccurring problem during our two previous labs. We wrote a lot of code but
+ didn’t write what was necessary (e.g graphics needs logic to be tested) to test it which made our progress very hard to move forward with.
+ In the end, we figured out our problem by going through each module one by one and seeing if theres conflicts or bugs between the each
+ connection, wires, outputs and registers. We have a working product right now but there is still a lot of work to do on the graphics side
+ as there are a few minor bugs (ex. blocks drawing where they aren’t suppose to). We are current on track to finishing before the presentation
+ but smooth out some bugs in our code first.

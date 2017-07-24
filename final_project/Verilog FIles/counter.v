@@ -21,6 +21,8 @@ module counterhz(enable, clk, reset_n, speed, counterlimit, counterOut);
   wire [27:0] c0_5hzOut;
   wire [27:0] c0_25hzOut;
   wire [27:0] c0_60hzOut;
+  wire [27:0] c2hzOut;
+  wire [27:0] c120hzOut;
 
   // register to hold the value of the enable
   reg outEnable;
@@ -68,8 +70,23 @@ module counterhz(enable, clk, reset_n, speed, counterlimit, counterOut);
         else
           outEnable <= 1'b0;
         end
+
+    3'b101: begin // 2 hz
+        if (c2hzOut == 28'b0)
+          outEnable <= 1'b1;
+        else
+          outEnable <= 1'b0;
+        end
+
+    3'b110: begin // 2 hz
+        if (c120hzOut == 28'b0)
+          outEnable <= 1'b1;
+        else
+          outEnable <= 1'b0;
+        end
       default: outEnable = 1'b0;
     endcase
+
   end
 
 // modules
@@ -82,15 +99,33 @@ module counterhz(enable, clk, reset_n, speed, counterlimit, counterOut);
     .countdownvalue(28'b0000000000000000000000000001),
     .q(c50hzOut)
     );
-	
+
+    // rate divider for 120hz
+    // countdown from 833332
+    ratedivider clock120hz(
+      .enable(enable),
+      .reset_n(~reset_n),
+      .clk(clk),
+      .countdownvalue(28'b11011101111100100010),
+      .q(c120hzOut)
+      );
+
   // rate divider for 60hz
   // countdown from 833332
   ratedivider clock60hz(
     .enable(enable),
     .reset_n(~reset_n),
     .clk(clk),
-    .countdownvalue(28'b11001011011100110100),
+    .countdownvalue(28'b110010110111001101),
     .q(c0_60hzOut)
+    );
+
+  ratedivider clock2hz(
+    .enable(enable),
+    .reset_n(~reset_n),
+    .clk(clk),
+    .countdownvalue(28'b1011111010111100001000000),
+    .q(c2hzOut)
     );
 
   // rate divider for 1hz
@@ -129,7 +164,7 @@ module counterhz(enable, clk, reset_n, speed, counterlimit, counterOut);
     .enable(outEnable),
     .reset_n(~reset_n),
     .clk(clk),
-	 .limit(counterlimit[3:0]),
+	  .limit(counterlimit[3:0]),
     .q(counterOut)
     );
 

@@ -54,7 +54,7 @@ module projectVGA
 
 	// Create the colour, x, y and writeEn wires that are inputs to the controller.
 	wire writeEn;
-	wire controlA, controlB, controlC, controlD, controlE;
+	wire controlA, controlB, controlC, controlD, controlE, controlF, controlG, controlH, controlI;
 	wire [2:0] colour;
 	wire [6:0] x;
 	wire [6:0] y;
@@ -104,6 +104,10 @@ module projectVGA
 		.ld_set(controlC),
 		.ld_startgame(controlD),
 		.ld_endgame(controlE),
+		.ld_begin_wait(controlF),
+		.ld_block_wait(controlG),
+		.ld_set_wait(controlH),
+		.ld_startgame_wait(controlI),
 		// output registers to VGA
 		.xout(x),
 		.yout(y),
@@ -137,6 +141,10 @@ module projectVGA
 		.ld_set(controlC),
 		.ld_startgame(controlD),
 		.ld_endgame(controlE),
+		.ld_begin_wait(controlF),
+		.ld_block_wait(controlG),
+		.ld_set_wait(controlH),
+		.ld_startgame_wait(controlI),
 		// out to led and hex
 		.stateled(ledout[6:0]),
 		.numBlocksUsed(numBlocksUsed[3:0])
@@ -186,6 +194,10 @@ module datapath (
 	input ld_set,
 	input ld_startgame,
 	input ld_endgame,
+	input ld_begin_wait,
+	input ld_block_wait,
+	input ld_set_wait,
+	input ld_startgame_wait,
 
 	// #####################################
 	// Bidirectionals From eecg.utoronto.edu
@@ -208,8 +220,6 @@ module datapath (
 	);
 
 	// input registers
-	reg [7:0] x_in;
-	reg [6:0] y_in;
 	reg [3:0] counter;
 	// block regs
 	reg [15:0] block1;
@@ -236,8 +246,6 @@ module datapath (
 	// Registers start, block, set,startgame with respective input logic
 	always@(posedge clk) begin
 		 if(!reset_n) begin
-				 x_in <= 6'b0;
-				 y_in <= 6'b0;
 				 wins <= 3'b0;
 				 losses <= 3'b0;
 				 blockenable = 1'b0;
@@ -246,8 +254,14 @@ module datapath (
 
 				// From control FSM, Press Key[0]
 				if(ld_begin) begin
-						 statereg = 3'b000;
+						 statereg = 4'b0000;
 						 blockenable = 1'b1; // begin looping through number of blocks
+
+				end
+				if(ld_begin_wait) begin
+						 statereg = 4'b0001;
+						 blockenable = 1'b0;
+ 						 startingBlocks[3:0] <= numBlocks[3:0];
 
 				end
 
@@ -255,36 +269,57 @@ module datapath (
 				if(ld_block) begin
 						// stop looping through number of blocks
 						// once the counter stops, it'll set the startingBlocks
-						statereg = 3'b001;
-						blockenable = 1'b0;
-						startingBlocks[3:0] <= numBlocks[3:0];
+						statereg = 4'b0010;
+
+						// block module - set to red
+				end
+
+				if(ld_block_wait) begin
+						// stop looping through number of blocks
+						// once the counter stops, it'll set the startingBlocks
+						statereg = 4'b0011;
 						// block module - set to red
 				end
 
 				 // From control FSM, Press Key[2]
 				if(ld_set) begin
-						 statereg = 3'b010;
+						 statereg = 4'b0100;
 						 // Draw block in grey
 						 //colourout[2:0] <= 3'b101;
 						 // block module, draw vertical or horizontal block depending on what was chosen
 						 // set to register
 				 end
 
+				 if(ld_set_wait) begin
+ 						 statereg = 4'b0101;
+ 						 // Draw block in grey
+ 						 //colourout[2:0] <= 3'b101;
+ 						 // block module, draw vertical or horizontal block depending on what was chosen
+ 						 // set to register
+ 				 end
+
 					// From control FSM, Press Key[1]
 				 if (ld_startgame) begin
-						statereg = 3'b011;
+						statereg = 4'b0110;
+						if (obb)
+	 					 wins <= wins + 1;
+	 				 if (hit)
+	 					 losses <= losses + 1;
 						//if up (SW[0]) then move startblock up
 						//elif (SW[1]) then move startblock down
 						// run game -> gameresult (0 or 1)
 
 					end
+
+					if (ld_startgame_wait) begin
+ 						statereg = 4'b0111;
+
+ 					end
+
 					// From control FSM, Press KEY[1]
 					if (ld_endgame) begin
-							statereg = 3'b100;
-							if (obb)
-								wins <= wins + 1;
-							if (hit)
-								losses <= losses + 1;
+							statereg = 4'b1000;
+
 				 end
 		   end
 		end
@@ -310,7 +345,7 @@ module datapath (
 		.counterOut(numBlocks[3:0]) // set the number of blocks
 		);
 
-		/*
+
 	graphics display(
 		.clk(clk),
 		.reset_n(reset_n),
@@ -318,12 +353,12 @@ module datapath (
 		.select(2'b01),
 		.hit(hit),
 		.oob(obb),
-		.xout(yout[10:0]),
-		.yout(xout[10:0]),
-		.colourout(colourout[2:0]),
+		.xout(xout),
+		.yout(yout),
+		.colourout(colourout),
 		.plot(plot)
 		);
-		*/
+ /*
 	ball whiteball(
 	.clk(clk),
 	.select(2'b11),
@@ -335,7 +370,7 @@ module datapath (
 	.colourout(colourout),
 	.plot(plot)
 	);
-
+*/
 	// Up - 8'h75, Down - 8'h72, Left - 8'h6b, Right - 74, space - 29
   // Source ###################################################################
 	// http://www.eecg.toronto.edu/~jayar/ece241_08F/AudioVideoCores/ps2/ps2.html
@@ -378,6 +413,11 @@ module control(
 	output reg ld_startgame,
 	output reg ld_endgame,
 
+	output reg ld_begin_wait,
+	output reg ld_block_wait,
+	output reg ld_set_wait,
+	output reg ld_startgame_wait,
+
 	// output led of the current state and counter to hez
 	output [6:0] stateled,
 	output [3:0] numBlocksUsed
@@ -385,7 +425,7 @@ module control(
 
 	reg [6:0] current_state, next_state;
 	wire [3:0] numBlocks;
-	reg count = 1'b1;
+	reg [26:0] count = 1'b0;
 
 	localparam     S_BEGIN              = 4'd0,
 						S_BEGIN_WAIT         = 4'd1,
@@ -404,27 +444,28 @@ module control(
 	begin: state_table
 			case (current_state)
 					S_BEGIN: begin
-								next_state = beginkey ? S_BEGIN_WAIT : S_BEGIN;
+								next_state = beginkey ? S_BEGIN : S_BEGIN_WAIT;
 								end // Loop in current state until value is input
-					S_BEGIN_WAIT: next_state = beginkey ? S_BEGIN_WAIT : S_LOAD_BLOCK; // Loop in current state until go signal goes low
-					S_LOAD_BLOCK: begin
-												count <= 1'b1;
-												next_state = blockkey ? S_LOAD_BLOCK_WAIT : S_LOAD_BLOCK; // Loop in current state until value is input
+					S_BEGIN_WAIT: begin
+					next_state = S_LOAD_BLOCK; // Loop in current state until go signal goes low
 					end
-					S_LOAD_BLOCK_WAIT: next_state = blockkey ? S_LOAD_BLOCK_WAIT : S_LOAD_SET; // Loop in current state until go signal goes low
-					S_LOAD_SET: next_state = setkey ? S_LOAD_SET_WAIT : S_LOAD_SET; // Loop in current state until value is input
-					S_LOAD_SET_WAIT: begin
+					S_LOAD_BLOCK: begin
+												next_state = blockkey ? S_LOAD_BLOCK : S_LOAD_BLOCK_WAIT; // Loop in current state until value is input
+					end
+					S_LOAD_BLOCK_WAIT: next_state = S_LOAD_SET; // Loop in current state until go signal goes low
+					S_LOAD_SET: begin
 														if (numBlocksUsed == 3'b100) begin
-																next_state = setkey ? S_LOAD_SET_WAIT : S_OUT_STARTGAME;
+																next_state = setkey ? S_LOAD_SET : S_LOAD_SET_WAIT;
 														end
 														else begin
-																next_state = setkey ? S_LOAD_SET_WAIT : S_LOAD_BLOCK;
+																next_state = setkey ? S_LOAD_SET : S_LOAD_BLOCK;
 																//numBlocksUsed <= setkey ? numBlocksUsed: (numBlocksUsed + 2'b10) ;
 														end
-										  end // Loop in current state until go signal goes low
-					S_OUT_STARTGAME: next_state =  startgamekey ? S_OUT_STARTGAME_WAIT : S_OUT_STARTGAME; // Loop in current state until value is input
-					S_OUT_STARTGAME_WAIT: next_state = startgamekey ? S_OUT_STARTGAME_WAIT : S_OUT_ENDGAME;// we will be done our two operations, start over after
-					S_OUT_ENDGAME: next_state =  endgamekey ? S_OUT_ENDGAME_WAIT : S_OUT_ENDGAME; // Loop in current state until value is input
+											end
+					S_LOAD_SET_WAIT: next_state = S_OUT_STARTGAME;
+					S_OUT_STARTGAME: next_state =  startgamekey ? S_OUT_STARTGAME : S_OUT_STARTGAME_WAIT; // Loop in current state until value is input
+					S_OUT_STARTGAME_WAIT: next_state = S_OUT_ENDGAME;// we will be done our two operations, start over after
+					S_OUT_ENDGAME: next_state =  endgamekey ? S_OUT_ENDGAME: S_OUT_ENDGAME_WAIT; // Loop in current state until value is input
 					S_OUT_ENDGAME_WAIT: next_state = endgamekey ? S_OUT_ENDGAME_WAIT : S_BEGIN;  // we will be done our two operations, start over after
 					default: next_state = S_BEGIN;
 			endcase
@@ -439,18 +480,35 @@ module control(
 			ld_startgame = 1'b0;
 			ld_endgame = 1'b0;
 
+			ld_begin_wait = 1'b0;
+			ld_block_wait = 1'b0;
+			ld_set_wait = 1'b0;
+			ld_startgame_wait = 1'b0;
+
 			case (current_state)
 					S_BEGIN: begin
 							ld_begin = 1'b1;
 					end
+					S_BEGIN_WAIT: begin
+							ld_begin_wait = 1'b1;
+					end
 					S_LOAD_BLOCK: begin
 							ld_block = 1'b1;
+					end
+					S_LOAD_BLOCK_WAIT: begin
+							ld_block_wait = 1'b1;
 					end
 					S_LOAD_SET: begin
 							ld_set = 1'b1;
 					end
+					S_LOAD_SET_WAIT: begin
+							ld_set_wait = 1'b1;
+					end
 					S_OUT_STARTGAME: begin
 							ld_startgame = 1'b1;
+					end
+					S_OUT_STARTGAME_WAIT: begin
+							ld_startgame_wait = 1'b1;
 					end
 					S_OUT_ENDGAME: begin
 							ld_endgame = 1'b1;
@@ -475,7 +533,7 @@ module control(
 		.enable(!setkey),
 		.clk(clk),
 		.reset_n(!reset_n),
-		.speed(3'b100),
+		.speed(3'b101),
 		.counterlimit(4'b0100), // only count up to 4
 		.counterOut(numBlocksUsed) // set the number of blocks
 		);
