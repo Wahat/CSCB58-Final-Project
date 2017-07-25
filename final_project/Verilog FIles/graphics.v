@@ -1,6 +1,6 @@
 // graphics module
 // controls and outputs the graphics to the vga adapter
-module graphics(clk, select, reset_n, ps2_key_data, ps2_key_pressed, blockselected, block1, block2, block3, block4, state, oob, hit, xout, yout, colourout, plot, blockout);
+module graphics(clk, select, reset_n, ps2_key_data, ps2_key_pressed, blockselected, block1, block2, block3, block4, state, oob, hit, xout, yout, colourout, plot, blockout, resetps2);
 input clk;
 input reset_n;
 input [3:0] state;
@@ -19,7 +19,8 @@ output reg [11:0] xout;
 output reg [10:0] yout;
 output reg [2:0] colourout;
 output reg plot;
-output [15:9] blockout;
+output reg [15:0] blockout;
+output reg resetps2;
 
 // red sqaure
 wire rsquareplot;
@@ -37,12 +38,14 @@ wire vblplot;
 wire [10:0] vblxout;
 wire [10:0] vblyout;
 wire [2:0] vblcolourout;
+wire [15:1] vblockout;
 
 //hblock
 wire hblplot;
 wire [10:0] hblxout;
 wire [10:0] hblyout;
 wire [2:0] hblcolourout;
+wire [15:1] hblockout;
 
 // ball
 wire [10:0] bxout;
@@ -96,17 +99,22 @@ drawblockv <= 1'b0;
 		yout[10:0] <= rsyout[10:0];
 		colourout[2:0] <= rscolourout[2:0];
 		enablered <= 1'b1;
+		resetblock = 1'b1;
+		resetps2 = 1'b0;
 		end
 
 		4'b0011: begin // load block wait
+		resetps2 = 1'b1;
 		  bypos <= 11'b100111;
 			xout[10:0] <= bsxout[10:0];
 			yout[10:0] <= bsyout[10:0];
 			colourout[2:0] <= bscolourout[2:0];
 			enableblack <= 1'b1;
+			resetblock = 1'b1;
 		end
 
 		4'b0100: begin // load set
+		resetps2 = 1'b1;
 			rypos[10:0] <= 11'b111010;
 			xout[10:0] <= rsxout[10:0];
 			yout[10:0] <= rsyout[10:0];
@@ -117,17 +125,20 @@ drawblockv <= 1'b0;
 
 		4'b0101: begin // draw block
 			resetblock = 1'b0;
+			resetps2 = 1'b0;
 			if (blockselected == 1'b1) begin
 				drawblockv <= 1'b1;
 				xout[10:0] <= vblxout[10:0];
 				yout[10:0] <= vblyout[10:0];
 				colourout[2:0] <= vblcolourout[2:0];
+				blockout[15:1] <= vblockout[15:1];
 			end
 			else begin
 				drawblockh <= 1'b1;
 				xout[10:0] <= hblxout[10:0];
 				yout[10:0] <= hblyout[10:0];
 				colourout[2:0] <= hblcolourout[2:0];
+				blockout[15:1] <= hblockout[15:1];
 			end
 		end
 
@@ -241,7 +252,8 @@ ball whiteball(
 		.xout(vblxout),
 		.yout(vblyout),
 		.colourout(vblcolourout),
-		.plot(vblplot)
+		.plot(vblplot),
+		.blockout(vblockout)
 		);
 
 		drawhblock hblock (
@@ -253,7 +265,8 @@ ball whiteball(
 			.xout(hblxout),
 			.yout(hblyout),
 			.colourout(hblcolourout),
-			.plot(hblplot)
+			.plot(hblplot),
+			.blockout(hblockout)
 			);
 
 		drawball whiteball(
@@ -709,7 +722,7 @@ counterhz count120hz(
 
 endmodule
 
-module drawhblock (clk, reset_n, enable, ps2_key_data, ps2_key_pressed, block, xout, yout, colourout, plot);
+module drawhblock (clk, reset_n, enable, ps2_key_data, ps2_key_pressed, block, xout, yout, colourout, plot, blockout);
 input clk;
 input reset_n;
 input enable;
@@ -727,11 +740,11 @@ wire clock120;
 
 input [15:0] block;
 
-reg [15:0] blockout;
+output reg [15:0] blockout;
 reg [3:0] colour;
 
 
-reg [3:0] current_state;
+reg [3:0] current_state, next_state;
 reg [27:0] count;
 reg [11:0] xpos;
 reg [10:0] ypos;
@@ -751,11 +764,9 @@ localparam  INIT    = 3'd0,
 
 		always @(posedge clock60hz)
 		begin
-		if (reset_n)
-					current_state = INIT;
 				case(current_state)
 				INIT: begin
-				blockout[15:9] = 7'b0010;
+				blockout[15:9] = 7'b00111;
 				blockout[8:1]  = 7'b001000;
 				count = 27'b0;
 				current_state = DRAWBLOCK;
@@ -786,23 +797,23 @@ localparam  INIT    = 3'd0,
 			end
 			end
 				CHECK: begin
-				if (ps2_key_data == 8'h6b & blockout[8:1] < 7'b1110100 & blockout[8:1] > 7'b111) begin
-					blockout[8:1] = blockout[8:1] - 2'b10;
+				if (ps2_key_data == 8'h6b & (blockout[8:1] - 4'b1111) > 7'b111) begin
+					blockout[8:1] = blockout[8:1] - 4'b1111;
 					current_state = DRAWBLOCK;
 				end
-				if (ps2_key_data == 8'h74 & blockout[8:1] < 7'b1110100 & blockout[8:1] > 7'b111) begin
-					blockout[8:1] = blockout[8:1] + 2'b10;
+				if (ps2_key_data == 8'h74 & (blockout[8:1] + 4'b1111) < 7'b1110100) begin
+					blockout[8:1] = blockout[8:1] + 4'b1111;
 					current_state = DRAWBLOCK;
 				end
-				if (ps2_key_data == 8'h75 & blockout[15:9] < 7'b1110100 & blockout[15:9] < 7'b11) begin
-					blockout[15:9] = blockout[15:9] - 2'b10;
+				if (ps2_key_data == 8'h75 & (blockout[15:9] - 4'b1111) > 7'b11) begin
+					blockout[15:9] = blockout[15:9] - 4'b1111;
 					current_state = DRAWBLOCK;
 					end
-				if (ps2_key_data == 8'h72 & blockout[15:9] < 7'b1110100 & blockout[15:9] < 7'b11)begin
-					blockout[15:9] = blockout[15:9] + 2'b10;
+				if (ps2_key_data == 8'h72 & (blockout[15:9] + 4'b1111) < 7'b1110100)begin
+					blockout[15:9] = blockout[15:9] + 4'b1111;
 					current_state = DRAWBLOCK;
 				end
-				if (ps2_key_data == 8'h29)begin
+				if (ps2_key_data == 8'h29) begin
 					current_state = END;
 				end
 				else
@@ -813,7 +824,12 @@ localparam  INIT    = 3'd0,
 				end
 				endcase
 		end
-
+always@(posedge clk) begin
+			if(reset_n)
+					next_state <= INIT;
+			else
+					next_state <= current_state;
+	end // state_FFS
 counterhz count240hz(
 	.enable(1'b1),
 	.clk(clk),
@@ -836,6 +852,7 @@ hdrawblock hblock(
 	 .colourout(colourout),
 	 .plot(plot)
 	 );
+
 counterhz clock_60hz(
 .enable(1'b1),
 .clk(clk),
@@ -856,7 +873,6 @@ output [11:0] xout;
 output [11:0] yout;
 output [3:0] colourout;
 output plot;
-output[15:0]  blockout;
 
 wire clock60hz;
 wire clk240;
@@ -865,11 +881,11 @@ wire clock120;
 
 input [15:0] block;
 
-reg [15:0] blockout;
+output reg [15:0] blockout;
 reg [3:0] colour;
 
 
-reg [3:0] current_state;
+reg [3:0] current_state, next_state;
 reg [27:0] count;
 reg [11:0] xpos;
 reg [10:0] ypos;
@@ -889,12 +905,10 @@ localparam  INIT    = 3'd0,
 
 		always @(posedge clock60hz)
 		begin
-		if (reset_n)
-					current_state = INIT;
 				case(current_state)
 
 				INIT: begin
-				blockout[15:9] = 7'b0010;
+				blockout[15:9] = 7'b00111;
 				blockout[8:1]  = 7'b001000;
 				count = 27'b0;
 				current_state = DRAWBLOCK;
@@ -925,20 +939,20 @@ localparam  INIT    = 3'd0,
 			end
 			end
 				CHECK: begin
-				if (ps2_key_data == 8'h6b & blockout[8:1] < 7'b1110100 & blockout[8:1] > 7'b111) begin
-					blockout[8:1] = blockout[8:1] - 2'b10;
+				if (ps2_key_data == 8'h6b & (blockout[8:1] - 4'b1111) > 7'b111) begin
+					blockout[8:1] = blockout[8:1] - 4'b1111;
 					current_state = DRAWBLOCK;
 				end
-				if (ps2_key_data == 8'h74 & blockout[8:1] < 7'b1110100 & blockout[8:1] > 7'b111) begin
-					blockout[8:1] = blockout[8:1] + 2'b10;
+				if (ps2_key_data == 8'h74 & (blockout[8:1] + 4'b1111) < 7'b1110100) begin
+					blockout[8:1] = blockout[8:1] + 4'b1111;
 					current_state = DRAWBLOCK;
 				end
-				if (ps2_key_data == 8'h75 & blockout[15:9] < 7'b1110100 & blockout[15:9] < 7'b11) begin
-					blockout[15:9] = blockout[15:9] - 2'b10;
+				if (ps2_key_data == 8'h75 & (blockout[15:9] - 4'b1111) > 7'b11) begin
+					blockout[15:9] = blockout[15:9] - 4'b1111;
 					current_state = DRAWBLOCK;
 					end
-				if (ps2_key_data == 8'h72 & blockout[15:9] < 7'b1110100 & blockout[15:9] < 7'b11)begin
-					blockout[15:9] = blockout[15:9] + 2'b10;
+				if (ps2_key_data == 8'h72 & (blockout[15:9] + 4'b1111) < 7'b1110100)begin
+					blockout[15:9] = blockout[15:9] + 4'b1111;
 					current_state = DRAWBLOCK;
 				end
 				if (ps2_key_data == 8'h29)begin
@@ -952,6 +966,13 @@ localparam  INIT    = 3'd0,
 				end
 				endcase
 		end
+		
+always@(posedge clk) begin
+			if(reset_n)
+					next_state <= INIT;
+			else
+					next_state <= current_state;
+	end // state_FFS
 
 counterhz count240hz(
 	.enable(1'b1),

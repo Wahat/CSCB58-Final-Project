@@ -64,6 +64,7 @@ module projectVGA
 	wire [3:0] numBlocks;
 	wire [6:0] ledout;
 	wire [3:0] numBlocksUsed;
+	wire [3:0] clk1hz;
 	// Create an Instance of a VGA controller - there can be only one!
 	// Define the number of colours as well as the initial background
 	// image file (.MIF) for the controller.
@@ -74,7 +75,7 @@ module projectVGA
 			.colour(colour),
 			.x(x),
 			.y(y),
-			.plot(writeEn),
+			.plot(1'b1),
 			/* Signals for the DAC to drive the monitor. */
 			.VGA_R(VGA_R),
 			.VGA_G(VGA_G),
@@ -130,8 +131,11 @@ module projectVGA
 		// output to HEX displays
 		.wins(winout),
 		.losses(loseout),
-		.blocksout(numBlocks)
+		.blocksout(numBlocks),
+		.startingBlocks(sb),
+		.clk1hz(clk1hz)
 		);
+		wire [3:0] sb;
 
   // Instansiate FSM control
 	// KEY[0] - reset_n
@@ -149,6 +153,7 @@ module projectVGA
 		.startgamekey(KEY[1]),
 		.endgamekey(KEY[1]),
 		.reset_n(resetn),
+		.startingBlocks(sb),
 		.PS2_KBDAT(PS2_KBDAT),
 		.PS2_KBCLK(PS2_KBCLK),
 		// state registers
@@ -176,7 +181,8 @@ module projectVGA
 		.ld_eg_erase_wait(controlV),
 		// out to led and hex
 		.stateled(ledout[6:0]),
-		.numBlocksUsed(numBlocksUsed[3:0])
+		.numBlocksUsed(numBlocksUsed[3:0]),
+		.clk1hz(clk1hz)
 		);
 
 	// output wins to HEX0
@@ -240,6 +246,7 @@ module datapath (
 	input ld_sg_erase_wait,
 	input ld_eg_erase,
 	input ld_eg_erase_wait,
+	input [3:0] clk1hz,
 
 	// #####################################
 	// Bidirectionals From eecg.utoronto.edu
@@ -258,7 +265,8 @@ module datapath (
 	// number of blocks at start
 	output [3:0] blocksout,
 	// collisiontest for states
-	output [6:0] stateleds
+	output [6:0] stateleds,
+	output reg [3:0] startingBlocks
 	);
 
 	// input registers
@@ -273,7 +281,7 @@ module datapath (
 	reg [3:0] selected;
 	reg blockenable;
 	wire [3:0] numBlocks;
-	reg [3:0] startingBlocks;
+	
 	reg [3:0] statereg;
 	wire hit;
 	wire obb;
@@ -281,6 +289,7 @@ module datapath (
 	wire [15:0] blockout;
 	reg blockselected;
 	reg [1:0] dirselected;
+	wire resetps2;
 
 	// #####################################
 	// wires for PS2 module From eecg.utoronto.edu
@@ -345,13 +354,13 @@ module datapath (
 
 				 if (ld_drawblock) begin
 				 		statereg = 4'b0101;
-						if (startingBlocks == 4'b0100)
+						if (clk1hz == 4'b0100)
 							block4[15:1] = blockout[15:1];
-						else if (startingBlocks == 4'b0011)
+						else if (clk1hz == 4'b0011)
 								block3[15:1] = blockout[15:1];
-							else if (startingBlocks == 4'b0010)
+							else if (clk1hz == 4'b0010)
 								block2[15:1] = blockout[15:1];
-								else if (startingBlocks == 4'b0001)
+								else if (clk1hz == 4'b0001)
 									block1[15:1] = blockout[15:1];
 
 				 end
@@ -414,7 +423,7 @@ module datapath (
 		.counterOut(numBlocks[3:0]) // set the number of blocks
 		);
 
-/*
+
 	graphics display(
 		.clk(clk),
 		.reset_n(reset_n),
@@ -433,10 +442,11 @@ module datapath (
 		.yout(yout),
 		.colourout(colourout),
 		.plot(plot),
-		.blockout(blockout)
+		.blockout(blockout),
+		.resetps2(resetps2)
 		);
-		*/
-	
+		
+	/*
 		drawhblock hblock (
 			.clk(clk),
 			.reset_n(1'b0),
@@ -448,6 +458,7 @@ module datapath (
 			.colourout(colourout),
 			.plot(plot)
 			);
+			*/
 	
 
 /*
@@ -499,7 +510,7 @@ drawvblock block (
 	PS2_Controller PS2C (
 	// Inputs
 	.CLOCK_50(clk),
-	.reset(~reset_n),
+	.reset(resetps2),
 
 	// Bidirectionals
 	.PS2_CLK (PS2_KBCLK),
@@ -561,7 +572,8 @@ module control(
 
 	// output led of the current state and counter to hez
 	output [6:0] stateled,
-	output [3:0] numBlocksUsed
+	output [3:0] numBlocksUsed,
+	output [3:0] clk1hz
 	);
 
 	reg [6:0] current_state, next_state;
@@ -570,6 +582,7 @@ module control(
 	wire clk240;
 	wire [7:0] ps2_key_data;
 	wire ps2_key_pressed;
+	wire [3:0] clk1hz1;
 
 	localparam    S_BEGIN              = 5'd0,
 								S_BEGIN_WAIT         = 5'd1,
@@ -602,7 +615,7 @@ module control(
 					S_BEGIN: next_state = beginkey ? S_BEGIN : S_BEGIN_WAIT;
 					S_BEGIN_WAIT: next_state = clk240 ? S_BEGIN_WAIT : S_B_ERASE; // Loop in current state until go signal goes low
 					S_B_ERASE: begin
-							if (count != 8'b11111111)
+							if (count != 11'b111111111111)
 							  count = count + 1'b1;
 								else begin
 								next_state = S_B_ERASE_WAIT;
@@ -613,7 +626,7 @@ module control(
 					S_LOAD_BLOCK: next_state = blockkey ? S_LOAD_BLOCK : S_LOAD_BLOCK_WAIT; // Loop in current state until value is input
 					S_LOAD_BLOCK_WAIT: next_state = clk240 ? S_LOAD_BLOCK_WAIT : S_LB_ERASE; // Loop in current state until go signal goes low
 					S_LB_ERASE: begin
-							if (count != 8'b11111111)
+							if (count != 11'b111111111111)
 							  count = count + 1'b1;
 								else begin
 								next_state = S_LB_ERASE_WAIT;
@@ -621,7 +634,7 @@ module control(
 					end
 					S_LB_ERASE_WAIT: next_state = clk240 ? S_LB_ERASE_WAIT : S_LOAD_SET;
 					S_LOAD_SET: begin
-														if (startingBlocks == 4'b0001) begin
+														if (clk1hz1 == 4'b0100) begin
 																next_state = setkey ? S_LOAD_SET : S_LOAD_SET_WAIT;
 														end
 														else begin
@@ -629,10 +642,10 @@ module control(
 																//numBlocksUsed <= setkey ? numBlocksUsed: (numBlocksUsed + 2'b10) ;
 														end
 											end
-					S_DRAW_BLOCK: next_state = (ps2_key_data == 8'h29) ? S_DRAW_BLOCK : S_LOAD_BLOCK;
+					S_DRAW_BLOCK: next_state = beginkey ? S_DRAW_BLOCK: S_LOAD_BLOCK;
 					S_LOAD_SET_WAIT: next_state = clk240 ? S_LOAD_SET_WAIT : S_OUT_STARTGAME;
 					S_LS_ERASE: begin
-							if (count != 8'b11111111)
+							if (count != 11'b111111111111)
 							  count = count + 1'b1;
 								else begin
 								next_state = S_LS_ERASE_WAIT;
@@ -644,7 +657,7 @@ module control(
 					S_OUT_STARTGAME: next_state = startgamekey ? S_OUT_STARTGAME: S_OUT_STARTGAME_WAIT;
 					S_OUT_STARTGAME_WAIT: next_state = clk240 ? S_OUT_STARTGAME_WAIT : S_SG_ERASE;
 					S_SG_ERASE: begin
-							if (count != 8'b11111111)
+							if (count !=11'b1111111111111)
 							  count = count + 1'b1;
 								else begin
 								next_state = S_SG_ERASE_WAIT;
@@ -774,12 +787,11 @@ module control(
 			else
 					current_state <= next_state;
 	end // state_FFS
-
 	// output to green leds
 	assign stateled[6:0] = current_state[6:0];
 	// output to hex display
 	// counter for the number of blocks
-	assign numBlocksUsed[3:0] = startingBlocks[3:0];
+	assign numBlocksUsed[3:0] = clk1hz1[3:0];
 
 	counterhz count240hz(
 		.enable(1'b1),
@@ -789,6 +801,16 @@ module control(
 		.counterlimit(4'b001),
 		.counterOut(clk240)
 		);
+	
+		counterhz count1(
+		.enable(~setkey),
+		.reset_n(1'b0),
+		.clk(clk),
+		.speed(3'b001),
+		.counterlimit(4'b0100),
+		.counterOut(clk1hz1)
+		);
+
 
 		PS2_Controller PS2 (
 		// Inputs
@@ -803,6 +825,7 @@ module control(
 		.received_data		(ps2_key_data),
 		.received_data_en	(ps2_key_pressed)
 	);
+	assign clk1hz[3:0] = clk1hz1[3:0];
 endmodule
 
 // -------------------------------------------------------------------------
