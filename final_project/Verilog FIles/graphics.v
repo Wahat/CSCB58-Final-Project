@@ -263,6 +263,10 @@ ball whiteball(
 		.select(select),
 		.hit(hit),
 		.outofbounds(obb),
+		.block1(block1),
+		.block2(block2),
+		.block3(block3),
+		.block4(block4),
 		.xout(bxout),
 		.yout(byout),
 		.colourout(bcolourout),
@@ -500,7 +504,7 @@ drawsquare ball(
 	.xpos(xposout),
 	.ypos(yposout),
 	.colourin(cout), // make white
-	.ld_enable(!outofbounds), // only move if the ball is not outofbounds
+	.ld_enable(!outofbounds & !hit), // only move if the ball is not outofbounds
 	.xout(xout),
 	.yout(yout),
 	.colourout(colourout),
@@ -550,22 +554,15 @@ ballcollisions collide(
 		);
 endmodule
 
-module ballcolour(clk, colourout);
-input clk;
-output [3:0] colourout;
-assign colourout = clk ? 3'b111: 3'b000;
-
-endmodule
-
 module drawball(clk, reset_n, select, enable, block1, block2, block3, block4, hit, outofbounds, xout, yout, colourout,plot);
 input clk;
 input reset_n;
 input [1:0] select;
 input enable;
-input block1;
-input block2;
-input block3;
-input block4;
+input [15:0] block1;
+input [15:0] block2;
+input [15:0] block3;
+input [15:0] block4;
 
 output hit;
 output outofbounds;
@@ -596,9 +593,10 @@ localparam  INIT    = 3'd0,
 						START    = 3'd1,
 						DRAWBALL = 3'd2,
 						WAIT1    = 3'd3,
-						ERASEBALL =3'd4,
-						CHECK     =3'd5;
-always @(posedge clock60hz & enable & !outofbounds)
+						ERASEBALL = 3'd4,
+						CHECK     = 3'd5;
+
+always @(posedge clock60hz & enable & !outofbounds & !hit)
 begin
 		case(current_state)
 		INIT: begin
@@ -685,10 +683,10 @@ ballcollisions collide(
 .hit(hit),
 .dir_xstart(select[0]),
 .dir_ystart(select[1]),
-.bar1(10'b1111111111),
-.bar2(10'b1111111111),
-.bar3(10'b1111111111),
-.bar4(10'b1111111111)
+.bar1(block1),
+.bar2(block2),
+.bar3(block3),
+.bar4(block4)
 );
 
 counterhz count120hz(
@@ -788,19 +786,19 @@ localparam  INIT    = 3'd0,
 			end
 			end
 				CHECK: begin
-				if (ps2_key_data == 8'h6b & blockout[8:1] < 7'b1110100 & blockout[8:1] > 7'b10) begin
+				if (ps2_key_data == 8'h6b & blockout[8:1] < 7'b1110100 & blockout[8:1] > 7'b111) begin
 					blockout[8:1] = blockout[8:1] - 2'b10;
 					current_state = DRAWBLOCK;
 				end
-				if (ps2_key_data == 8'h74 & blockout[8:1] < 7'b1110100 & blockout[8:1] > 7'b10) begin
+				if (ps2_key_data == 8'h74 & blockout[8:1] < 7'b1110100 & blockout[8:1] > 7'b111) begin
 					blockout[8:1] = blockout[8:1] + 2'b10;
 					current_state = DRAWBLOCK;
 				end
-				if (ps2_key_data == 8'h75) begin
+				if (ps2_key_data == 8'h75 & blockout[15:9] < 7'b1110100 & blockout[15:9] < 7'b11) begin
 					blockout[15:9] = blockout[15:9] - 2'b10;
 					current_state = DRAWBLOCK;
 					end
-				if (ps2_key_data == 8'h72 & blockout[15:9] < 7'b1110100 & blockout[15:9] > 7'b10)begin
+				if (ps2_key_data == 8'h72 & blockout[15:9] < 7'b1110100 & blockout[15:9] < 7'b11)begin
 					blockout[15:9] = blockout[15:9] + 2'b10;
 					current_state = DRAWBLOCK;
 				end
@@ -820,7 +818,7 @@ counterhz count240hz(
 	.enable(1'b1),
 	.clk(clk),
 	.reset_n(1'b0),
-	
+
 	.speed(3'b110),
 	.counterlimit(4'b001),
 	.counterOut(clk240)
@@ -848,8 +846,8 @@ counterhz clock_60hz(
 );
 endmodule
 
-	module drawvblock (clk, reset_n, enable, ps2_key_data, ps2_key_pressed, block, xout, yout, colourout, plot, blockout);
-	input clk;
+module drawvblock (clk, reset_n, enable, ps2_key_data, ps2_key_pressed, block, xout, yout, colourout, plot, blockout);
+input clk;
 input reset_n;
 input enable;
 input ps2_key_pressed;
@@ -894,7 +892,7 @@ localparam  INIT    = 3'd0,
 		if (reset_n)
 					current_state = INIT;
 				case(current_state)
-				
+
 				INIT: begin
 				blockout[15:9] = 7'b0010;
 				blockout[8:1]  = 7'b001000;
@@ -927,19 +925,19 @@ localparam  INIT    = 3'd0,
 			end
 			end
 				CHECK: begin
-				if (ps2_key_data == 8'h6b) begin
+				if (ps2_key_data == 8'h6b & blockout[8:1] < 7'b1110100 & blockout[8:1] > 7'b111) begin
 					blockout[8:1] = blockout[8:1] - 2'b10;
 					current_state = DRAWBLOCK;
 				end
-				if (ps2_key_data == 8'h74) begin
+				if (ps2_key_data == 8'h74 & blockout[8:1] < 7'b1110100 & blockout[8:1] > 7'b111) begin
 					blockout[8:1] = blockout[8:1] + 2'b10;
 					current_state = DRAWBLOCK;
 				end
-				if (ps2_key_data == 8'h75) begin
+				if (ps2_key_data == 8'h75 & blockout[15:9] < 7'b1110100 & blockout[15:9] < 7'b11) begin
 					blockout[15:9] = blockout[15:9] - 2'b10;
 					current_state = DRAWBLOCK;
 					end
-				if (ps2_key_data == 8'h72)begin
+				if (ps2_key_data == 8'h72 & blockout[15:9] < 7'b1110100 & blockout[15:9] < 7'b11)begin
 					blockout[15:9] = blockout[15:9] + 2'b10;
 					current_state = DRAWBLOCK;
 				end
@@ -959,7 +957,7 @@ counterhz count240hz(
 	.enable(1'b1),
 	.clk(clk),
 	.reset_n(1'b0),
-	
+
 	.speed(3'b110),
 	.counterlimit(4'b001),
 	.counterOut(clk240)

@@ -105,10 +105,10 @@ module ballcollisions(
 			end
 
 			// collision with top & bottom walls
-			if (ball_y <= 3) begin
+			if (ball_y <= 4) begin
 				dir_y = 1;
 			end
-			if (ball_y >= 116) begin
+			if (ball_y >= 113) begin
 				dir_y = 0;
 			end
 
