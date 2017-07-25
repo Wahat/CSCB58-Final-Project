@@ -596,11 +596,11 @@ module control(
 																next_state = setkey ? S_LOAD_SET : S_LOAD_SET_WAIT;
 														end
 														else begin
-																next_state = setkey ? S_LOAD_SET : S_LOAD_BLOCK;
+																next_state = setkey ? S_LOAD_SET : S_DRAW_BLOCK;
 																//numBlocksUsed <= setkey ? numBlocksUsed: (numBlocksUsed + 2'b10) ;
 														end
 											end
-					S_DRAW_BLOCK: next_state = (ps2_key_data == 8'h29) ? S_DRAW_BLOCK : S_LOAD_SET_WAIT;
+					S_DRAW_BLOCK: next_state = (ps2_key_data == 8'h29) ? S_DRAW_BLOCK : S_LOAD_BLOCK;
 					S_LOAD_SET_WAIT: next_state = clk240 ? S_LOAD_SET_WAIT : S_OUT_STARTGAME;
 					S_LS_ERASE: begin
 							if (count != 8'b11111111)
@@ -750,14 +750,7 @@ module control(
 	assign stateled[6:0] = current_state[6:0];
 	// output to hex display
 	// counter for the number of blocks
-	counterhz numblocksUsedcounter(
-		.enable(!setkey),
-		.clk(clk),
-		.reset_n(!reset_n),
-		.speed(3'b101),
-		.counterlimit(4'b0100), // only count up to 4
-		.counterOut(numBlocksUsed) // set the number of blocks
-		);
+	assign numBlocksUsed[3:0] = startingBlocks[3:0];
 
 	counterhz count240hz(
 		.enable(1'b1),
