@@ -1,4 +1,5 @@
-module chooseblock(
+/*
+2/module chooseblock(
 
 block1,
 block2,
@@ -164,3 +165,4 @@ always@(*) begin
 end
 
 endmodule
+*/

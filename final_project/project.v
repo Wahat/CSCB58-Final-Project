@@ -11,8 +11,8 @@ module projectVGA
 		LEDR,
 		LEDG,
 		// Bidirectionals
-		PS2_CLK,
-		PS2_DAT,
+		PS2_KBCLK,
+		PS2_KBDAT,
 		// The ports below are for the VGA output.  Do not change.
 		VGA_CLK,   					//	VGA Clock
 		VGA_HS,							//	VGA H_SYNC
@@ -28,8 +28,8 @@ module projectVGA
 	input   [9:0]   SW;
 	input   [3:0]   KEY;
 	// Bidirectionals
-	inout PS2_CLK;
-	inout PS2_DAT;
+	inout PS2_KBCLK;
+	inout PS2_KBDAT;
 	// output hex
 	output  [6:0]   HEX0;
 	output  [6:0]   HEX2;
@@ -74,7 +74,7 @@ module projectVGA
 			.colour(colour),
 			.x(x),
 			.y(y),
-			.plot(1'b1),
+			.plot(writeEn),
 			/* Signals for the DAC to drive the monitor. */
 			.VGA_R(VGA_R),
 			.VGA_G(VGA_G),
@@ -97,8 +97,8 @@ module projectVGA
 		.clk(CLOCK_50),// writeText - highlight start
 		.reset_n(resetn),
 		.pos(SW[6:0]),
-		.PS2_CLK(PS2_CLK),
-		.PS2_DAT(PS2_DAT),
+		.PS2_KBCLK(PS2_KBCLK),
+		.PS2_KBDAT(PS2_KBDAT),
 		// input registers from FSM
 		.ld_begin(controlA),
 		.ld_block(controlB),
@@ -149,8 +149,8 @@ module projectVGA
 		.startgamekey(KEY[1]),
 		.endgamekey(KEY[1]),
 		.reset_n(resetn),
-		.PS2_DAT(PS2_DAT),
-		.PS2_CLK(PS2_CLK),
+		.PS2_KBDAT(PS2_KBDAT),
+		.PS2_KBCLK(PS2_KBCLK),
 		// state registers
 		.ld_begin(controlA),
 		.ld_block(controlB),
@@ -243,8 +243,8 @@ module datapath (
 
 	// #####################################
 	// Bidirectionals From eecg.utoronto.edu
-	inout				PS2_CLK,
-	inout				PS2_DAT,
+	inout				PS2_KBCLK,
+	inout				PS2_KBDAT,
 	// #####################################
 
 	// registers to output to VGA
@@ -414,7 +414,7 @@ module datapath (
 		.counterOut(numBlocks[3:0]) // set the number of blocks
 		);
 
-
+/*
 	graphics display(
 		.clk(clk),
 		.reset_n(reset_n),
@@ -435,7 +435,36 @@ module datapath (
 		.plot(plot),
 		.blockout(blockout)
 		);
+		*/
+	
+		drawhblock hblock (
+			.clk(clk),
+			.reset_n(1'b0),
+			.enable(1'b1),
+			.ps2_key_data(ps2_key_data),
+			.ps2_key_pressed(ps2_key_pressed),
+			.xout(xout),
+			.yout(yout),
+			.colourout(colourout),
+			.plot(plot)
+			);
+	
 
+/*
+	
+	vdrawblock hblock(
+	 .clk(clk),
+	 .reset_n(1'b1),
+	 .xpos(11'b0100),
+	 .ypos(11'b1000),
+	 .colourin(3'b111),
+	 .ld_enable(1'b1),
+	 .xout(xout),
+	 .yout(yout),
+	 .colourout(colourout),
+	 .plot(plot)
+	 );
+	*/
 	/*
 	ball whiteball(
 	.clk(clk),
@@ -473,8 +502,8 @@ drawvblock block (
 	.reset(~reset_n),
 
 	// Bidirectionals
-	.PS2_CLK (PS2_CLK),
- 	.PS2_DAT (PS2_DAT),
+	.PS2_CLK (PS2_KBCLK),
+ 	.PS2_DAT (PS2_KBDAT),
 
 	// Outputs
 	.received_data		(ps2_key_data),
@@ -500,8 +529,8 @@ module control(
 	input hit,
 	input oob,
 	input [3:0] startingBlocks,
-	inout PS2_CLK,
-	inout PS2_DAT,
+	inout PS2_KBCLK,
+	inout PS2_KBDAT,
 
 	// output states to datapath
 	output reg ld_begin,
@@ -767,8 +796,8 @@ module control(
 		.reset(~reset_n),
 
 		// Bidirectionals
-		.PS2_CLK (PS2_CLK),
-	 	.PS2_DAT (PS2_DAT),
+		.PS2_CLK (PS2_KBCLK),
+	 	.PS2_DAT (PS2_KBDAT),
 
 		// Outputs
 		.received_data		(ps2_key_data),

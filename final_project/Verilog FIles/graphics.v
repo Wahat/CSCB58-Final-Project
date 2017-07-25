@@ -117,10 +117,18 @@ drawblockv <= 1'b0;
 
 		4'b0101: begin // draw block
 			resetblock = 1'b0;
-			if (blockselected == 1'b1)
+			if (blockselected == 1'b1) begin
 				drawblockv <= 1'b1;
-			else
+				xout[10:0] <= vblxout[10:0];
+				yout[10:0] <= vblyout[10:0];
+				colourout[2:0] <= vblcolourout[2:0];
+			end
+			else begin
 				drawblockh <= 1'b1;
+				xout[10:0] <= hblxout[10:0];
+				yout[10:0] <= hblyout[10:0];
+				colourout[2:0] <= hblcolourout[2:0];
+			end
 		end
 
 		4'b0110: begin // load set wait
@@ -703,11 +711,10 @@ counterhz count120hz(
 
 endmodule
 
-module drawhblock (clk, reset_n, enable,typeb, ps2_key_data, ps2_key_pressed, block, xout, yout, colourout, plot);
+module drawhblock (clk, reset_n, enable, ps2_key_data, ps2_key_pressed, block, xout, yout, colourout, plot);
 input clk;
 input reset_n;
 input enable;
-input typeb;
 input ps2_key_pressed;
 input [7:0] ps2_key_data;
 output [11:0] xout;
@@ -746,13 +753,12 @@ localparam  INIT    = 3'd0,
 
 		always @(posedge clock60hz)
 		begin
-				if (!reset_n) begin
-					 current_state = INIT;
-				end
+		if (reset_n)
+					current_state = INIT;
 				case(current_state)
 				INIT: begin
-				blockout[15:9] = 7'b0011111;
-				blockout[8:1]  = 7'b0011111;
+				blockout[15:9] = 7'b0010;
+				blockout[8:1]  = 7'b001000;
 				count = 27'b0;
 				current_state = DRAWBLOCK;
 				colour = 3'b100;
@@ -769,7 +775,146 @@ localparam  INIT    = 3'd0,
 				end
 				end
 				WAIT1: begin
-						current_state = clk240 ? WAIT1: ERASEBLOCK;
+						current_state = ERASEBLOCK;
+				end
+				ERASEBLOCK: begin
+				if (count < 6'b100000) begin
+					 count = count + 1'b1;
+					 colour = 3'b000;
+				end
+			else begin
+				count = 27'b0;
+				current_state = CHECK;
+			end
+			end
+				CHECK: begin
+				if (ps2_key_data == 8'h6b & blockout[8:1] < 7'b1110100 & blockout[8:1] > 7'b10) begin
+					blockout[8:1] = blockout[8:1] - 2'b10;
+					current_state = DRAWBLOCK;
+				end
+				if (ps2_key_data == 8'h74 & blockout[8:1] < 7'b1110100 & blockout[8:1] > 7'b10) begin
+					blockout[8:1] = blockout[8:1] + 2'b10;
+					current_state = DRAWBLOCK;
+				end
+				if (ps2_key_data == 8'h75) begin
+					blockout[15:9] = blockout[15:9] - 2'b10;
+					current_state = DRAWBLOCK;
+					end
+				if (ps2_key_data == 8'h72 & blockout[15:9] < 7'b1110100 & blockout[15:9] > 7'b10)begin
+					blockout[15:9] = blockout[15:9] + 2'b10;
+					current_state = DRAWBLOCK;
+				end
+				if (ps2_key_data == 8'h29)begin
+					current_state = END;
+				end
+				else
+					current_state = DRAWBLOCK;
+				end
+				END: begin
+						colour = 3'b101;
+				end
+				endcase
+		end
+
+counterhz count240hz(
+	.enable(1'b1),
+	.clk(clk),
+	.reset_n(1'b0),
+	
+	.speed(3'b110),
+	.counterlimit(4'b001),
+	.counterOut(clk240)
+	);
+
+hdrawblock hblock(
+	 .clk(clk),
+	 .reset_n(!reset_n),
+	 .xpos(blockout[8:1]),
+	 .ypos(blockout[15:9]),
+	 .colourin(colour),
+	 .ld_enable(1'b1),
+	 .xout(xout),
+	 .yout(yout),
+	 .colourout(colourout),
+	 .plot(plot)
+	 );
+counterhz clock_60hz(
+.enable(1'b1),
+.clk(clk),
+.reset_n(1'b0),
+.speed(3'b100), // 60hz
+.counterlimit(4'b0001), // only count up to 1
+.counterOut(clock60hz) // set the number of blocks
+);
+endmodule
+
+	module drawvblock (clk, reset_n, enable, ps2_key_data, ps2_key_pressed, block, xout, yout, colourout, plot, blockout);
+	input clk;
+input reset_n;
+input enable;
+input ps2_key_pressed;
+input [7:0] ps2_key_data;
+output [11:0] xout;
+output [11:0] yout;
+output [3:0] colourout;
+output plot;
+output[15:0]  blockout;
+
+wire clock60hz;
+wire clk240;
+wire clock120;
+
+
+input [15:0] block;
+
+reg [15:0] blockout;
+reg [3:0] colour;
+
+
+reg [3:0] current_state;
+reg [27:0] count;
+reg [11:0] xpos;
+reg [10:0] ypos;
+reg clkenable;
+
+// regs that hold the final positions of the blocks
+initial begin
+	blockout = block;
+end
+
+localparam  INIT    = 3'd0,
+						DRAWBLOCK = 3'd2,
+						WAIT1    = 3'd3,
+						ERASEBLOCK =3'd4,
+						CHECK     = 3'd5,
+						END       = 3'd6;
+
+		always @(posedge clock60hz)
+		begin
+		if (reset_n)
+					current_state = INIT;
+				case(current_state)
+				
+				INIT: begin
+				blockout[15:9] = 7'b0010;
+				blockout[8:1]  = 7'b001000;
+				count = 27'b0;
+				current_state = DRAWBLOCK;
+				colour = 3'b100;
+				end
+				DRAWBLOCK: begin
+					clkenable = 1'b0;
+					if (count < 6'b100000) begin
+						 count = count + 1'b1;
+						 colour = 3'b100;
+					end
+				else begin
+					count = 27'b0;
+					current_state = WAIT1;
+				end
+				end
+				WAIT1: begin
+						current_state = ERASEBLOCK;
 				end
 				ERASEBLOCK: begin
 				if (count < 6'b100000) begin
@@ -801,6 +946,8 @@ localparam  INIT    = 3'd0,
 				if (ps2_key_data == 8'h29)begin
 					current_state = END;
 				end
+				else
+					current_state = DRAWBLOCK;
 				end
 				END: begin
 						colour = 3'b101;
@@ -810,152 +957,17 @@ localparam  INIT    = 3'd0,
 
 counterhz count240hz(
 	.enable(1'b1),
-	.reset_n(reset_n),
 	.clk(clk),
-	.speed(3'b011),
+	.reset_n(1'b0),
+	
+	.speed(3'b110),
 	.counterlimit(4'b001),
 	.counterOut(clk240)
 	);
 
-hdrawblock hblock(
-	 .clk(clk),
-	 .reset_n(reset_n),
-	 .xpos(blockout[8:1]),
-	 .ypos(blockout[15:9]),
-	 .colourin(colour),
-	 .ld_enable(1'b1),
-	 .xout(xout),
-	 .yout(yout),
-	 .colourout(colourout),
-	 .plot(plot)
-	 );
-
-counterhz clock_60hz(
-.enable(1'b1),
-.clk(clk),
-.reset_n(1'b0),
-.speed(3'b100), // 60hz
-.counterlimit(4'b0001), // only count up to 1
-.counterOut(clock60hz) // set the number of blocks
-);
-endmodule
-
-	module drawvblock (clk, reset_n, enable, ps2_key_data, ps2_key_pressed, block, xout, yout, colourout, plot, blockout);
-	input clk;
-	input reset_n;
-	input enable;
-	input ps2_key_pressed;
-	input [7:0] ps2_key_data;
-	output [11:0] xout;
-	output [11:0] yout;
-	output [3:0] colourout;
-	output plot;
-
-	wire clock60hz;
-	wire clk240;
-	wire clock120;
-
-
-	input [15:0] block;
-
-	output reg [15:0] blockout;
-	reg [3:0] colour;
-
-
-	reg [3:0] current_state;
-	reg [27:0] count;
-	reg [11:0] xpos;
-	reg [10:0] ypos;
-	reg clkenable;
-
-	// regs that hold the final positions of the blocks
-	initial begin
-		blockout = block;
-	end
-
-	localparam  INIT    = 3'd0,
-							DRAWBLOCK = 3'd2,
-							WAIT1    = 3'd3,
-							ERASEBLOCK =3'd4,
-							CHECK     = 3'd5,
-							END       = 3'd6;
-
-			always @(posedge clock60hz)
-			begin
-					if (!reset_n) begin
-						 current_state = INIT;
-					end
-					case(current_state)
-					INIT: begin
-					blockout[15:9] = 7'b0011111;
-					blockout[8:1]  = 7'b0011111;
-					count = 27'b0;
-					current_state = DRAWBLOCK;
-					colour = 3'b100;
-					end
-					DRAWBLOCK: begin
-						clkenable = 1'b0;
-						if (count < 6'b100000) begin
-							 count = count + 1'b1;
-							 colour = 3'b100;
-						end
-					else begin
-						count = 27'b0;
-						current_state = WAIT1;
-					end
-					end
-					WAIT1: begin
-							current_state = clk240 ? WAIT1: ERASEBLOCK;
-					end
-					ERASEBLOCK: begin
-					if (count < 6'b100000) begin
-						 count = count + 1'b1;
-						 colour = 3'b000;
-					end
-				else begin
-					count = 27'b0;
-					current_state = CHECK;
-				end
-				end
-					CHECK: begin
-					if (ps2_key_data == 8'h6b) begin
-						blockout[8:1] = blockout[8:1] - 2'b10;
-						current_state = DRAWBLOCK;
-					end
-					if (ps2_key_data == 8'h74) begin
-						blockout[8:1] = blockout[8:1] + 2'b10;
-						current_state = DRAWBLOCK;
-					end
-					if (ps2_key_data == 8'h75) begin
-						blockout[15:9] = blockout[15:9] - 2'b10;
-						current_state = DRAWBLOCK;
-						end
-					if (ps2_key_data == 8'h72)begin
-						blockout[15:9] = blockout[15:9] + 2'b10;
-						current_state = DRAWBLOCK;
-					end
-					if (ps2_key_data == 8'h29)begin
-						current_state = END;
-					end
-					end
-					END: begin
-							colour = 3'b101;
-					end
-					endcase
-			end
-
-	counterhz count240hz(
-		.enable(1'b1),
-		.reset_n(reset_n),
-		.clk(clk),
-		.speed(3'b011),
-		.counterlimit(4'b001),
-		.counterOut(clk240)
-		);
-
 	vdrawblock vblock(
 		.clk(clk),
-		.reset_n(reset_n),
+		.reset_n(!reset_n),
 		.xpos(blockout[8:1]),
 		.ypos(blockout[15:9]),
 		.colourin(colour),

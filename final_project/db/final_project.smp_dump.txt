@@ -53,24 +53,7 @@ s_ps2_receiver.PS2_STATE_2_DATA_IN 0 1 0 1 0
 s_ps2_receiver.PS2_STATE_3_PARITY_IN 1 0 0 1 0 
 s_ps2_receiver.PS2_STATE_4_STOP_IN 0 0 0 1 1 
 
-State Machine - |projectVGA|datapath:d0|graphics:display|drawball:whiteball|current_state
-Name current_state.CHECK current_state.ERASEBALL current_state.WAIT1 current_state.DRAWBALL current_state.INIT 
-current_state.INIT 0 0 0 0 0 
-current_state.DRAWBALL 0 0 0 1 1 
-current_state.WAIT1 0 0 1 0 1 
-current_state.ERASEBALL 0 1 0 0 1 
-current_state.CHECK 1 0 0 0 1 
-
-State Machine - |projectVGA|datapath:d0|graphics:display|drawhblock:hblock|current_state
-Name current_state.END current_state.CHECK current_state.ERASEBLOCK current_state.WAIT1 current_state.DRAWBLOCK current_state.INIT 
-current_state.INIT 0 0 0 0 0 0 
-current_state.DRAWBLOCK 0 0 0 0 1 1 
-current_state.WAIT1 0 0 0 1 0 1 
-current_state.ERASEBLOCK 0 0 1 0 0 1 
-current_state.CHECK 0 1 0 0 0 1 
-current_state.END 1 0 0 0 0 1 
-
-State Machine - |projectVGA|datapath:d0|graphics:display|drawvblock:vblock|current_state
+State Machine - |projectVGA|datapath:d0|drawhblock:hblock|current_state
 Name current_state.END current_state.CHECK current_state.ERASEBLOCK current_state.WAIT1 current_state.DRAWBLOCK current_state.INIT 
 current_state.INIT 0 0 0 0 0 0 
 current_state.DRAWBLOCK 0 0 0 0 1 1 

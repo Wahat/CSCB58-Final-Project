@@ -5,8 +5,8 @@ module PS2_Demo (
 	KEY,
 
 	// Bidirectionals
-	PS2_CLK,
-	PS2_DAT,
+	PS2_KBCLK,
+	PS2_KBDAT,
 	
 	// Outputs
 	HEX0,
@@ -33,8 +33,8 @@ input				CLOCK_50;
 input		[3:0]	KEY;
 
 // Bidirectionals
-inout				PS2_CLK;
-inout				PS2_DAT;
+inout				PS2_KBCLK;
+inout				PS2_KBDAT;
 
 // Outputs
 output		[6:0]	HEX0;
@@ -102,8 +102,8 @@ PS2_Controller PS2 (
 	.reset				(~KEY[0]),
 
 	// Bidirectionals
-	.PS2_CLK			(PS2_CLK),
- 	.PS2_DAT			(PS2_DAT),
+	.PS2_CLK			(PS2_KBCLK),
+ 	.PS2_DAT			(PS2_KBDAT),
 
 	// Outputs
 	.received_data		(ps2_key_data),
