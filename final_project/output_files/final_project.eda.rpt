@@ -1,6 +1,6 @@
 EDA Netlist Writer report for final_project
-Mon Jul 24 03:55:37 2017
-Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+Tue Jul 25 13:22:40 2017
+Quartus Prime Version 17.0.0 Build 595 04/25/2017 SJ Lite Edition
 
 
 ---------------------
@@ -17,29 +17,30 @@ Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 1991-2013 Altera Corporation
-Your use of Altera Corporation's design tools, logic functions 
+Copyright (C) 2017  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
-to the terms and conditions of the Altera Program License 
-Subscription Agreement, Altera MegaCore Function License 
-Agreement, or other applicable license agreement, including, 
-without limitation, that your use is for the sole purpose of 
-programming logic devices manufactured by Altera and sold by 
-Altera or its authorized distributors.  Please refer to the 
-applicable agreement for further details.
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Intel and sold by Intel or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
 
 
 
 +-------------------------------------------------------------------+
 ; EDA Netlist Writer Summary                                        ;
 +---------------------------+---------------------------------------+
-; EDA Netlist Writer Status ; Successful - Mon Jul 24 03:55:36 2017 ;
+; EDA Netlist Writer Status ; Successful - Tue Jul 25 13:22:40 2017 ;
 ; Revision Name             ; final_project                         ;
 ; Top-level Entity Name     ; projectVGA                            ;
-; Family                    ; Cyclone II                            ;
+; Family                    ; Cyclone IV E                          ;
 ; Simulation Files Creation ; Successful                            ;
 +---------------------------+---------------------------------------+
 
@@ -50,7 +51,7 @@ applicable agreement for further details.
 ; Option                                                                                            ; Setting                   ;
 +---------------------------------------------------------------------------------------------------+---------------------------+
 ; Tool Name                                                                                         ; ModelSim-Altera (Verilog) ;
-; Generate netlist for functional simulation only                                                   ; Off                       ;
+; Generate functional simulation netlist                                                            ; Off                       ;
 ; Time scale                                                                                        ; 1 ps                      ;
 ; Truncate long hierarchy paths                                                                     ; Off                       ;
 ; Map illegal HDL characters                                                                        ; Off                       ;
@@ -66,31 +67,43 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------------------------+---------------------------+
 
 
-+-----------------------------------------------------------------------------------------------------+
-; Simulation Generated Files                                                                          ;
-+-----------------------------------------------------------------------------------------------------+
-; Generated Files                                                                                     ;
-+-----------------------------------------------------------------------------------------------------+
-; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/final_project.vo         ;
-; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/final_project_fast.vo    ;
-; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/final_project_v.sdo      ;
-; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/final_project_v_fast.sdo ;
-+-----------------------------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------+
+; Simulation Generated Files                                                                                        ;
++-------------------------------------------------------------------------------------------------------------------+
+; Generated Files                                                                                                   ;
++-------------------------------------------------------------------------------------------------------------------+
+; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/final_project_7_1200mv_85c_slow.vo     ;
+; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/final_project_7_1200mv_0c_slow.vo      ;
+; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/final_project_min_1200mv_0c_fast.vo    ;
+; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/final_project.vo                       ;
+; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/final_project_7_1200mv_85c_v_slow.sdo  ;
+; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/final_project_7_1200mv_0c_v_slow.sdo   ;
+; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/final_project_min_1200mv_0c_v_fast.sdo ;
+; /home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/final_project_v.sdo                    ;
++-------------------------------------------------------------------------------------------------------------------+
 
 
 +-----------------------------+
 ; EDA Netlist Writer Messages ;
 +-----------------------------+
 Info: *******************************************************************
-Info: Running Quartus II 64-Bit EDA Netlist Writer
-    Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Mon Jul 24 03:55:34 2017
+Info: Running Quartus Prime EDA Netlist Writer
+    Info: Version 17.0.0 Build 595 04/25/2017 SJ Lite Edition
+    Info: Processing started: Tue Jul 25 13:22:36 2017
 Info: Command: quartus_eda --read_settings_files=off --write_settings_files=off final_project -c final_project
-Info (204026): Generated files "final_project.vo", "final_project_fast.vo", "final_project_v.sdo" and "final_project_v_fast.sdo" in directory "/home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/" for EDA simulation tool
-Info: Quartus II 64-Bit EDA Netlist Writer was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 823 megabytes
-    Info: Processing ended: Mon Jul 24 03:55:37 2017
-    Info: Elapsed time: 00:00:03
-    Info: Total CPU time (on all processors): 00:00:01
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (204019): Generated file final_project_7_1200mv_85c_slow.vo in folder "/home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/" for EDA simulation tool
+Info (204019): Generated file final_project_7_1200mv_0c_slow.vo in folder "/home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/" for EDA simulation tool
+Info (204019): Generated file final_project_min_1200mv_0c_fast.vo in folder "/home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/" for EDA simulation tool
+Info (204019): Generated file final_project.vo in folder "/home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/" for EDA simulation tool
+Info (204019): Generated file final_project_7_1200mv_85c_v_slow.sdo in folder "/home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/" for EDA simulation tool
+Info (204019): Generated file final_project_7_1200mv_0c_v_slow.sdo in folder "/home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/" for EDA simulation tool
+Info (204019): Generated file final_project_min_1200mv_0c_v_fast.sdo in folder "/home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/" for EDA simulation tool
+Info (204019): Generated file final_project_v.sdo in folder "/home/kevin/Dropbox/CSCB58-Final-Project/final_project/simulation/modelsim/" for EDA simulation tool
+Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 1073 megabytes
+    Info: Processing ended: Tue Jul 25 13:22:40 2017
+    Info: Elapsed time: 00:00:04
+    Info: Total CPU time (on all processors): 00:00:02
 
 

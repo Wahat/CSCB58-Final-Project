@@ -2,76 +2,148 @@
 TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow Model Setup 'datapath:d0|graphics:display|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
-Slack : -2.108
-TNS   : -42.892
+Type  : Slow 1200mV 85C Model Setup 'datapath:d0|graphics:display|drawball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
+Slack : -4.290
+TNS   : -202.030
 
-Type  : Slow Model Setup 'CLOCK_50'
-Slack : -0.332
-TNS   : -0.783
+Type  : Slow 1200mV 85C Model Setup 'datapath:d0|graphics:display|drawball:whiteball|clkenable'
+Slack : -4.188
+TNS   : -65.362
 
-Type  : Slow Model Setup 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 33.262
+Type  : Slow 1200mV 85C Model Setup 'CLOCK_50'
+Slack : -1.911
+TNS   : -24.771
+
+Type  : Slow 1200mV 85C Model Setup 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 32.259
 TNS   : 0.000
 
-Type  : Slow Model Hold 'CLOCK_50'
-Slack : -4.304
-TNS   : -60.918
+Type  : Slow 1200mV 85C Model Hold 'datapath:d0|graphics:display|drawball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
+Slack : -5.670
+TNS   : -5.670
 
-Type  : Slow Model Hold 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 0.391
+Type  : Slow 1200mV 85C Model Hold 'datapath:d0|graphics:display|drawball:whiteball|clkenable'
+Slack : 0.170
 TNS   : 0.000
 
-Type  : Slow Model Hold 'datapath:d0|graphics:display|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
-Slack : 0.391
+Type  : Slow 1200mV 85C Model Hold 'CLOCK_50'
+Slack : 0.401
 TNS   : 0.000
 
-Type  : Slow Model Minimum Pulse Width 'datapath:d0|graphics:display|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
-Slack : -0.500
+Type  : Slow 1200mV 85C Model Hold 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 0.404
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'datapath:d0|graphics:display|drawball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
+Slack : -1.285
+TNS   : -96.375
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'datapath:d0|graphics:display|drawball:whiteball|clkenable'
+Slack : -1.285
+TNS   : -33.410
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK_50'
+Slack : 9.631
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 19.709
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'datapath:d0|graphics:display|drawball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
+Slack : -3.822
+TNS   : -178.029
+
+Type  : Slow 1200mV 0C Model Setup 'datapath:d0|graphics:display|drawball:whiteball|clkenable'
+Slack : -3.731
+TNS   : -56.988
+
+Type  : Slow 1200mV 0C Model Setup 'CLOCK_50'
+Slack : -1.625
+TNS   : -21.480
+
+Type  : Slow 1200mV 0C Model Setup 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 32.923
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'datapath:d0|graphics:display|drawball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
+Slack : -5.203
+TNS   : -5.203
+
+Type  : Slow 1200mV 0C Model Hold 'datapath:d0|graphics:display|drawball:whiteball|clkenable'
+Slack : 0.142
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'CLOCK_50'
+Slack : 0.353
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 0.355
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'datapath:d0|graphics:display|drawball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
+Slack : -1.285
+TNS   : -96.375
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'datapath:d0|graphics:display|drawball:whiteball|clkenable'
+Slack : -1.285
+TNS   : -33.410
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
+Slack : 9.647
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 19.710
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'datapath:d0|graphics:display|drawball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
+Slack : -1.695
+TNS   : -63.412
+
+Type  : Fast 1200mV 0C Model Setup 'datapath:d0|graphics:display|drawball:whiteball|clkenable'
+Slack : -1.646
+TNS   : -19.638
+
+Type  : Fast 1200mV 0C Model Setup 'CLOCK_50'
+Slack : -1.015
+TNS   : -2.107
+
+Type  : Fast 1200mV 0C Model Setup 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 36.184
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'datapath:d0|graphics:display|drawball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
+Slack : -2.847
+TNS   : -2.847
+
+Type  : Fast 1200mV 0C Model Hold 'datapath:d0|graphics:display|drawball:whiteball|clkenable'
+Slack : 0.057
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'CLOCK_50'
+Slack : 0.152
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 0.183
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'datapath:d0|graphics:display|drawball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
+Slack : -1.000
+TNS   : -75.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'datapath:d0|graphics:display|drawball:whiteball|clkenable'
+Slack : -1.000
 TNS   : -26.000
 
-Type  : Slow Model Minimum Pulse Width 'CLOCK_50'
-Slack : 7.620
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
+Slack : 9.373
 TNS   : 0.000
 
-Type  : Slow Model Minimum Pulse Width 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 17.873
-TNS   : 0.000
-
-Type  : Fast Model Setup 'datapath:d0|graphics:display|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
-Slack : -0.408
-TNS   : -4.989
-
-Type  : Fast Model Setup 'CLOCK_50'
-Slack : 0.472
-TNS   : 0.000
-
-Type  : Fast Model Setup 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 36.948
-TNS   : 0.000
-
-Type  : Fast Model Hold 'CLOCK_50'
-Slack : -2.413
-TNS   : -34.690
-
-Type  : Fast Model Hold 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 0.215
-TNS   : 0.000
-
-Type  : Fast Model Hold 'datapath:d0|graphics:display|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
-Slack : 0.215
-TNS   : 0.000
-
-Type  : Fast Model Minimum Pulse Width 'datapath:d0|graphics:display|ball:whiteball|counterhz:clock_60hz|counter:modifiedcounter|q[0]'
-Slack : -0.500
-TNS   : -26.000
-
-Type  : Fast Model Minimum Pulse Width 'CLOCK_50'
-Slack : 7.620
-TNS   : 0.000
-
-Type  : Fast Model Minimum Pulse Width 'VGA|mypll|altpll_component|pll|clk[0]'
-Slack : 17.873
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 19.754
 TNS   : 0.000
 
 ------------------------------------------------------------

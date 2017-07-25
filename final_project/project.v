@@ -17,8 +17,8 @@ module projectVGA
 		VGA_CLK,   					//	VGA Clock
 		VGA_HS,							//	VGA H_SYNC
 		VGA_VS,							//	VGA V_SYNC
-		VGA_BLANK,				//	VGA BLANK
-		VGA_SYNC,					//	VGA SYNC
+		VGA_BLANK_N,				//	VGA BLANK
+		VGA_SYNC_N,					//	VGA SYNC
 		VGA_R,   						//	VGA Red[9:0]
 		VGA_G,	 						//	VGA Green[9:0]
 		VGA_B   						//	VGA Blue[9:0]
@@ -43,8 +43,8 @@ module projectVGA
 	output			    VGA_CLK;   			//	VGA Clock
 	output			    VGA_HS;				//	VGA H_SYNC
 	output			    VGA_VS;				//	VGA V_SYNC DE2 Blackjack
-	output			    VGA_BLANK;	   //	VGA BLANK
-	output			    VGA_SYNC;			//	VGA SYNC
+	output			    VGA_BLANK_N;	   //	VGA BLANK
+	output			    VGA_SYNC_N;			//	VGA SYNC
 	output	[9:0]	  VGA_R;   			//	VGA Red[9:0]
 	output	[9:0]	  VGA_G;	 			//	VGA Green[9:0]
 	output	[9:0]	  VGA_B;   			//	VGA Blue[9:0]
@@ -54,7 +54,8 @@ module projectVGA
 
 	// Create the colour, x, y and writeEn wires that are inputs to the controller.
 	wire writeEn;
-	wire controlA, controlB, controlC, controlD, controlE, controlF, controlG, controlH, controlI;
+	wire controlA, controlB, controlC, controlD, controlE, controlF, controlG, controlH, controlI, controlJ, controlK, controlL;
+	wire controlM, controlN, controlO, controlP, controlQ, controlR, controlS, controlT, controlU, controlV;
 	wire [2:0] colour;
 	wire [6:0] x;
 	wire [6:0] y;
@@ -73,15 +74,15 @@ module projectVGA
 			.colour(colour),
 			.x(x),
 			.y(y),
-			.plot(writeEn),
+			.plot(1'b1),
 			/* Signals for the DAC to drive the monitor. */
 			.VGA_R(VGA_R),
 			.VGA_G(VGA_G),
 			.VGA_B(VGA_B),
 			.VGA_HS(VGA_HS),
 			.VGA_VS(VGA_VS),
-			.VGA_BLANK(VGA_BLANK),
-			.VGA_SYNC(VGA_SYNC),
+			.VGA_BLANK(VGA_BLANK_N),
+			.VGA_SYNC(VGA_SYNC_N),
 			.VGA_CLK(VGA_CLK)
 			);
 
@@ -108,6 +109,19 @@ module projectVGA
 		.ld_block_wait(controlG),
 		.ld_set_wait(controlH),
 		.ld_startgame_wait(controlI),
+		.ld_startgame_load(controlJ),
+		.ld_drawblock(controlK),
+		.ld_endgame_wait(controlL),
+		.ld_b_erase(controlM),
+		.ld_b_erase_wait(controlN),
+		.ld_lb_erase(controlO),
+		.ld_lb_erase_wait(controlP),
+		.ld_ls_erase(controlQ),
+		.ld_ls_erase_wait(controlR),
+		.ld_sg_erase(controlS),
+		.ld_sg_erase_wait(controlT),
+		.ld_eg_erase(controlU),
+		.ld_eg_erase_wait(controlV),
 		// output registers to VGA
 		.xout(x),
 		.yout(y),
@@ -135,6 +149,8 @@ module projectVGA
 		.startgamekey(KEY[1]),
 		.endgamekey(KEY[1]),
 		.reset_n(resetn),
+		.PS2_DAT(PS2_DAT),
+		.PS2_CLK(PS2_CLK),
 		// state registers
 		.ld_begin(controlA),
 		.ld_block(controlB),
@@ -145,6 +161,19 @@ module projectVGA
 		.ld_block_wait(controlG),
 		.ld_set_wait(controlH),
 		.ld_startgame_wait(controlI),
+		.ld_startgame_load(controlJ),
+		.ld_drawblock(controlK),
+		.ld_endgame_wait(controlL),
+		.ld_b_erase(controlM),
+		.ld_b_erase_wait(controlN),
+		.ld_lb_erase(controlO),
+		.ld_lb_erase_wait(controlP),
+		.ld_ls_erase(controlQ),
+		.ld_ls_erase_wait(controlR),
+		.ld_sg_erase(controlS),
+		.ld_sg_erase_wait(controlT),
+		.ld_eg_erase(controlU),
+		.ld_eg_erase_wait(controlV),
 		// out to led and hex
 		.stateled(ledout[6:0]),
 		.numBlocksUsed(numBlocksUsed[3:0])
@@ -198,6 +227,19 @@ module datapath (
 	input ld_block_wait,
 	input ld_set_wait,
 	input ld_startgame_wait,
+	input ld_startgame_load,
+	input ld_drawblock,
+	input ld_endgame_wait,
+	input ld_b_erase,
+	input ld_b_erase_wait,
+	input ld_lb_erase,
+	input ld_lb_erase_wait,
+	input ld_ls_erase,
+	input ld_ls_erase_wait,
+	input ld_sg_erase,
+	input ld_sg_erase_wait,
+	input ld_eg_erase,
+	input ld_eg_erase_wait,
 
 	// #####################################
 	// Bidirectionals From eecg.utoronto.edu
@@ -235,6 +277,10 @@ module datapath (
 	reg [3:0] statereg;
 	wire hit;
 	wire obb;
+	reg currentBlock;
+	wire [15:0] blockout;
+	reg blockselected;
+	reg [1:0] dirselected;
 
 	// #####################################
 	// wires for PS2 module From eecg.utoronto.edu
@@ -249,6 +295,12 @@ module datapath (
 				 wins <= 3'b0;
 				 losses <= 3'b0;
 				 blockenable = 1'b0;
+				 statereg = 4'b0000;
+				 startingBlocks = 4'b0000;
+				 block1 = 15'b0;
+				 block2 = 15'b0;
+				 block3 = 15'b0;
+				 block4 = 15'b0;
 		 end
 		 else begin
 
@@ -258,11 +310,10 @@ module datapath (
 						 blockenable = 1'b1; // begin looping through number of blocks
 
 				end
-				if(ld_begin_wait) begin
-						 statereg = 4'b0001;
-						 blockenable = 1'b0;
- 						 startingBlocks[3:0] <= numBlocks[3:0];
-
+				if (ld_b_erase) begin
+							statereg = 4'b0001;
+							blockenable = 1'b0;
+							startingBlocks[3:0] <= numBlocks[3:0];
 				end
 
 				// From control FSM, Press Key[1]
@@ -270,57 +321,75 @@ module datapath (
 						// stop looping through number of blocks
 						// once the counter stops, it'll set the startingBlocks
 						statereg = 4'b0010;
-
+						startingBlocks <= startingBlocks - 1'b1;
+						if (startingBlocks == 4'b0100)
+						 block4[0] = pos[0];
+					 else if (startingBlocks == 4'b0011)
+						 block3[0] = pos[0];
+						 else if (startingBlocks == 4'b0010)
+							 block2[0] = pos[0];
+							 else if (startingBlocks == 4'b0001)
+								 block1[0] = pos[0];
+						blockselected = pos[0];
 						// block module - set to red
 				end
 
-				if(ld_block_wait) begin
-						// stop looping through number of blocks
-						// once the counter stops, it'll set the startingBlocks
-						statereg = 4'b0011;
-						// block module - set to red
+				if (ld_lb_erase) begin
+					statereg = 4'b0011;
 				end
 
 				 // From control FSM, Press Key[2]
 				if(ld_set) begin
 						 statereg = 4'b0100;
-						 // Draw block in grey
-						 //colourout[2:0] <= 3'b101;
-						 // block module, draw vertical or horizontal block depending on what was chosen
-						 // set to register
 				 end
 
-				 if(ld_set_wait) begin
- 						 statereg = 4'b0101;
- 						 // Draw block in grey
- 						 //colourout[2:0] <= 3'b101;
- 						 // block module, draw vertical or horizontal block depending on what was chosen
- 						 // set to register
- 				 end
+				 if (ld_drawblock) begin
+				 		statereg = 4'b0101;
+						if (startingBlocks == 4'b0100)
+							block4[15:1] = blockout[15:1];
+						else if (startingBlocks == 4'b0011)
+								block3[15:1] = blockout[15:1];
+							else if (startingBlocks == 4'b0010)
+								block2[15:1] = blockout[15:1];
+								else if (startingBlocks == 4'b0001)
+									block1[15:1] = blockout[15:1];
+
+				 end
+
+				 if (ld_ls_erase) begin
+ 					statereg = 4'b0110;
+ 					end
 
 					// From control FSM, Press Key[1]
-				 if (ld_startgame) begin
-						statereg = 4'b0110;
-						if (obb)
-	 					 wins <= wins + 1;
-	 				 if (hit)
-	 					 losses <= losses + 1;
-						//if up (SW[0]) then move startblock up
-						//elif (SW[1]) then move startblock down
-						// run game -> gameresult (0 or 1)
+				 if (ld_startgame_load) begin
+						statereg = 4'b0111;
+						dirselected[1:0] = pos[1:0];
 
 					end
 
-					if (ld_startgame_wait) begin
- 						statereg = 4'b0111;
+					if (ld_startgame) begin
+						statereg = 4'b1000;
+					end
 
- 					end
+					if (ld_sg_erase) begin
+						statereg = 4'b1001;
+						if (hit)
+						 wins <= wins + 1;
+						if (obb)
+						 losses <= losses + 1;
+					end
 
 					// From control FSM, Press KEY[1]
 					if (ld_endgame) begin
-							statereg = 4'b1000;
+							statereg = 4'b1010;
 
-				 end
+				  end
+
+					if (ld_eg_erase) begin
+						statereg = 4'b1011;
+
+					end
+
 		   end
 		end
 
@@ -350,15 +419,24 @@ module datapath (
 		.clk(clk),
 		.reset_n(reset_n),
 		.state(statereg),
-		.select(2'b01),
+		.blockselected(blockselected),
+		.block1(block1),
+		.block2(block2),
+		.block3(block3),
+		.block4(block4),
+		.select(dirselected),
+		.ps2_key_data(ps2_key_data),
+		.ps2_key_pressed(ps2_key_pressed),
 		.hit(hit),
 		.oob(obb),
 		.xout(xout),
 		.yout(yout),
 		.colourout(colourout),
-		.plot(plot)
+		.plot(plot),
+		.blockout(blockout)
 		);
- /*
+
+	/*
 	ball whiteball(
 	.clk(clk),
 	.select(2'b11),
@@ -370,11 +448,26 @@ module datapath (
 	.colourout(colourout),
 	.plot(plot)
 	);
+	*/
+
+/*
+drawvblock block (
+	.clk(clk),
+	.reset_n(reset_n),
+	.enable(1'b1),
+	.ps2_key_data(ps2_key_data),
+	.ps2_key_pressed(ps2_key_pressed),
+	.block(15'b0),
+	.xout(xout),
+	.yout(yout),
+	.colourout(colourout),
+	.plot(plot)
+	);
 */
 	// Up - 8'h75, Down - 8'h72, Left - 8'h6b, Right - 74, space - 29
   // Source ###################################################################
 	// http://www.eecg.toronto.edu/~jayar/ece241_08F/AudioVideoCores/ps2/ps2.html
-	PS2_Controller PS2 (
+	PS2_Controller PS2C (
 	// Inputs
 	.CLOCK_50(clk),
 	.reset(~reset_n),
@@ -404,7 +497,11 @@ module control(
 	input setkey,
 	input startgamekey,
 	input endgamekey,
+	input hit,
+	input oob,
 	input [3:0] startingBlocks,
+	inout PS2_CLK,
+	inout PS2_DAT,
 
 	// output states to datapath
 	output reg ld_begin,
@@ -413,10 +510,25 @@ module control(
 	output reg ld_startgame,
 	output reg ld_endgame,
 
+
 	output reg ld_begin_wait,
 	output reg ld_block_wait,
 	output reg ld_set_wait,
 	output reg ld_startgame_wait,
+	output reg ld_startgame_load,
+	output reg ld_drawblock,
+	output reg ld_endgame_wait,
+
+	output reg ld_b_erase,
+	output reg ld_b_erase_wait,
+	output reg ld_lb_erase,
+	output reg ld_lb_erase_wait,
+	output reg ld_ls_erase,
+	output reg ld_ls_erase_wait,
+	output reg ld_sg_erase,
+	output reg ld_sg_erase_wait,
+	output reg ld_eg_erase,
+	output reg ld_eg_erase_wait,
 
 	// output led of the current state and counter to hez
 	output [6:0] stateled,
@@ -426,35 +538,61 @@ module control(
 	reg [6:0] current_state, next_state;
 	wire [3:0] numBlocks;
 	reg [26:0] count = 1'b0;
+	wire clk240;
+	wire [7:0] ps2_key_data;
+	wire ps2_key_pressed;
 
-	localparam     S_BEGIN              = 4'd0,
-						S_BEGIN_WAIT         = 4'd1,
-						S_LOAD_BLOCK         = 4'd2,
-	  					S_LOAD_BLOCK_WAIT    = 4'd3,
-						S_LOAD_SET           = 4'd4,
-						S_LOAD_SET_WAIT      = 4'd5,
-						S_OUT_STARTGAME      = 4'd6,
-						S_OUT_STARTGAME_WAIT = 4'd7,
-					   S_OUT_ENDGAME        = 4'd8,
-					   S_OUT_ENDGAME_WAIT   = 4'd9;
+	localparam    S_BEGIN              = 5'd0,
+								S_BEGIN_WAIT         = 5'd1,
+								S_B_ERASE            = 5'd2,
+								S_B_ERASE_WAIT       = 5'd3,
+								S_LOAD_BLOCK         = 5'd4,
+			  				S_LOAD_BLOCK_WAIT    = 5'd5,
+								S_LB_ERASE            = 5'd6,
+								S_LB_ERASE_WAIT       =5'd7,
+								S_LOAD_SET           = 5'd8,
+								S_DRAW_BLOCK         = 5'd9,
+								S_LOAD_SET_WAIT      = 5'd10,
+								S_LS_ERASE            = 5'd11,
+								S_LS_ERASE_WAIT       = 5'd12,
+								S_OUT_STARTGAME_LOAD = 5'd13,
+								S_OUT_STARTGAME      = 5'd14,
+								S_OUT_STARTGAME_WAIT = 5'd15,
+								S_SG_ERASE            = 5'd16,
+								S_SG_ERASE_WAIT       = 5'd17,
+							  S_OUT_ENDGAME        = 5'd18,
+							  S_OUT_ENDGAME_WAIT   = 5'd19,
+								S_EG_ERASE            = 5'd20,
+								S_EG_ERASE_WAIT       = 5'd21;
 
 
 	// Next state logic aka our state table
-	always@(*)
+	always@(posedge clk)
 	begin: state_table
 			case (current_state)
-					S_BEGIN: begin
-								next_state = beginkey ? S_BEGIN : S_BEGIN_WAIT;
-								end // Loop in current state until value is input
-					S_BEGIN_WAIT: begin
-					next_state = S_LOAD_BLOCK; // Loop in current state until go signal goes low
+					S_BEGIN: next_state = beginkey ? S_BEGIN : S_BEGIN_WAIT;
+					S_BEGIN_WAIT: next_state = clk240 ? S_BEGIN_WAIT : S_B_ERASE; // Loop in current state until go signal goes low
+					S_B_ERASE: begin
+							if (count != 8'b11111111)
+							  count = count + 1'b1;
+								else begin
+								next_state = S_B_ERASE_WAIT;
+								count = 8'b0;
+								end
 					end
-					S_LOAD_BLOCK: begin
-												next_state = blockkey ? S_LOAD_BLOCK : S_LOAD_BLOCK_WAIT; // Loop in current state until value is input
+					S_B_ERASE_WAIT: next_state = clk240 ? S_B_ERASE_WAIT : S_LOAD_BLOCK;
+					S_LOAD_BLOCK: next_state = blockkey ? S_LOAD_BLOCK : S_LOAD_BLOCK_WAIT; // Loop in current state until value is input
+					S_LOAD_BLOCK_WAIT: next_state = clk240 ? S_LOAD_BLOCK_WAIT : S_LB_ERASE; // Loop in current state until go signal goes low
+					S_LB_ERASE: begin
+							if (count != 8'b11111111)
+							  count = count + 1'b1;
+								else begin
+								next_state = S_LB_ERASE_WAIT;
+								end
 					end
-					S_LOAD_BLOCK_WAIT: next_state = S_LOAD_SET; // Loop in current state until go signal goes low
+					S_LB_ERASE_WAIT: next_state = clk240 ? S_LB_ERASE_WAIT : S_LOAD_SET;
 					S_LOAD_SET: begin
-														if (numBlocksUsed == 3'b100) begin
+														if (startingBlocks == 4'b0001) begin
 																next_state = setkey ? S_LOAD_SET : S_LOAD_SET_WAIT;
 														end
 														else begin
@@ -462,17 +600,46 @@ module control(
 																//numBlocksUsed <= setkey ? numBlocksUsed: (numBlocksUsed + 2'b10) ;
 														end
 											end
-					S_LOAD_SET_WAIT: next_state = S_OUT_STARTGAME;
-					S_OUT_STARTGAME: next_state =  startgamekey ? S_OUT_STARTGAME : S_OUT_STARTGAME_WAIT; // Loop in current state until value is input
-					S_OUT_STARTGAME_WAIT: next_state = S_OUT_ENDGAME;// we will be done our two operations, start over after
+					S_DRAW_BLOCK: next_state = (ps2_key_data == 8'h29) ? S_DRAW_BLOCK : S_LOAD_SET_WAIT;
+					S_LOAD_SET_WAIT: next_state = clk240 ? S_LOAD_SET_WAIT : S_OUT_STARTGAME;
+					S_LS_ERASE: begin
+							if (count != 8'b11111111)
+							  count = count + 1'b1;
+								else begin
+								next_state = S_LS_ERASE_WAIT;
+								count = 8'b0;
+								end
+					end
+					S_LS_ERASE_WAIT: next_state = clk240 ? S_LS_ERASE_WAIT : S_OUT_STARTGAME_LOAD;
+					S_OUT_STARTGAME_LOAD: next_state =  startgamekey ? S_OUT_STARTGAME_LOAD : S_OUT_STARTGAME; // Loop in current state until value is input
+					S_OUT_STARTGAME: next_state = startgamekey ? S_OUT_STARTGAME: S_OUT_STARTGAME_WAIT;
+					S_OUT_STARTGAME_WAIT: next_state = clk240 ? S_OUT_STARTGAME_WAIT : S_SG_ERASE;
+					S_SG_ERASE: begin
+							if (count != 8'b11111111)
+							  count = count + 1'b1;
+								else begin
+								next_state = S_SG_ERASE_WAIT;
+								count = 8'b0;
+								end
+					end
+					S_SG_ERASE_WAIT: next_state = S_OUT_ENDGAME;
 					S_OUT_ENDGAME: next_state =  endgamekey ? S_OUT_ENDGAME: S_OUT_ENDGAME_WAIT; // Loop in current state until value is input
-					S_OUT_ENDGAME_WAIT: next_state = endgamekey ? S_OUT_ENDGAME_WAIT : S_BEGIN;  // we will be done our two operations, start over after
+					S_OUT_ENDGAME_WAIT: next_state = clk240 ? S_OUT_ENDGAME_WAIT: S_EG_ERASE;
+					S_EG_ERASE:begin
+							if (count != 8'b11111111)
+							  count = count + 1'b1;
+								else begin
+								next_state = S_EG_ERASE_WAIT;
+								count = 8'b0;
+								end
+					end
+					S_EG_ERASE_WAIT: next_state = clk240 ? S_EG_ERASE_WAIT: S_BEGIN;
 					default: next_state = S_BEGIN;
 			endcase
 	end // state_table
 
 	// Output logic aka all of our datapath control signals
-	always @(*) begin
+	always @(posedge clk) begin
 			// By default make all our signals 0
 			ld_begin = 1'b0;
 			ld_block = 1'b0;
@@ -485,6 +652,21 @@ module control(
 			ld_set_wait = 1'b0;
 			ld_startgame_wait = 1'b0;
 
+			ld_startgame_load = 1'b0;
+			ld_drawblock = 1'b0;
+			ld_endgame_wait = 1'b0;
+
+			ld_b_erase = 1'b0;
+			ld_b_erase_wait = 1'b0;
+			ld_lb_erase = 1'b0;
+			ld_lb_erase_wait = 1'b0;
+			ld_ls_erase = 1'b0;
+			ld_ls_erase_wait = 1'b0;
+			ld_sg_erase = 1'b0;
+			ld_sg_erase_wait = 1'b0;
+			ld_eg_erase = 1'b0;
+			ld_eg_erase_wait = 1'b0;
+
 			case (current_state)
 					S_BEGIN: begin
 							ld_begin = 1'b1;
@@ -492,17 +674,41 @@ module control(
 					S_BEGIN_WAIT: begin
 							ld_begin_wait = 1'b1;
 					end
+					S_B_ERASE: begin
+						ld_b_erase = 1'b1;
+					end
+					S_B_ERASE_WAIT: begin
+						ld_b_erase_wait = 1'b1;
+					end
 					S_LOAD_BLOCK: begin
 							ld_block = 1'b1;
 					end
 					S_LOAD_BLOCK_WAIT: begin
 							ld_block_wait = 1'b1;
 					end
+					S_LB_ERASE: begin
+						ld_lb_erase = 1'b1;
+					end
+					S_LB_ERASE_WAIT: begin
+						ld_lb_erase_wait = 1'b1;
+					end
 					S_LOAD_SET: begin
 							ld_set = 1'b1;
 					end
+					S_DRAW_BLOCK: begin
+							ld_drawblock = 1'b1;
+					end
 					S_LOAD_SET_WAIT: begin
 							ld_set_wait = 1'b1;
+					end
+					S_LS_ERASE: begin
+						ld_ls_erase = 1'b1;
+					end
+					S_LS_ERASE_WAIT: begin
+						ld_ls_erase_wait = 1'b1;
+					end
+					S_OUT_STARTGAME_LOAD: begin
+							ld_startgame_load = 1'b0;
 					end
 					S_OUT_STARTGAME: begin
 							ld_startgame = 1'b1;
@@ -510,8 +716,23 @@ module control(
 					S_OUT_STARTGAME_WAIT: begin
 							ld_startgame_wait = 1'b1;
 					end
+					S_SG_ERASE: begin
+						ld_sg_erase = 1'b1;
+					end
+					S_SG_ERASE_WAIT: begin
+						ld_sg_erase_wait = 1'b1;
+					end
 					S_OUT_ENDGAME: begin
 							ld_endgame = 1'b1;
+					end
+					S_OUT_ENDGAME_WAIT: begin
+							ld_endgame_wait = 1'b1;
+					end
+					S_EG_ERASE: begin
+						ld_eg_erase = 1'b1;
+					end
+					S_EG_ERASE_WAIT: begin
+						ld_eg_erase_wait = 1'b1;
 					end
 					// default:    // don't need default since we already made sure all of our outputs were assigned a value at the start of the always block
 			endcase
@@ -538,6 +759,28 @@ module control(
 		.counterOut(numBlocksUsed) // set the number of blocks
 		);
 
+	counterhz count240hz(
+		.enable(1'b1),
+		.reset_n(reset_n),
+		.clk(clk),
+		.speed(3'b110),
+		.counterlimit(4'b001),
+		.counterOut(clk240)
+		);
+
+		PS2_Controller PS2 (
+		// Inputs
+		.CLOCK_50(clk),
+		.reset(~reset_n),
+
+		// Bidirectionals
+		.PS2_CLK (PS2_CLK),
+	 	.PS2_DAT (PS2_DAT),
+
+		// Outputs
+		.received_data		(ps2_key_data),
+		.received_data_en	(ps2_key_pressed)
+	);
 endmodule
 
 // -------------------------------------------------------------------------
