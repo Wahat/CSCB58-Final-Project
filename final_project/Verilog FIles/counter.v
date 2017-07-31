@@ -16,11 +16,11 @@ module counterhz(enable, clk, reset_n, speed, counterlimit, counterOut);
   output [3:0] counterOut; // signals from the modified counter
 
   // wires from the outputs of the rate dividers
-  wire [27:0] c50hzOut;
+  wire [27:0] c50mhzOut;
   wire [27:0] c1hzOut;
   wire [27:0] c0_5hzOut;
   wire [27:0] c0_25hzOut;
-  wire [27:0] c0_60hzOut;
+  wire [27:0] c60hzOut;
   wire [27:0] c2hzOut;
   wire [27:0] c120hzOut;
   wire [27:0] c240hzOut;
@@ -39,7 +39,7 @@ module counterhz(enable, clk, reset_n, speed, counterlimit, counterOut);
   begin
     case (speed)
       3'b000: begin // 50hz out
-        if (c50hzOut == 28'b0)
+        if (c50mhzOut == 28'b0)
           outEnable <= 1'b1;
         else
           outEnable <= 1'b0;
@@ -67,7 +67,7 @@ module counterhz(enable, clk, reset_n, speed, counterlimit, counterOut);
         end
 
 		3'b100: begin // 60 hz
-        if (c0_60hzOut == 28'b0)
+        if (c60hzOut == 28'b0)
           outEnable <= 1'b1;
         else
           outEnable <= 1'b0;
@@ -106,28 +106,18 @@ module counterhz(enable, clk, reset_n, speed, counterlimit, counterOut);
     .reset_n(~reset_n),
     .clk(clk),
     .countdownvalue(28'b0000000000000000000000000001),
-    .q(c50hzOut)
+    .q(c50mhzOut)
     );
 
-    // rate divider for 120hz
-    // countdown from 833332
-    ratedivider clock120hz(
-      .enable(enable),
-      .reset_n(~reset_n),
-      .clk(clk),
-      .countdownvalue(28'b11000011010100000),
-      .q(c120hzOut)
-      );
-
-      // rate divider for 240hz
-      // countdown from 833332
-      ratedivider clock240hz(
-        .enable(enable),
-        .reset_n(~reset_n),
-        .clk(clk),
-        .countdownvalue(28'b11001011011100110100),
-        .q(c240hzOut)
-        );
+  // rate divider for 120hz
+  // countdown from 100000
+  ratedivider clock120hz(
+    .enable(enable),
+    .reset_n(~reset_n),
+    .clk(clk),
+    .countdownvalue(28'b1100101101110011001),
+    .q(c120hzOut)
+    );
 
   // rate divider for 60hz
   // countdown from 833332
@@ -135,10 +125,22 @@ module counterhz(enable, clk, reset_n, speed, counterlimit, counterOut);
     .enable(enable),
     .reset_n(~reset_n),
     .clk(clk),
-    .countdownvalue(28'b110010110111001101),
-    .q(c0_60hzOut)
+    .countdownvalue(28'b11001011011100110100),
+    .q(c60hzOut)
     );
 
+  // rate divider for 60hz
+  // countdown from 208333
+  ratedivider clock240hz(
+    .enable(enable),
+    .reset_n(~reset_n),
+    .clk(clk),
+    .countdownvalue(28'b110010110111001101),
+    .q(c240hzOut)
+    );
+
+  // rate divider for 2hz
+  // countdown from 25000000
   ratedivider clock2hz(
     .enable(enable),
     .reset_n(~reset_n),

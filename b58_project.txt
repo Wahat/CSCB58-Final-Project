@@ -91,6 +91,9 @@ Attributions
 Provide a complete list of any external resources your project used (attributions should also be included in your
 code).
 PS2 MODULE - http://www.eecg.toronto.edu/~jayar/ece241_08F/AudioVideoCores/ps2/ps2.html
+VGA ADAPTER AND HEX DECODER FROM LABS 6 AND 5
+Ballcollisions and Ballposition based on https://github.com/felixmo/Pong/blob/master/pong.v
+- However modified for blocks and our playing field
 
 Updates
 -------
@@ -120,3 +123,5 @@ VGA (depending on state), highlighting the states on the screen and implemented 
  connection, wires, outputs and registers. We have a working product right now but there is still a lot of work to do on the graphics side
  as there are a few minor bugs (ex. blocks drawing where they aren’t suppose to). We are current on track to finishing before the presentation
  but smooth out some bugs in our code first.
+
+Week 4:

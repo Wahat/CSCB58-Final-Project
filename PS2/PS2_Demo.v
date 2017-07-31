@@ -5,9 +5,9 @@ module PS2_Demo (
 	KEY,
 
 	// Bidirectionals
-	PS2_KBCLK,
-	PS2_KBDAT,
-	
+	PS2_CLK,
+	PS2_DAT,
+
 	// Outputs
 	HEX0,
 	HEX1,
@@ -33,8 +33,8 @@ input				CLOCK_50;
 input		[3:0]	KEY;
 
 // Bidirectionals
-inout				PS2_KBCLK;
-inout				PS2_KBDAT;
+inout				PS2_CLK;
+inout				PS2_DAT;
 
 // Outputs
 output		[6:0]	HEX0;
@@ -57,7 +57,8 @@ wire				ps2_key_pressed;
 // Internal Registers
 reg			[7:0]	last_data_received;
 reg         [3:0] lultest = 1'b0;
-
+reg [27:0] count;
+reg reset =1'b0;
 // State Machine Registers
 
 /*****************************************************************************
@@ -71,15 +72,24 @@ reg         [3:0] lultest = 1'b0;
 
 always @(posedge CLOCK_50)
 begin
-	if (KEY[0] == 1'b0) begin
+
+	if (ps2_key_pressed == 1'b1) begin
+		if (count <= 28'b1) begin
+							count <= count + 1'b1;
+							last_data_received <= ps2_key_data;
+							reset <= 1'b0;
+							lultest <= 2'b11;
+		end
+		else begin
+		count <= 1'b0;
 		last_data_received <= 8'h00;
 		lultest <= 1'b0;
+		end
 	end
-	else if (ps2_key_pressed == 1'b1)
-		last_data_received <= ps2_key_data;
-	if (ps2_key_data == 8'h6b || ps2_key_data == 8'h75|| ps2_key_data == 8'h72 || ps2_key_data == 8'h74 )
-		lultest <= 1'b1;
-		
+
+
+
+
 end
 
 /*****************************************************************************
@@ -99,11 +109,11 @@ assign HEX7 = 7'h7F;
 PS2_Controller PS2 (
 	// Inputs
 	.CLOCK_50				(CLOCK_50),
-	.reset				(~KEY[0]),
+	.reset				(reset),
 
 	// Bidirectionals
-	.PS2_CLK			(PS2_KBCLK),
- 	.PS2_DAT			(PS2_KBDAT),
+	.PS2_CLK			(PS2_CLK),
+ 	.PS2_DAT			(PS2_DAT),
 
 	// Outputs
 	.received_data		(ps2_key_data),
@@ -132,7 +142,7 @@ Hexadecimal_To_Seven_Segment Segment1 (
 
 Hexadecimal_To_Seven_Segment Segment2 (
 	// Inputs
-	.hex_number			(lultest),
+	.hex_number			(lultest[3:0]),
 
 	// Bidirectional
 
