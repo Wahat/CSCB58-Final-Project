@@ -496,8 +496,8 @@ clearscreen lul (
 	.CLOCK_50(clk),
 	.reset(resetps2),
 	// Bidirectionals
-	.PS2_CLK (PS2_KBCLK),
- 	.PS2_DAT (PS2_KBDAT),
+	.PS2_CLK (PS2_CLK),
+ 	.PS2_DAT (PS2_DAT),
 	// Outputs
 	.received_data		(ps2_key_data),
 	.received_data_en	(ps2_key_pressed)
