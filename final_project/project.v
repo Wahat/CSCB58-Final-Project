@@ -294,12 +294,16 @@ module datapath (
 	wire hit;
 	wire oob;
 
+	// output from the graphics module and coordinates of the current block placed
 	wire [15:0] blockout;
+	// Holds the value of the type of block selected
 	reg blockselected;
+	// the direction select for the ball to go. 1 for down, 0 for up
 	reg dirselected;
 	reg [3:0] startingBlocks;
 	// Wire from the graphics module to reset the PS2 register in the PS2 module
 	reg [7:0] ps2_data;
+	// Stores the reset value of the ps2
 	reg resetps2;
 	reg [15:0] count;
 
@@ -329,6 +333,7 @@ module datapath (
 					 // Set the graphics state to begin
 					 statereg = 4'b0000;
 					 blockenable = 1'b1; // begin looping through number of blocks
+					 // set each block to 0
 					 block1 <= 15'b0;
 					 block2 <= 15'b0;
 					 block3 <= 15'b0;
@@ -364,12 +369,11 @@ module datapath (
 					   block2[0] <= blockselected;
 					 else if (statecounter == 4'b0000)
 						 block1[0] <= blockselected;
-
-
 				end
 
 				if (ld_lb_erase) begin
 					 statereg = 4'b0011;
+					 // reset the ps2 values
 					 resetps2 <= 1'b0;
 					 ps2_data <= 8'h00;
 				end
@@ -377,14 +381,17 @@ module datapath (
 				 // From control FSM, Press Key[2]
 				if (ld_set) begin
 					 statereg = 4'b0100;
-
 			  end
 
 			  if (ld_drawblock) begin
 			 		statereg = 4'b0101;
 						resetps2 <= 1'b0;
-						if (ps2_key_pressed)
-							ps2_data <= ps2_key_data;
+					// if a new key is pressed, update the ps2_data reg
+					if (ps2_key_pressed)
+						 ps2_data <= ps2_key_data;
+
+					// Assign the block coordinates to the coresponding block
+					// depending on the number of blocks used
 					if (statecounter == 4'b0100)
  						 block4[15:1] <= blockout[15:1];
  						else if (statecounter == 4'b0011)
@@ -417,7 +424,6 @@ module datapath (
 					if (oob) begin
 					 losses <= losses + 1'b1;
 					end
-
 				end
 
 				// From control FSM, Press KEY[1]
@@ -428,8 +434,7 @@ module datapath (
 				if (ld_eg_erase) begin
 					statereg = 4'b1011;
 				end
-
-		   end
+		  end
 		end
 
 	// Assign the number of blocks to HEX5
@@ -472,21 +477,10 @@ module datapath (
 		.yout(yout),
 		.colourout(colourout),
 		.plot(plot),
-		.blockout(blockout),
-		.resetps2(resetps21)
+		.blockout(blockout)
 		);
-/*
-clearscreen lul (
-	 .clk(),
-	 .reset_n(1'b0),
-   .ld_enable(1'b1),
-	 .xout(xout),
-	 .yout(yout),
-	 .colourout(colourout),
-	 .plot(plot)
-	 );
-	 */
-// Up - 8'h75, Down - 8'h72, Left - 8'h6b, Right - 74, space - 29
+
+// Up - 8'h75, Down - 8'h72, Left - 8'h6b, Right - 8'h74, space - 8'h29
 // Source ###################################################################
 // http://www.eecg.toronto.edu/~jayar/ece241_08F/AudioVideoCores/ps2/ps2.html
 // Used for the DE2-70 board (orignally inputs PS2_CLK PS2_DAT)
@@ -502,17 +496,6 @@ clearscreen lul (
 	.received_data		(ps2_key_data),
 	.received_data_en	(ps2_key_pressed)
 );
-/*
-if (KEY[0] == 1'b0) begin
-	last_data_received <= 8'h00;
-	lultest <= 1'b0;
-end
-else if (ps2_key_pressed == 1'b1)
-	last_data_received <= ps2_key_data;
-if (ps2_key_data == 8'h6b || ps2_key_data == 8'h75 || ps2_key_data == 8'h72 || ps2_key_data == 8'h74 )
-	lultest <= 1'b1;
-
-*/
 endmodule
 
 // -------------------------------------------------------------------------
@@ -557,6 +540,8 @@ module control(
 	output reg ld_endgame_wait,
 	output reg ld_eg_erase,
 	output reg ld_eg_erase_wait,
+	// Counts the number of cycles between the block states
+	// i.e number of blocks you used
 	output reg [3:0] statecounter,
 
 	// output led of the current state and the number of blocks used to HEX
@@ -568,8 +553,6 @@ module control(
 	wire [3:0] numBlocks;
 	reg [27:0] count = 1'b0;
 	wire clk240;
-	wire [7:0] ps2_key_data;
-	wire ps2_key_pressed;
 
 	localparam    S_BEGIN              = 5'd0,
 								S_BEGIN_WAIT         = 5'd1,
@@ -630,10 +613,14 @@ module control(
 					end
 					S_LB_ERASE_WAIT: next_state = clk240 ? S_LB_ERASE_WAIT : S_LOAD_SET;
 					S_LOAD_SET: begin
+														// if 4 blocks have been used then reset the counter
+														// and go to the PLAY state
 														if (statecounter == 4'b0101) begin
 																next_state = setkey ? S_LOAD_SET : S_LOAD_SET_WAIT;
 																count = 28'b0;
 														end
+														// else increment the number of blocks used
+														// and continue with the set and choose states
 														else begin
 																if (count < 28'b0010111110101111000001111111) begin
 																		count = count + 1'b1;
@@ -781,7 +768,7 @@ module control(
 					S_EG_ERASE_WAIT: begin
 						ld_eg_erase_wait = 1'b1;
 					end
-					// default:    // don't need default since we already made sure all of our outputs were assigned a value at the start of the always block
+					// default: // don't need default since we already made sure all of our outputs were assigned a value at the start of the always block
 			endcase
 	end // enable_signals
 
@@ -810,23 +797,6 @@ module control(
 		.counterlimit(4'b001),
 		.counterOut(clk240)
 		);
-
-// Up - 8'h75, Down - 8'h72, Left - 8'h6b, Right - 74, space - 29
-// Source ###################################################################
-// http://www.eecg.toronto.edu/~jayar/ece241_08F/AudioVideoCores/ps2/ps2.html
-// Used for the DE2-70 board (orignally inputs PS2_CLK PS2_DAT)
-// Modified inputs / pins for the DE2-115 board (PS2_CLK, PS2_DAT)
-   PS2_Controller PS2 (
-		// Inputs
-		.CLOCK_50(clk),
-		.reset(~reset_n),
-		// Bidirectionals
-		.PS2_CLK (PS2_CLK),
-	 	.PS2_DAT (PS2_DAT),
-		// Outputs
-		.received_data		(ps2_key_data),
-		.received_data_en	(ps2_key_pressed)
-	);
 endmodule
 
 // -------------------------------------------------------------------------
@@ -857,5 +827,4 @@ module hex_decoder(hex_digit, segments);
           4'hF: segments = 7'b000_1110;
           default: segments = 7'h7f;
       endcase
-
 endmodule

@@ -1,4 +1,5 @@
 # Bounce
+#### Video: https://www.youtube.com/watch?v=KmP56gWt0PM
 The final project for CSCB58 Summer 2017 using the DE2-115 FGPA Board along with VGA and a PS2 keyboard. \
 Place and set a number of blocks for a ball to bounce off and fire the ball. If you hit the target, your score increments.
 * PS2 and VGA modules and supporting files are their respective folders.
@@ -10,7 +11,8 @@ Place and set a number of blocks for a ball to bounce off and fire the ball. If 
 <h4>Joon Hong</h4>
 
 ## Controls and Instructions
-There are 5 main states of the game and the objective is to place the blocks in a way such that the ball can bounce off them inorder to hit the yellow target on the screen:
+Set the walls for a ball to bounce off and fire the ball. If you hit the target, the score increments otherwise, the lose score increments.\
+There are 5 main states of the game and the objective is to place the blocks in a way such that the ball can bounce off them inorder to hit the yellow target on the screen.:
 * Select: Where you choose the number of blocks
 * Choose: Where you choose if you want a vertical or Horizontal blocks
 * Set: Where you choose the location and set the blocks

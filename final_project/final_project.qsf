@@ -42,7 +42,7 @@ set_global_assignment -name DEVICE EP4CE115F29C7
 set_global_assignment -name TOP_LEVEL_ENTITY projectVGA
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 16.0.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "14:35:45  JULY 04, 2017"
-set_global_assignment -name LAST_QUARTUS_VERSION 16.0.0
+set_global_assignment -name LAST_QUARTUS_VERSION "17.0.0 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
@@ -577,14 +577,13 @@ set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VERILOG_FILE "Verilog FIles/collision.v"
 set_global_assignment -name VERILOG_FILE ../PS2/PS2_Controller.v
 set_global_assignment -name VERILOG_FILE ../PS2/Altera_UP_PS2_Data_In.v
 set_global_assignment -name VERILOG_FILE ../PS2/Altera_UP_PS2_Command_Out.v
 set_global_assignment -name VERILOG_FILE "Verilog FIles/graphics.v"
 set_global_assignment -name VERILOG_FILE "Verilog FIles/endgame.v"
 set_global_assignment -name VERILOG_FILE "Verilog FIles/counter.v"
-set_global_assignment -name VERILOG_FILE "Verilog FIles/collision2.v"
-set_global_assignment -name VERILOG_FILE "Verilog FIles/block.v"
 set_global_assignment -name MIF_FILE background.mif
 set_global_assignment -name VERILOG_FILE project.v
 set_global_assignment -name VERILOG_FILE ../VGA/vga_adapter/vga_pll.v

@@ -2,7 +2,7 @@
 // controls and outputs the graphics to the vga adapter depending on the state
 module graphics(clk, select, reset_n, ps2_key_data, ps2_key_pressed, blockselected,
 	 							setblock, block1, block2, block3, block4, state, oob, hit, xout, yout, colourout,
-								plot, blockout, resetps2);
+								plot, blockout);
 	input clk;
 	input reset_n;
 	// input the state from datapath
@@ -32,7 +32,6 @@ module graphics(clk, select, reset_n, ps2_key_data, ps2_key_pressed, blockselect
 	// outputs the x and y values of the block
 	output [15:0] blockout;
 	// sends a value to tell the PS2 module if it needs to be reset
-	output reg resetps2;
 
 	// VGA outputs
 	// wires for red state sqaure
@@ -40,11 +39,6 @@ module graphics(clk, select, reset_n, ps2_key_data, ps2_key_pressed, blockselect
 	wire [10:0] statexout;
 	wire [10:0] stateyout;
 	wire [2:0] statecolourout;
-	// wires for black erase square output
-	wire bsquareplot;
-	wire [10:0] bsxout;
-	wire [10:0] bsyout;
-	wire [2:0] bscolourout;
 
 	// wires for block output
 	wire blplot;
@@ -62,9 +56,9 @@ module graphics(clk, select, reset_n, ps2_key_data, ps2_key_pressed, blockselect
 	// enable registers
 	reg balldraw = 1'b0;
 	reg resetball = 1'b0;
+	// enable and reset regs for block
 	reg drawblock = 1'b0;
 	reg resetblock = 1'b0;
-	reg [7:0] ps2_data;
 
 	// registers for the red and black square positions
 	reg [10:0] stateypos;
@@ -103,7 +97,6 @@ module graphics(clk, select, reset_n, ps2_key_data, ps2_key_pressed, blockselect
 				xout[10:0] <= statexout[10:0];
 				yout[10:0] <= stateyout[10:0];
 				colourout[2:0] <= statecolourout[2:0];
-
 				// reset ps2 and the drawblock modules
 				resetblock = 1'b1;
 
@@ -119,7 +112,6 @@ module graphics(clk, select, reset_n, ps2_key_data, ps2_key_pressed, blockselect
 
 			4'b0100: begin // load set state
 			// Hightlight Set on the screen
-				resetps2 = 1'b1;
 				stateypos[10:0] <= 11'b111010;
 				xout[10:0] <= statexout[10:0];
 				yout[10:0] <= stateyout[10:0];
@@ -132,14 +124,15 @@ module graphics(clk, select, reset_n, ps2_key_data, ps2_key_pressed, blockselect
 			4'b0101: begin // draw block state
 				// Turn off reset on blocks
 				resetblock = 1'b0;
-				resetps2 = 1'b0;
 				drawblock <= 1'b1;
+				// outputs the block values to the VGA
 				xout[10:0] <= blxout[10:0];
 				yout[10:0] <= blyout[10:0];
 				colourout[2:0] <= blcolourout[2:0];
 			end
 
 			4'b0110: begin // load set erase
+			// Erase Set on the screen
 				colourin <= 3'b000;
 				xout[10:0] <= statexout[10:0];
 				yout[10:0] <= stateyout[10:0];
@@ -147,6 +140,7 @@ module graphics(clk, select, reset_n, ps2_key_data, ps2_key_pressed, blockselect
 			end
 
 			4'b0111: begin // start game load
+				// Hightlight PLAY on the screen
 				colourin <= 3'b100;
 			  stateypos[10:0] <= 11'b1001100;
 				xout[10:0] <= statexout[10:0];
@@ -155,6 +149,7 @@ module graphics(clk, select, reset_n, ps2_key_data, ps2_key_pressed, blockselect
 			end
 
 			4'b1000: begin // start game
+				// enables the ball and outputs it's colour, x and y values
 				balldraw <= 1'b1;
 				resetball = 1'b0;
 				xout[10:0] <= bxout[10:0];
@@ -164,6 +159,7 @@ module graphics(clk, select, reset_n, ps2_key_data, ps2_key_pressed, blockselect
 			end
 
 			4'b1001: begin // start game erase
+			// Erase PLAY on the screen
 				colourin <= 3'b000;
 				xout[10:0] <= statexout[10:0];
 				yout[10:0] <= stateyout[10:0];
@@ -171,6 +167,7 @@ module graphics(clk, select, reset_n, ps2_key_data, ps2_key_pressed, blockselect
 			end
 
 			4'b1010: begin // endgame
+			// Hightlight RESET on the screen
 				colourin <= 3'b100;
 				stateypos[10:0] <= 11'b1011110;
 				xout[10:0] <= statexout[10:0];
@@ -179,6 +176,7 @@ module graphics(clk, select, reset_n, ps2_key_data, ps2_key_pressed, blockselect
 			end
 
 			4'b1011: begin // endgame erase
+			// Erase Reset on the screen
 				colourin <= 3'b000;
 				xout[10:0] <= statexout[10:0];
 				yout[10:0] <= stateyout[10:0];
@@ -192,7 +190,6 @@ module graphics(clk, select, reset_n, ps2_key_data, ps2_key_pressed, blockselect
 				colourout[2:0] <= statecolourout[2:0];
 				resetball = 1'b1;
 			end
-
 		endcase
 	end
 
@@ -274,9 +271,6 @@ module drawball (clk, reset_n, select, enable, block1, block2, block3, block4,
 	wire dirx;
 	wire diry;
 
-	wire clk240;
-	wire clk120;
-
 	reg [3:0] current_state, next_state;
 	reg [27:0] count;
 	reg [11:0] xpos;
@@ -291,6 +285,7 @@ module drawball (clk, reset_n, select, enable, block1, block2, block3, block4,
 							ERASEBALL = 3'd4,
 							CHECK     = 3'd5;
 
+	// stop drawing if outofbounds or it hits the target
 	always @ (posedge clk & enable & !outofbounds & !hit) begin
 		case(current_state)
 			INIT: begin // Intialize state
@@ -334,6 +329,7 @@ module drawball (clk, reset_n, select, enable, block1, block2, block3, block4,
 				xpos = xposout;
 				ypos = yposout;
 				next_state = DRAWBALL;
+				// goes back to the first state
 			end
 			end
 		endcase
@@ -397,25 +393,6 @@ module drawball (clk, reset_n, select, enable, block1, block2, block3, block4,
 		.bar3(block3),
 		.bar4(block4)
 		);
-
-	counterhz count120hz(
-		.enable(1'b1),
-		.reset_n(1'b0),
-		.clk(clk),
-		.speed(3'b111),
-		.counterlimit(4'b001),
-		.counterOut(clk120)
-		);
-
-	counterhz count240hz(
-		.enable(1'b1),
-		.reset_n(1'b0),
-		.clk(clk),
-		.speed(3'b110),
-		.counterlimit(4'b001),
-		.counterOut(clk240)
-		);
-
 endmodule
 
 // ##########################################################################
@@ -442,8 +419,6 @@ module drawblock (clk, blocktype, reset_n, enable, ps2_key_data, ps2_key_pressed
 	output reg [15:0] blockout;
 
 	wire clock60hz;
-	wire clk240;
-	wire clock120;
 	reg [3:0] colour;
 
 	// wires for the vertical block output
@@ -466,32 +441,32 @@ module drawblock (clk, blocktype, reset_n, enable, ps2_key_data, ps2_key_pressed
 
 	localparam  INIT       = 3'd0,
 							DRAWBLOCK  = 3'd2,
-							WAIT1      = 3'd3,
+							WAIT       = 3'd3,
 							ERASEBLOCK = 3'd4,
 							CHECK      = 3'd5,
 							END        = 3'd6;
 
 	always @(posedge clk) begin
 		case(current_state)
-				INIT: begin
+				INIT: begin // Intialize
 					blockout[15:9] = 7'b00111;
 					blockout[8:1]  = 7'b001000;
 					count = 28'b0;
 					next_state = DRAWBLOCK;
 					colour = 3'b100;
 				end
-				DRAWBLOCK: begin
+				DRAWBLOCK: begin // Draws the block depending on what was selected
 					if (count < 15'b100000000000000) begin
 						 count = count + 1'b1;
 						 colour = 3'b100;
 					end
 					else begin
 						count = 28'b0;
-						next_state = WAIT1;
+						next_state = WAIT;
 					end
 				end
-				WAIT1: begin
-						next_state = clock60hz ? ERASEBLOCK : WAIT1;
+				WAIT: begin // Allow time for the block to show before erasing
+						next_state = clock60hz ? ERASEBLOCK : WAIT;
 				end
 				ERASEBLOCK: begin
 					if (count < 15'b100000000000000) begin
@@ -507,41 +482,43 @@ module drawblock (clk, blocktype, reset_n, enable, ps2_key_data, ps2_key_pressed
 						if (count <= 28'b11001011011100110100) begin
 								count = count + 1'b1;
 						end
+						// Increment or decrement the block's position depending
+						// on the PS2 input
 						else begin
-							if (blocktype == 1'b1) begin
-								if (ps2_key_data == 8'h6b & ((blockout[8:1] - 1'b1) > 7'b111)) begin
+							if (blocktype == 1'b1) begin // If it is a Vertical block
+								if (ps2_key_data == 8'h6b & ((blockout[8:1] - 1'b1) > 7'b111)) begin //LEFT
 									blockout[8:1] = blockout[8:1] - 1'b1;
 								end
-								if (ps2_key_data == 8'h74 & ((blockout[8:1] + 1'b1) < 7'b1110100)) begin
+								if (ps2_key_data == 8'h74 & ((blockout[8:1] + 1'b1) < 7'b1110100)) begin // RIGHT
 									blockout[8:1] = blockout[8:1] + 1'b1;
 								end
-								if (ps2_key_data == 8'h75 & ((blockout[15:9] - 1'b1) > 7'b11)) begin
+								if (ps2_key_data == 8'h75 & ((blockout[15:9] - 1'b1) > 7'b11)) begin // UP
 									blockout[15:9] = blockout[15:9] - 1'b1;
 								end
-								if (ps2_key_data == 8'h72 & ((blockout[15:9] + 1'b1) < 7'b1110100 - 5'b11111)) begin
+								if (ps2_key_data == 8'h72 & ((blockout[15:9] + 1'b1) < 7'b1110100 - 5'b11111)) begin // DOWN
 									blockout[15:9] = blockout[15:9] + 1'b1 ;
 									// correct for h
 								end
 							end
-							else begin
-								if (ps2_key_data == 8'h6b & ((blockout[8:1] - 1'b1) > 7'b111)) begin
+							else begin // If it is a Horizontal block
+								if (ps2_key_data == 8'h6b & ((blockout[8:1] - 1'b1) > 7'b111)) begin //LEFT
 									blockout[8:1] = blockout[8:1] - 1'b1;
 									// incorrect for v
 								end
-								if (ps2_key_data == 8'h74 & ((blockout[8:1] + 1'b1) < 7'b1110100 - 5'b11111)) begin
+								if (ps2_key_data == 8'h74 & ((blockout[8:1] + 1'b1) < 7'b1110100 - 5'b11111)) begin // RIGHT
 									blockout[8:1] = blockout[8:1] + 1'b1;
 									// correct for v
 								end
-								if (ps2_key_data == 8'h75 & ((blockout[15:9] - 1'b1) > 7'b11)) begin
+								if (ps2_key_data == 8'h75 & ((blockout[15:9] - 1'b1) > 7'b11)) begin // UP
 									blockout[15:9] = blockout[15:9] - 1'b1;
 									// in correct for v
 								end
-								if (ps2_key_data == 8'h72 & ((blockout[15:9] + 1'b1) < 7'b1110100)) begin
+								if (ps2_key_data == 8'h72 & ((blockout[15:9] + 1'b1) < 7'b1110100)) begin // DOWN
 									blockout[15:9] = blockout[15:9] + 1'b1;
 									// correct for h
 								end
 							end
-							if (ps2_key_data == 8'h29) begin
+							if (ps2_key_data == 8'h29) begin // Spacebar hit, then set the block
 								next_state = END;
 							end
 							else begin
@@ -549,9 +526,8 @@ module drawblock (clk, blocktype, reset_n, enable, ps2_key_data, ps2_key_pressed
 							end
 							 count = 28'b0;
 						end
-
 				end
-				END: begin
+				END: begin // Change the block's colour to pink once its set
 						colour = 3'b101;
 				end
 		endcase
@@ -580,15 +556,6 @@ module drawblock (clk, blocktype, reset_n, enable, ps2_key_data, ps2_key_pressed
 				colourout[2:0] = hblcolourout[2:0];
 			end
 		end
-
-	 counterhz count240hz(
-		.enable(1'b1),
-		.clk(clk),
-		.reset_n(1'b0),
-		.speed(3'b110),
-		.counterlimit(4'b001),
-		.counterOut(clk240)
-		);
 
   // horizontal block
 	hblock hblock(
@@ -631,7 +598,7 @@ endmodule
 
 // ##########################################################################
 // hblock module
-// draws a 10x2 px horizontal block
+// draws a 30x2 px horizontal block
 module hblock (
 	 input clk,
 	 input reset_n,
@@ -683,7 +650,7 @@ endmodule
 
 // ##########################################################################
 // vblock module
-// draws a 2x10 px vertical block
+// draws a 2x30 px vertical block
 module vblock (
 	 input clk,
 	 input reset_n,
@@ -756,7 +723,7 @@ module drawsquare (
 	 reg [3:0] counter = 4'b000;
 	 reg vga_out = 1'b0;
 
-	 always@(posedge clk) begin
+	 always @ (posedge clk) begin
 			 if(reset_n) begin
 					 x_in <= 11'b0;
 					 y_in <= 10'b0;
@@ -779,6 +746,7 @@ module drawsquare (
 						end
 			 end
 	 end
+	 // assign the first 2 bits to the x and last 2 to the y
 	 assign plot = vga_out;
 	 assign xout[11:0] = x_in[11:0] + counter[1:0];
 	 assign yout[10:0] = y_in[10:0] + counter[3:2];
@@ -788,6 +756,7 @@ endmodule
 // ##########################################################################
 // clearscreen module
 // Clears the 120 x 120 playing field
+// not used currently
 module clearscreen (
 	 input clk,
 	 input reset_n,

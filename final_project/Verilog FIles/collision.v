@@ -1,228 +1,435 @@
-module collision(
-   clock,
-   reset,
-	 // inputs
-   startvelocityx,
-   startvelocityy,
-	 startposx,
-	 startposy,
+// Module with counters that determining the ball position
+// Moves the ball according to the direction given and outputs the position
+module ballpos(
+	clk,
+	reset,
+	speed,
+	dir_x,		// 0 = LEFT, 1 = RIGHT
+	dir_y,		// 0 = UP, 1 = DOWN
+	value_x,
+	value_y,
+	);
 
-   bar1,
-   bar2,
-   bar3,
-   bar4,
+	input clk;
+	input [4:0] speed;
+	input reset;
+	input dir_x, dir_y;
+	output [10:0] value_x, value_y;
 
-	 // outputs
-    draw,
-    xpos,
-    ypos,
-    win,
-    lose
-);
-    input clock;
-	  input reset;
+	reg [10:0] value_x, value_y;
 
-	  input [15:0] bar1;
-    input [15:0] bar2;
-    input [15:0] bar3;
-    input [15:0] bar4;
+	// the initial position of the ball is at the top of the screen, in the middle
+	initial begin
+		value_x <= 11'b0010;
+		value_y <= 11'b110111;
+	end
 
-	  input startvelocityx;
-    input startvelocityy;
-	  input [7:0] startposx;
-	  input [7:0] startposy;
+	always @ (posedge clk) begin
+		if (reset) begin
+			  value_x <= 11'b1100;
+		    value_y <= 11'b110111;
+		end
+		else begin
+			// increment x
+			if (dir_x) begin
+				// right
+				value_x <= value_x + speed;
+			end
+			else begin
+				// left
+				value_x <= value_x - speed;
+			end
 
+			// increment y
+			if (dir_y) begin
+				// down
+				value_y <= value_y + speed;
+			end
+			else begin
+				// up
+				value_y <= value_y - speed;
+			end
+		end
+	end
 
+endmodule
 
-    // for control
-    output win;
-    output lose;
-	  reg win;
-	  reg lose;
-	  reg draw;
+// ballcollisions module
+// Determines if the ball hits a block or the wall of the playing field
+// Outputs the next direction of the ball given the position of the ball
+module ballcollisions(
+	clk,
+	reset,
+	ball_x,
+	ball_y,
+	dir_x,
+	dir_y,
+	oob,
+	hit,
+	// selected start direction from user
+	dir_ystart,
+	// input blocks
+	bar1,
+	bar2,
+	bar3,
+	bar4,
+	);
+	//dir_x,		// 0 = LEFT, 1 = RIGHT
+	//dir_y,		// 0 = UP, 1 = DOWN
+	// 1 if vertical
+	// 0 if horz
+	input clk, reset;
+	input dir_ystart;
+	input [10:0] ball_x, ball_y;
+	input [15:0] bar1;
+	input [15:0] bar2;
+	input [15:0] bar3;
+	input [15:0] bar4;
+	// hit = 1 if it hits the target, 0 o/w
+	// oob = 1 if it hits left wall,
+	output dir_x, dir_y, hit, oob;
+	reg dir_x, dir_y, hit, oob;
 
-    // for the VGA
-    output draw;
-    output [7:0] xpos;
-    output [7:0] ypos;
-	  reg [7:0] xpos; // current position of the ball
-    reg [7:0] ypos;
+	initial begin
+		dir_x <= 1; // Start right bc left is outofbounds
+		dir_y <= dir_ystart; // Selected direction for y from user
+		oob <= 0;
+		hit <= 0;
+	end
 
-    reg [0:0] velocityx;
-    reg [0:0] velocityy;
+	always @ (posedge clk) begin
+		if (reset) begin
+			dir_x <= 1; // Start right bc left is outofbounds
+			dir_y <= dir_ystart; // Selected direction for y from user
+			oob <= 0;
+			hit <= 0;
+		end
+		else if (!oob) begin
+			// out of bounds (i.e. one of the players missed the ball)
+			if (ball_x <= 1) begin
+				oob <= 1;
+			end
 
+			// collision with top & bottom walls
+			if (ball_y <= 3) begin
+				dir_y = 1; // change direction to down
+			end
+			if (ball_y >= 115) begin
+				dir_y = 0; // change direction to up
+			end
 
-    // currently only implemented for the first bar, need to use some loop
-    // [0] is 1 means a vertical bar, 0 means horz
-    // [8:1] is the x position of the top of the bar
-    // [15:9] is the y position of the top of the bar
+			// collision with wall
+			if (ball_x >= 114) begin
+				dir_x = 0;	// reverse direction
+			end
 
-    always@(clock) begin
-		 if (reset) begin // if game is reset reset the ball
-			 xpos[7:0] <= startposx[7:0]; // calculate these values later
-			 ypos <= startposy;
+			// Block Collisions - Each Block is 30 x 2 px or 2 x 30px
+			// Since Ball x and Y coord start at the top left of the ball and the ball is 4x4
+			// We have to see if it collides of the x and y coord which is usually 3px away
+			// from the tail of the ball
 
-			 velocityx <= startvelocityx;
-			 velocityy <= startvelocityy;
-			 win <= 1'b0;
-			 lose <= 1'b0;
-		 end
+			// ###################### BLOCK1 ###################################
+			// check if vertical block
+			if (bar1[0] == 1'b1) begin
 
-		 // check if ball hits outer walls
-		 if ((ypos == 1'b1) || (ypos == 1110111)) begin
-			  velocityy <= ~velocityy;
+			  // check if it hit top of the block
+				// Between 3px away on Y and 2px away from X to width 2 of block
+			  if (((ball_y == (bar1[15:9] - 2'b11)) && (ball_x >= (bar1[8:1] - 2'b11))
+			      && (ball_x <= (bar1[8:1] + 1'b1))))  begin
+
+			    dir_y <= 0; // change the direction to up
 			  end
-			 // TDODO ADD right wall
 
-		 // check each bar
-		 if (bar1[0] == 1'b1) begin // check if vertical bar
-			  if (((ypos == (bar1[15:9] + 1'b1)) && (xpos == bar1[8:1])) || ((ypos == (bar1[15:9] + 4'b1010)) && (xpos == bar1[8:1]))) begin // check if it hit the top or bottom block
+			  // check if hit bottom
+				// Collide with bottom Y value of block and 2px away from X to width 2 of block
+			  if  ((ball_y == (bar1[15:9] + 5'b11111)) && (ball_x >= (bar1[8:1] - 2'b11))
+			      && (ball_x <= (bar1[8:1] + 1'b1))) begin
 
-					velocityy <= ~velocityy;
+			    dir_y <= 1; // change the direction to down
 			  end
 
-			  if (((ypos >= bar1[15:9]) && (ypos <= (bar1[15:9] + 4'b1010)) && (xpos == (bar1[8:1] - 1'b1))) ||
-				  ((ypos >= bar1[15:9]) && (ypos <= (bar1[15:9] + 4'b1010)) && (xpos == (bar1[8:1] + 1'b1)))) begin // check if hit left or right side
+				// check if hit left
+				// Between 3px away and length of the block on Y and 3px away on X
+			  if ((ball_y >= (bar1[15:9] - 2'b11)) && (ball_y <= (bar1[15:9] + 5'b11111))
+			     && (ball_x == (bar1[8:1] - 3'b100))) begin
 
-					velocityx <= ~velocityx;
+			    dir_x <= 0; // change the direction to left
 			  end
-		  end
 
-		 // check if horz bar
-		 else begin
-				if (bar1[0] == 1'b0) begin // check if horz bar
-					  if (((ypos == bar1[15:9]) && (xpos == bar1[8:1] - 1'b1)) || ((ypos == (bar1[15:9])) && (xpos == (bar1[8:1] + 2'b11)))) begin // check if it hit the left or right block
+			  // check if hit right
+				// Between 3px away and length of the block on Y and the right side of the block
+			  if ((ball_y >= (bar1[15:9])) && (ball_y <= (bar1[15:9] + 5'b11111))
+			     && (ball_x == (bar1[8:1] + 2'b10))) begin
 
-													//elif SW[1] then make block horizontalvelocityx <= ~velocityx;
-					  end
+			     dir_x <= 1; // change the direction to right
+			  end
+			end
 
-					  if (((xpos >= bar1[8:1]) && (xpos <= (bar1[8:1] + 4'b1010)) && (ypos == (bar1[15:9] - 1'b1))) ||
-							((xpos >= bar1[8:1]) && (xpos <= (bar1[15:9] + 4'b1010)) && (ypos == (bar1[15:9] + 1'b1)))) begin // check if hit top or bottom side
+			// ---------------------------------------------------------------------------
+			// check if horz block
+			if (bar1[0] == 1'b0) begin
 
-						  velocityy <= ~velocityy;
-					  end
-				end
-		  end
+			  // check if it hit top
+				// 2px away from Y and between 3px away and length of the block on X
+			  if (((ball_y == (bar1[15:9] - 3'b100)) && (ball_x >= (bar1[8:1] - 2'b11))
+			     && (ball_x <= (bar1[8:1] + 5'b11111))))  begin
 
+			    dir_y <= 0; // change the direction to up
+			  end
 
-      if (bar2[0] == 1'b1) begin // check bar2
-         if (((ypos == (bar2[15:9] + 1'b1)) && (xpos == bar2[15:9])) || ((ypos == (bar2[15:9] + 4'b1010)) && (xpos == bar2[8:1]))) begin // check if it hit the top or bottom block
+			  // check if hit bottom
+				// hit bottom side of block and between 3px away and length of the block on X
+			  if  ((ball_y == (bar1[15:9] + 2'b10)) && (ball_x >= (bar1[8:1] - 2'b11))
+			      && (ball_x <= (bar1[8:1] + 5'b11111))) begin
 
-           velocityy <= ~velocityy;
-         end
+			    dir_y <= 1; // change the direction to down
+			  end
 
-         if (((ypos >= bar2[15:9]) && (ypos <= (bar2[15:9] + 4'b1010)) && (xpos == (bar2[8:1] - 1'b1))) ||
-           ((ypos >= bar2[15:9]) && (ypos <= (bar2[15:9] + 4'b1010)) && (xpos == (bar2[8:1] + 1'b1)))) begin // check if hit left or right side
+			  // check if hit left
+				// Between 3px away and length of the block on Y and 3px away on X
+			  if ((ball_y >= (bar1[15:9] - 3'b100)) && (ball_y <= (bar1[15:9] + 1'b1))
+			     && (ball_x == (bar1[8:1] - 2'b11))) begin
 
-           velocityx <= ~velocityx;
-         end
-       end
+			     dir_x <= 0; // change the direction to left
+			  end
 
-      else begin
-         if (bar2[0] == 1'b0) begin // check if horz bar
-             if (((ypos == bar2[15:9]) && (xpos == bar2[8:1] - 1'b1)) || ((ypos == (bar2[15:9])) && (xpos == (bar2[8:1] + 2'b11)))) begin // check if it hit the left or right block
+			  // check if hit right
+				// Between 3px away and length of the block on Y and 3px away on X
+			  if ((ball_y >= (bar1[15:9])) && (ball_y <= (bar1[15:9] + 1'b1))
+			     && (ball_x == (bar1[8:1] + 5'b11111))) begin
 
-                           //elif SW[1] then make block horizontalvelocityx <= ~velocityx;
-             end
-
-             if (((xpos >= bar2[8:1]) && (xpos <= (bar2[8:1] + 4'b1010)) && (ypos == (bar2[15:9] - 1'b1))) ||
-               ((xpos >= bar2[8:1]) && (xpos <= (bar2[15:9] + 4'b1010)) && (ypos == (bar2[15:9] + 1'b1)))) begin // check if hit top or bottom side
-
-               velocityy <= ~velocityy;
-             end
-         end
-       end
-
-
-       if (bar3[0] == 1'b1) begin // check bar3
-          if (((ypos == (bar3[15:9] + 1'b1)) && (xpos == bar3[8:1])) || ((ypos == (bar3[15:9] + 4'b1010)) && (xpos == bar3[8:1]))) begin // check if it hit the top or bottom block
-
-            velocityy <= ~velocityy;
-          end
-
-          if (((ypos >= bar3[15:9]) && (ypos <= (bar3[15:9] + 4'b1010)) && (xpos == (bar3[8:1] - 1'b1))) ||
-            ((ypos >= bar3[15:9]) && (ypos <= (bar3[15:9] + 4'b1010)) && (xpos == (bar3[8:1] + 1'b1)))) begin // check if hit left or right side
-
-            velocityx <= ~velocityx;
-          end
-        end
+			    dir_x <= 1; // change the direction to right
+			  end
+			end
 
 
-       // check if horz bar
-       else begin
-          if (bar3[0] == 1'b0) begin // check if horz bar
-              if (((ypos == bar3[15:9]) && (xpos == bar3[8:1] - 1'b1)) || ((ypos == (bar3[15:9])) && (xpos == (bar3[8:1] + 2'b11)))) begin // check if it hit the left or right block
+			// ###################### BLOCK2 ###################################
+			// check if vertical block
+			if (bar2[0] == 1'b1) begin
 
-                            //elif SW[1] then make block horizontalvelocityx <= ~velocityx;
-              end
+			  // check if it hit top of the block
+				// Between 3px away on Y and 2px away from X to width 2 of block
+			  if (((ball_y == (bar2[15:9] - 2'b11)) && (ball_x >= (bar2[8:1] - 2'b11))
+			      && (ball_x <= (bar2[8:1] + 1'b1))))  begin
 
-              if (((xpos >= bar3[8:1]) && (xpos <= (bar3[8:1] + 4'b1010)) && (ypos == (bar3[15:9] - 1'b1))) ||
-                ((xpos >= bar3[8:1]) && (xpos <= (bar3[15:9] + 4'b1010)) && (ypos == (bar3[15:9] + 1'b1)))) begin // check if hit top or bottom side
+			    dir_y <= 0; // change the direction to up
+			  end
 
-                velocityy <= ~velocityy;
-              end
-          end
-        end
+			  // check if hit bottom
+				// Collide with bottom Y value of block and 2px away from X to width 2 of block
+			  if  ((ball_y == (bar2[15:9] + 5'b11111)) && (ball_x >= (bar2[8:1] - 2'b11))
+			      && (ball_x <= (bar2[8:1] + 1'b1))) begin
 
+			    dir_y <= 1; // change the direction to down
+			  end
 
-        if (bar4[0] == 1'b1) begin // check bar4
-           if (((ypos == (bar4[15:9] + 1'b1)) && (xpos == bar4[8:1])) || ((ypos == (bar4[15:9] + 4'b1010)) && (xpos == bar4[8:1]))) begin // check if it hit the top or bottom block
+				// check if hit left
+				// Between 3px away and length of the block on Y and 3px away on X
+			  if ((ball_y >= (bar2[15:9] - 2'b11)) && (ball_y <= (bar2[15:9] + 5'b11111))
+			     && (ball_x == (bar2[8:1] - 3'b100))) begin
 
-             velocityy <= ~velocityy;
-           end
+			    dir_x <= 0; // change the direction to left
+			  end
 
-           if (((ypos >= bar4[15:9]) && (ypos <= (bar4[15:9] + 4'b1010)) && (xpos == (bar4[8:1] - 1'b1))) ||
-             ((ypos >= bar4[15:9]) && (ypos <= (bar4[15:9] + 4'b1010)) && (xpos == (bar4[8:1] + 1'b1)))) begin // check if hit left or right side
+			  // check if hit right
+				// Between 3px away and length of the block on Y and the right side of the block
+			  if ((ball_y >= (bar2[15:9])) && (ball_y <= (bar2[15:9] + 5'b11111))
+			     && (ball_x == (bar2[8:1] + 2'b10))) begin
 
-             velocityx <= ~velocityx;
-           end
-         end
+			     dir_x <= 1; // change the direction to right
+			  end
+			end
 
-        // check if horz bar
-        else begin
-           if (bar4[0] == 1'b0) begin // check if horz bar
-               if (((ypos == bar4[15:9]) && (xpos == bar4[8:1] - 1'b1)) || ((ypos == (bar4[15:9])) && (xpos == (bar4[8:1] + 2'b11)))) begin // check if it hit the left or right block
+			// ---------------------------------------------------------------------------
+			// check if horz block
+			if (bar2[0] == 1'b0) begin
 
-                             //elif SW[1] then make block horizontalvelocityx <= ~velocityx;
-               end
+			  // check if it hit top
+				// 2px away from Y and between 3px away and length of the block on X
+			  if (((ball_y == (bar2[15:9] - 3'b100)) && (ball_x >= (bar2[8:1] - 2'b11))
+			     && (ball_x <= (bar2[8:1] + 5'b11111))))  begin
 
-               if (((xpos >= bar4[8:1]) && (xpos <= (bar4[8:1] + 4'b1010)) && (ypos == (bar4[15:9] - 1'b1))) ||
-                 ((xpos >= bar4[8:1]) && (xpos <= (bar4[15:9] + 4'b1010)) && (ypos == (bar4[15:9] + 1'b1)))) begin // check if hit top or bottom side
+			    dir_y <= 0; // change the direction to up
+			  end
 
-                 velocityy <= ~velocityy;
-               end
-           end
-         end
-		 // check if ball hits the target
-		 if (((xpos >= 6'b111100) && (ypos >= 6'b111010)) && (ypos <= 6'b111110)) begin // check if ball has hit target
-			  win <= 1'b1;
+			  // check if hit bottom
+				// hit bottom side of block and between 3px away and length of the block on X
+			  if  ((ball_y == (bar2[15:9] + 2'b10)) && (ball_x >= (bar2[8:1] - 2'b11))
+			      && (ball_x <= (bar2[8:1] + 5'b11111))) begin
 
-		 end
+			    dir_y <= 1; // change the direction to down
+			  end
 
+			  // check if hit left
+				// Between 3px away and length of the block on Y and 3px away on X
+			  if ((ball_y >= (bar2[15:9] - 3'b100)) && (ball_y <= (bar2[15:9] + 1'b1))
+			     && (ball_x == (bar2[8:1] - 2'b11))) begin
 
+			     dir_x <= 0; // change the direction to left
+			  end
 
-		 // check if the ball goes out of bounds or will go out of bounds because there isn't enough space on the screen
-		 if ((xpos == 1'b0) && (velocityx == 1'b0)) begin // check if at the left side and moving left
-			  lose <= 1'b1;
-		 end
-		 // move ball at the end
-		 // check if 0
-     if (velocityx == 1'b0)
-            xpos <= xpos - 1'b1;
-     else
-		   xpos <= xpos + velocityx;
+			  // check if hit right
+				// Between 3px away and length of the block on Y and 3px away on X
+			  if ((ball_y >= (bar2[15:9])) && (ball_y <= (bar2[15:9] + 1'b1))
+			     && (ball_x == (bar2[8:1] + 5'b11111))) begin
 
-     if (velocityx == 1'b0)
-        ypos <= ypos - 1'b1;
-      else
-       	ypos <= ypos + velocityy;
+			    dir_x <= 1; // change the direction to right
+			  end
+			end
 
-		 // draw to VGA if game is still going
-		 if (win == lose) begin
-			  draw <= 1'b1;
-		 end
-		 else begin
-			  draw <= 1'b0;
-		 end
-end
+			// ###################### BLOCK3 ###################################
+			// check if vertical block
+			if (bar3[0] == 1'b1) begin
+
+			  // check if it hit top of the block
+				// Between 3px away on Y and 2px away from X to width 2 of block
+			  if (((ball_y == (bar3[15:9] - 2'b11)) && (ball_x >= (bar3[8:1] - 2'b11))
+			      && (ball_x <= (bar3[8:1] + 1'b1))))  begin
+
+			    dir_y <= 0; // change the direction to up
+			  end
+
+			  // check if hit bottom
+				// Collide with bottom Y value of block and 2px away from X to width 2 of block
+			  if  ((ball_y == (bar3[15:9] + 5'b11111)) && (ball_x >= (bar3[8:1] - 2'b11))
+			      && (ball_x <= (bar3[8:1] + 1'b1))) begin
+
+			    dir_y <= 1; // change the direction to down
+			  end
+
+				// check if hit left
+				// Between 3px away and length of the block on Y and 3px away on X
+			  if ((ball_y >= (bar3[15:9] - 2'b11)) && (ball_y <= (bar3[15:9] + 5'b11111))
+			     && (ball_x == (bar3[8:1] - 3'b100))) begin
+
+			    dir_x <= 0; // change the direction to left
+			  end
+
+			  // check if hit right
+				// Between 3px away and length of the block on Y and the right side of the block
+			  if ((ball_y >= (bar3[15:9])) && (ball_y <= (bar3[15:9] + 5'b11111))
+			     && (ball_x == (bar3[8:1] + 2'b10))) begin
+
+			     dir_x <= 1; // change the direction to right
+			  end
+			end
+
+			// ---------------------------------------------------------------------------
+			// check if horz block
+			if (bar3[0] == 1'b0) begin
+
+			  // check if it hit top
+				// 2px away from Y and between 3px away and length of the block on X
+			  if (((ball_y == (bar3[15:9] - 3'b100)) && (ball_x >= (bar3[8:1] - 2'b11))
+			     && (ball_x <= (bar3[8:1] + 5'b11111))))  begin
+
+			    dir_y <= 0; // change the direction to up
+			  end
+
+			  // check if hit bottom
+				// hit bottom side of block and between 3px away and length of the block on X
+			  if  ((ball_y == (bar3[15:9] + 2'b10)) && (ball_x >= (bar3[8:1] - 2'b11))
+			      && (ball_x <= (bar3[8:1] + 5'b11111))) begin
+
+			    dir_y <= 1; // change the direction to down
+			  end
+
+			  // check if hit left
+				// Between 3px away and length of the block on Y and 3px away on X
+			  if ((ball_y >= (bar3[15:9] - 3'b100)) && (ball_y <= (bar3[15:9] + 1'b1))
+			     && (ball_x == (bar3[8:1] - 2'b11))) begin
+
+			     dir_x <= 0; // change the direction to left
+			  end
+
+			  // check if hit right
+				// Between 3px away and length of the block on Y and 3px away on X
+			  if ((ball_y >= (bar3[15:9])) && (ball_y <= (bar3[15:9] + 1'b1))
+			     && (ball_x == (bar3[8:1] + 5'b11111))) begin
+
+			    dir_x <= 1; // change the direction to right
+			  end
+			end
+
+			// ###################### BLOCK4 ###################################
+			// check if vertical block
+			if (bar4[0] == 1'b1) begin
+
+			  // check if it hit top of the block
+				// Between 3px away on Y and 2px away from X to width 2 of block
+			  if (((ball_y == (bar4[15:9] - 2'b11)) && (ball_x >= (bar4[8:1] - 2'b11))
+			      && (ball_x <= (bar4[8:1] + 1'b1))))  begin
+
+			    dir_y <= 0; // change the direction to up
+			  end
+
+			  // check if hit bottom
+				// Collide with bottom Y value of block and 2px away from X to width 2 of block
+			  if  ((ball_y == (bar4[15:9] + 5'b11111)) && (ball_x >= (bar4[8:1] - 2'b11))
+			      && (ball_x <= (bar4[8:1] + 1'b1))) begin
+
+			    dir_y <= 1; // change the direction to down
+			  end
+
+				// check if hit left
+				// Between 3px away and length of the block on Y and 3px away on X
+			  if ((ball_y >= (bar4[15:9] - 2'b11)) && (ball_y <= (bar4[15:9] + 5'b11111))
+			     && (ball_x == (bar4[8:1] - 3'b100))) begin
+
+			    dir_x <= 0; // change the direction to left
+			  end
+
+			  // check if hit right
+				// Between 3px away and length of the block on Y and the right side of the block
+			  if ((ball_y >= (bar4[15:9])) && (ball_y <= (bar4[15:9] + 5'b11111))
+			     && (ball_x == (bar4[8:1] + 2'b10))) begin
+
+			     dir_x <= 1; // change the direction to right
+			  end
+			end
+
+			// ---------------------------------------------------------------------------
+			// check if horz block
+			if (bar4[0] == 1'b0) begin
+
+			  // check if it hit top
+				// 2px away from Y and between 3px away and length of the block on X
+			  if (((ball_y == (bar4[15:9] - 3'b100)) && (ball_x >= (bar4[8:1] - 2'b11))
+			     && (ball_x <= (bar4[8:1] + 5'b11111))))  begin
+
+			    dir_y <= 0; // change the direction to up
+			  end
+
+			  // check if hit bottom
+				// hit bottom side of block and between 3px away and length of the block on X
+			  if  ((ball_y == (bar4[15:9] + 2'b10)) && (ball_x >= (bar4[8:1] - 2'b11))
+			      && (ball_x <= (bar4[8:1] + 5'b11111))) begin
+
+			    dir_y <= 1; // change the direction to down
+			  end
+
+			  // check if hit left
+				// Between 3px away and length of the block on Y and 3px away on X
+			  if ((ball_y >= (bar4[15:9] - 3'b100)) && (ball_y <= (bar4[15:9] + 1'b1))
+			     && (ball_x == (bar4[8:1] - 2'b11))) begin
+
+			     dir_x <= 0; // change the direction to left
+			  end
+
+			  // check if hit right
+				// Between 3px away and length of the block on Y and 3px away on X
+			  if ((ball_y >= (bar4[15:9])) && (ball_y <= (bar4[15:9] + 1'b1))
+			     && (ball_x == (bar4[8:1] + 5'b11111))) begin
+
+			    dir_x <= 1; // change the direction to right
+			  end
+			end
+
+		// check if ball hit target
+		// Target is between 55px and 65px on the right edge on the playing board
+		if ((ball_x == 10'b1110011) && (ball_y <= 10'b1000010) && (ball_y >= 10'b110111)) begin
+			hit <= 1'b1;
+		end // ends if !oob block
+	end  // end else if
+end // end always block
 endmodule
