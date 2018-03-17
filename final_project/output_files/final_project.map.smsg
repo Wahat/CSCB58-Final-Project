@@ -1,9 +1,9 @@
-Warning (10268): Verilog HDL information at collision.v(100): always construct contains both blocking and non-blocking assignments File: /home/kevin/Dropbox/CSCB58-Final-Project/final_project/Verilog FIles/collision.v Line: 100
-Warning (10268): Verilog HDL information at graphics.v(69): always construct contains both blocking and non-blocking assignments File: /home/kevin/Dropbox/CSCB58-Final-Project/final_project/Verilog FIles/graphics.v Line: 69
-Warning (10268): Verilog HDL information at graphics.v(289): always construct contains both blocking and non-blocking assignments File: /home/kevin/Dropbox/CSCB58-Final-Project/final_project/Verilog FIles/graphics.v Line: 289
-Warning (10268): Verilog HDL information at counter.v(38): always construct contains both blocking and non-blocking assignments File: /home/kevin/Dropbox/CSCB58-Final-Project/final_project/Verilog FIles/counter.v Line: 38
-Info (10281): Verilog HDL Declaration information at project.v(34): object "HEX0" differs only in case from object "hex0" in the same scope File: /home/kevin/Dropbox/CSCB58-Final-Project/final_project/project.v Line: 34
-Info (10281): Verilog HDL Declaration information at project.v(35): object "HEX2" differs only in case from object "hex2" in the same scope File: /home/kevin/Dropbox/CSCB58-Final-Project/final_project/project.v Line: 35
-Info (10281): Verilog HDL Declaration information at project.v(36): object "HEX4" differs only in case from object "hex4" in the same scope File: /home/kevin/Dropbox/CSCB58-Final-Project/final_project/project.v Line: 36
-Info (10281): Verilog HDL Declaration information at project.v(37): object "HEX5" differs only in case from object "hex5" in the same scope File: /home/kevin/Dropbox/CSCB58-Final-Project/final_project/project.v Line: 37
-Warning (10268): Verilog HDL information at project.v(317): always construct contains both blocking and non-blocking assignments File: /home/kevin/Dropbox/CSCB58-Final-Project/final_project/project.v Line: 317
+Warning (10268): Verilog HDL information at collision.v(100): always construct contains both blocking and non-blocking assignments
+Warning (10268): Verilog HDL information at graphics.v(69): always construct contains both blocking and non-blocking assignments
+Warning (10268): Verilog HDL information at graphics.v(289): always construct contains both blocking and non-blocking assignments
+Warning (10268): Verilog HDL information at counter.v(38): always construct contains both blocking and non-blocking assignments
+Info (10281): Verilog HDL Declaration information at project.v(34): object "HEX0" differs only in case from object "hex0" in the same scope
+Info (10281): Verilog HDL Declaration information at project.v(35): object "HEX2" differs only in case from object "hex2" in the same scope
+Info (10281): Verilog HDL Declaration information at project.v(36): object "HEX4" differs only in case from object "hex4" in the same scope
+Info (10281): Verilog HDL Declaration information at project.v(37): object "HEX5" differs only in case from object "hex5" in the same scope
+Warning (10268): Verilog HDL information at project.v(317): always construct contains both blocking and non-blocking assignments

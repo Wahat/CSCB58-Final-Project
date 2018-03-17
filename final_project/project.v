@@ -105,8 +105,8 @@ module projectVGA
 		.reset_n(resetn),
 		.pos(SW[6:0]),
 		// PS2 DIRECTIONAL INPUT
-		.PS2_CLK(PS2_KBCLK),
-		.PS2_DAT(PS2_KBDAT),
+		.PS2_KBCLK(PS2_KBCLK),
+		.PS2_KBDAT(PS2_KBDAT),
 		// input registers from FSM
 		.ld_begin(controlA),
 		.ld_block(controlB),
@@ -158,8 +158,8 @@ module projectVGA
 		.startgamekey(KEY[1]),
 		.endgamekey(KEY[1]),
 		.reset_n(resetn),
-		.PS2_DAT(PS2_KBDAT),
-		.PS2_CLK(PS2_KBCLK),
+		.PS2_KBDAT(PS2_KBDAT),
+		.PS2_KBCLK(PS2_KBCLK),
 		// state registers
 		.ld_begin(controlA),
 		.ld_block(controlB),
@@ -255,8 +255,8 @@ module datapath (
 
 	// #####################################
 	// DE2-115 Bidirectionals for PS2 module
-	inout				PS2_CLK,
-	inout				PS2_DAT,
+	inout				PS2_KBCLK,
+	inout				PS2_KBDAT,
 	// #####################################
 
 	// registers to output to VGA
@@ -484,14 +484,14 @@ module datapath (
 // Source ###################################################################
 // http://www.eecg.toronto.edu/~jayar/ece241_08F/AudioVideoCores/ps2/ps2.html
 // Used for the DE2-70 board (orignally inputs PS2_CLK PS2_DAT)
-// Modified inputs / pins for the DE2-115 board (PS2_CLK, PS2_KBDAT)
+// Modified inputs / pins for the DE2-115 board (PS2_KBCLK, PS2_KBDAT)
 	PS2_Controller PS2C (
 	// Inputs
 	.CLOCK_50(clk),
 	.reset(resetps2),
 	// Bidirectionals
-	.PS2_CLK (PS2_CLK),
- 	.PS2_DAT (PS2_DAT),
+	.PS2_CLK (PS2_KBCLK),
+ 	.PS2_DAT (PS2_KBDAT),
 	// Outputs
 	.received_data		(ps2_key_data),
 	.received_data_en	(ps2_key_pressed)
@@ -514,8 +514,8 @@ module control(
 	input oob,
 
 	// DE2-115 PS2 inputs
-	inout PS2_CLK,
-	inout PS2_DAT,
+	inout PS2_KBCLK,
+	inout PS2_KBDAT,
 
 	// output states to datapath
 	output reg ld_begin,
